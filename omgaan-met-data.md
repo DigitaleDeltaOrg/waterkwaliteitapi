@@ -25,9 +25,9 @@ _Uitzoeken: Is dit voldoende voor NEN3610: Linked Data?_
 
 Aan GeoJSON zitten ook wat haken en ogen. Daarom het volgende:
 
-## Omgaan met GeoJSON 
+## Omgaan met GeoJSON
 
-Er wordt geografische data overgedragen in de vorm van GeoJSON binnen de API.  In het verleden bezat GeoJSON een aanduiding voor het geografisch stelsen waarin de data was geprojecteerd. Echter is die definitie verwijderd uit de standaard, wegens interpretatieverschillen.
+Er wordt geografische data overgedragen in de vorm van GeoJSON binnen de API.  In het verleden bezat GeoJSON een aanduiding voor het geografisch stelsel waarin de data was geprojecteerd. Echter is die definitie verwijderd uit de standaard, wegens interpretatieverschillen.
 Daarom wordt hier Kennisplatform APIs aangehouden. Daar is de volgende oplossing bedacht:
 
 - De client kan aangeven in de Content-Crs header om welke CRS het gaat in het bestand.  De waarde hiervan wordt uitgedrukt als EPSG:xxxxx, waarbij xxxxx de vier- of vijfcijferige [EPSG](epsg.io) code is.
@@ -38,4 +38,4 @@ De server dient minimaal de volgende CRS'en te ondersteunen: EPSG:4326 (WGS84), 
 
 Voor conversie kan RDNAPTRANS of een omgeving-specifieke Proj-library worden gebruikt.
 
-*De Proj-libraries zijn eenvoudiger in gebruik binnen APIs dan RDNAPTRANS*
+De Proj-libraries zijn eenvoudiger in gebruik binnen APIs dan RDNAPTRANS.

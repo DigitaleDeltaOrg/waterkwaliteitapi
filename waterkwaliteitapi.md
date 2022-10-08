@@ -12,6 +12,7 @@ Dit document is momenteel in voorstel-fase. Er zal de komende tijd nog flink aan
 - [Standaardisatie van HTTP fouten](http-fouten.md)
 - [Definitie van gestandaardiseerde validatiefouten als antwoord op bulk-verwerking](validatie.md)
 - [OData voorbeelden voor OMS](odata-en-oms.md)
+- Open API Specification
 
 ## Samenvatting
 
@@ -31,7 +32,7 @@ Het aanleveren zal gaan in [bulk-vorm](bulkverwerking.md), waarbij meerdere meti
 
 Naast metingen, observaties, monsters en tijdseries, zal deze API zich ook richten op meetlocaties/objecten, omdat deze cruciaal voor de context zijn. Er is echter een manier om beiden tezamen te houden in een enkel bestand.
 
-Het te maken [Definitieboek](definitieboek.md) zal leidend zijn met betrekking tot de data die **moet** en _kan_ worden uitgewisseld.
+Het [Definitieboek](definitieboek.md) zal leidend zijn met betrekking tot de data die **moet** en _kan_ worden uitgewisseld.
 
 ## Functionele eisen
 

@@ -100,24 +100,23 @@ Het toevoegen van references levert geen problemen op: OMS beschrijft delen van 
             "observation":
             [
                 {
-					"timeStamp": "2010-12-12T16:00:00Z",
-					"value": 6.46
-				},
-				{
-					"timeStamp": "2010-12-12T17:00:00Z",
-					"value": 4.4
-				},
-				{
-					"timeStamp": "2010-12-12T18:00:00Z",
-					"value": 4.86
-				}
+                    "timeStamp": "2010-12-12T16:00:00Z",
+                    "value": 6.46
+                },
+                {
+                    "timeStamp": "2010-12-12T17:00:00Z",
+                    "value": 4.4
+                },
+                {
+                    "timeStamp": "2010-12-12T18:00:00Z",
+                    "value": 4.86
+                }
             ]
         }
     ]
 }
 
 ```
-
 
 ``` json
 {
@@ -205,4 +204,4 @@ Het toevoegen van references levert geen problemen op: OMS beschrijft delen van 
 
 ```
 
-Noot: voor meetobjecten en meetlocaties geldt [Geografie in bulk-scenario's](#geografie-in-bulk-scenarios).
+Noot: voor meetobjecten en meetlocaties geldt [omgaan met GeoJSON](omgaan-met-data#omgaan-met-geojson).

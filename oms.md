@@ -1,4 +1,4 @@
-# Observations, Measurements and Samples (oftewel O&M 2)
+# Observations, Measurements and Samples (oftewel O&M 2022)
 
 ## Introductie
 
@@ -34,7 +34,7 @@ Een observatie:
 
 - is geen meting, maar een gemeten of geobserveerde waarde.
 - heeft een bepaalde [type](ObservationCategories). Het type bepaald welke data kan worden vastgelegd. Een tijdsreeks kan wél als één Observation worden vastgelegd.
-- kan relaties hebben met andere observaties, zoals in ObservationCollection.
+- kan relaties hebben met andere observaties, zoals in ObservationCollection. _buiten scope_
 
 In klassieke zin is een meting nu een ObservationCollection geworden.
 
@@ -47,12 +47,13 @@ Concepten:
 | Observer | Die- of datgene die Observation-gebeurtenissen genereert. Vertaling: de organisatie of het apparaat welke de Observaties doet. |
 | Deployment | Opdracht voor observaties aan Host. |
 | Host | Groepering van Observaties, zoals een fysiek platform, monitoringstation.  |
-| Sampler | Apparaat entiteit (persoon, organisatie) die Samples aanmaakt. |
+| Sampler | Apparaat, entiteit (persoon, organisatie) die Samples aanmaakt. |
 | ObservationCollection | Een collectie van gelijksoortige Observations. Vrij vertaald: alle elementen die tezamen een klassieke meting vormen. |
-| Sample | Monster. Een Observation hoeft niet noodzakelijkerwijs uit een monster voort te komen. Voor tijdreeksen niet nodig. |
+| Sample | Monster. Een Observation hoeft niet noodzakelijkerwijs uit een monster voort te komen. Sample komt voort uit een sampler, wat een apparaat kan zijn. |
 | Sampling | Het proces van monstername. |
 | Specimen | Specialisatie van een monster, waar onder anderen kan worden aangegeven waar het monster genomen is en waar het zich momenteel bevindt. |
-| Observation | Een gemeten waarde. Dit kan numeriek zijn, maar ook een categorie. Zie [ObservationCategories](ObservationCategories). Er kunnen niet meerdere waarden in Observation worden opgenomen (behalve bij een timeseries, waar het gaat om een array van gemeten waarden). Daarom zijn er ObservationCollections, om de verschillende gemeten of geobserveerde waarden, te combineren tot een klassieke meting. |
+| Observation | Een gemeten waarde. Dit kan numeriek zijn, maar ook een type. Zie [ObservationTypes](ObservationTypes). Er kunnen niet meerdere waarden in Observation worden opgenomen (behalve bij een timeseries, waar het gaat om een array van gemeten waarden). Daarom zijn er ObservationCollections, om de verschillende gemeten of geobserveerde waarden, te combineren tot een klassieke meting. |
+| FeatureOfInterest | Het te onderzoeken onderwerp, bijvoorbeeld het waterlichaam of een specifieke locatie. |
 
 ## Wie/waar is de eigenaar?
 
@@ -62,9 +63,9 @@ Voorstel is om dit als member-element op te nemen als een Link in ObservationCol
 Conceptuele vertaling: wat wij in het verleden zagen als een meting, is eigenlijk een een serie afzonderlijke observaties: een ObservationCollection.
 Iedere separaat geconstateerd item is een observatie. In het geval van tijdsreeksen kan dat een serie meetwaarden/tijdstip combinaties zijn.
 
-Ieder Observation heeft een type, en de type bepaalde de eigenschappen van een Observation.
+## ObservationTypes
 
-## ObservationCategories
+Ieder Observation heeft een type, en de type bepaalde de eigenschappen van een Observation.
 
 | Type | Beschrijving | Eigenschappen |
 | ---- | ------------- | ------------ |
@@ -74,11 +75,13 @@ Ieder Observation heeft een type, en de type bepaalde de eigenschappen van een O
 | count-observation | Telling, bijvoorbeeld aantal cellen | Geheel getal, geen eenheid. Aquo DIMSLS |
 | timeseries-observation | Tijdreeks | Set van combinaties van tijdstip + gemeten waarde |
 
-
 Er zijn meer typen, maar bovengenoemde liggen in de scope van dit project.
 
 Sampling kan in OMS van alles zijn, tot en met een monster dat in een museum wordt beheerd. Niet alles zal binnen de scope van dit project plaatsvinden.
 
+## Data types
+
+``` temp
 ObservationCollection
     *id:string
     type:string (summarizing, homogeneous)
@@ -89,8 +92,8 @@ ObservationCollection
     phenomenonTime (gemeenschappelijk in alle Observation binnen deze collectie)
     resultTime (gemeenschappelijk in alle Observation binnen deze collectie)
     uom (gemeenschappelijk in alle Observation binnen deze collectie)
-    vocabulary:Link[0..n] (gemeenschappelijk in alle Observation binnen deze collectie)
-    *member:(Observation|Link)[1..n] (lijst van Observation of links binnen deze collectie)
+    vocabulary:0..n[Link] (gemeenschappelijk in alle Observation binnen deze collectie)
+    *member:1..n[Observation|Link] (lijst van Observation of links binnen deze collectie)
 
 Observation
     *id:string
@@ -103,7 +106,7 @@ Observation
     samplingStrategy
     resultTime
     parameter
-    *result:(Link|Measure|VocabTerm|Truth|Count|Text|TimeseriesTVP)[1]
+    *result:1:[Link|Measure|VocabTerm|Truth|Count|Text|TimeseriesTVP]
   
 Measure
     *value:number (scaled)
@@ -125,9 +128,9 @@ Link
         rel:uri
         title:string
 
-Sampling
+Sampling -> monster
     *id:string
-    *type:string()
+    *type:string(specimen,spatialSampling)
     sampledFeature:Link[1..n]
     complex:Link[1..n]
 
@@ -141,20 +144,31 @@ SamplingCollection
     id
     type
     sampledFeature
-    member:(Link|Sampling|Specimen)[1..n]
+    member:1..n[Link|Sampling|Specimen]
 
 Specimen
-    id
+    *id:string
     type
-    sampledFeature
+    sampledFeature:Link[1..n]
     relatedObservation
     complex
-    samplingTime
+    *samplingTime
     samplingMethod
     samplingLocation
     samplingElevation
-    currentLocation
-    size
+        elevation
+        verticalDatum
+    currentLocation:Link|Text|GeometryObject
+    size:Measure
+
+SpatialSampling:Sampling
+    *id
+    type:string(SamplingPoint|SamplingCurve|SamplingSurface|SamplingSolid)
+    *sampledFeature:Link[1..n]
+    relatedObservation
+    complex
+    *shape
+    hostedProcedure
 
 TimeseriesTVP
     *id:string
@@ -189,7 +203,7 @@ TemporalPrimitive:DateTimeInstant|DateTimeInterval
 Duration:string
 TemporalObject:Duration|DateTimeInstant|DateTimeInterval
 
-TimeserieMetadata
+TimeseriesMetadata
     temporalExtent:DateTimeInterval
     baseTime:DateTimeInstant
     spacing:Duration
@@ -197,3 +211,4 @@ TimeserieMetadata
         applicablePeriod:DateTimeInterval
         comment:string
     commentBlocks:Comme
+```
