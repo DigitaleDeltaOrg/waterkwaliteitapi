@@ -12,6 +12,12 @@ Data moet ook kunnen worden toegevoegd of verwijderd, [in bulk formaat](aanbiede
 De API committeert zich zoveel mogelijk aan [standaarden](standaarden.md).
 Daarnaast worden een aantal zaken aangescherpt, zoals welke delen we gebruiken, compacter maken van de data, etc.
 
+## Fouten
+
+Fouten worden gestandaardiseerd weergegeven.
+De HTTP Status codes (o.a. fouten) zijn beschreven in onderdeel [HTTP Fouten](http-fouten.md).
+Validatiefouten zijn beschreven in onderdeel [validatie](validatie.md).
+
 ## Buiten scope
 
 - Deze specificatie houdt zich primair bezig met tijdreeksen en observaties. In de Waterkwaliteit-API worden grids gezien als buiten de scope van het project.

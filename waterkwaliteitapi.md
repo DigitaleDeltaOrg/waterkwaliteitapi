@@ -9,7 +9,6 @@ Dit document is momenteel in voorstel-fase. Er zal de komende tijd nog flink aan
 - [Definitieboek](definitieboek.md)
 - [OMS JSON definitie](oms-json.md)
 - [Definitie van log-berichten](logging.md)
-- [Standaardisatie van HTTP fouten](http-fouten.md)
 - [Definitie van gestandaardiseerde validatiefouten als antwoord op bulk-verwerking](validatie.md)
 - [OData voorbeelden voor OMS](odata-en-oms.md)
 - Open API Specification
@@ -37,3 +36,4 @@ Het [Definitieboek](definitieboek.md) zal leidend zijn met betrekking tot de dat
 ## Functionele eisen
 
 De functionele eisen zijn [hier](functionele-eisen.md) beschreven.
+
