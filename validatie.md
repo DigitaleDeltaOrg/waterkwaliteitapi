@@ -3,7 +3,7 @@
 ## Validatiefouten
 
 Iedere entiteit (Sample, ObservationCollection, Observation, grootheid, etc.) heeft een **globaal** uniek Id.
-Dit Id wordt gebruikt om fouten te registreren. De validatiefouten komen in een aparte property te staan ```validationerrors```.
+Dit Id wordt gebruikt om fouten te registreren. De validatiefouten komen in een aparte property te staan: ```validationerrors```.
 
 { "error": [ { "id": [ error1, error2, ... ] } ] }
 
