@@ -21,6 +21,8 @@ Voor de Waterkwaliteit-API (en de 1-API) zullen de referenties intern in het doc
 Een referentiesysteem als dit is al een aantal keren besproken in de DD-API groep, maar er is nooit een klap opgegeven.
 De hier beschreven methode voldoet meer aan de omarmde standaards.
 
+Meer informatie staat beschreven in [referentieblock](referentieblok.md).
+
 _Uitzoeken: Is dit voldoende voor NEN3610: Linked Data?_
 
 Aan GeoJSON zitten ook wat haken en ogen. Daarom het volgende:

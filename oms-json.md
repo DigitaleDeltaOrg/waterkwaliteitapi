@@ -9,32 +9,7 @@ Hierbij wordt in het JSON document een onderdeel aangemaakt genaamd /reference.
 Daarin worden alle entiteiten die worden gebruikt binnen het document eenmalig beschreven.
 De data die daar gebruik van maakt, verwijst via [JSON Pointers](https://www.rfc-editor.org/rfc/rfc6901.html) naar de referentie.
 
-Via de referentie kan weer worden verwezen naar URI's waar de standaard definitie is vastgelegd.
-De reden hiervoor is leesbaarheid: /reference/compartment/OW is leesbaarder dan ```https://www.aquo.nl/index.php/Id-ebfe5456-9b14-4925-b444-0b5c98b6642a```.
-
-Een voorbeeld:
-
-``` json
-"reference":
-[
-    "quantity":
-    [
-        {
-        "@context": {
-            "@vocab": "https://www.aquo.nl/index.php/Id-471174de-c041-2d35-103a-1e0f6f55bd87"
-        },
-        "@id": "https://www.aquo.nl/index.php/Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e",
-        "@type": "Grootheid",
-        "name": "Debiet",
-        "id": "DEBIET" 
-        }
-        ...
-    ]
-    ...
-]
-```
-
-In bovenstaand voorbeeld kan data ernaartoe verwijzen via /reference/quantity/DEBIET.
+Het referentieblok staat [hier](referentieblok.md) beschreven.
 
 Het toevoegen van references levert geen problemen op: OMS beschrijft delen van het document, en wel het deel dat gerelateerd is aan een sample of een observation. Het beschrijft alleen de relevante elementen, dus bijvoorbeeld niet hoe een paging block er uit komt te zien.
 

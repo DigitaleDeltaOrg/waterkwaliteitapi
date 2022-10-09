@@ -38,6 +38,8 @@ Een observatie:
 
 In klassieke zin is een meting nu een ObservationCollection geworden.
 
+Dit maakt met mogelijk om nieuwe items toe te voegen aan een 'meting' zonder het model te hoeven wijzigen.
+
 OMS kent de volgende (vrij vertaalde) concepten:
 
 Concepten:
