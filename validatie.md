@@ -19,3 +19,7 @@ Type-fouten
 Referentie-fouten
  300: onbekende referentie
  301: niet-ondersteunde context
+
+Identity-fouten
+ 401: duplicaat Id in bestand
+ 402: Id is al in gebruik

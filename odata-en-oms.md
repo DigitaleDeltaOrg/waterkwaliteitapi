@@ -7,45 +7,35 @@ De CSDL helpt dan ook met de Discovery functionaliteit van OData.
 
 Via [aliassen](https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_Alias) kunnen complexe velddefinities worden vereenvoudigd.
 
-``` Complicatie
+## Filteren op Specimen of ObservationCollection?
 
-Probleem:
----------
+Beide zijn legitime ingangen, voor andere doelgroepen.
 
-Filteren op Specimen is beperkt, omdat het model alleen referenties heeft naar Observations.
-Door de natuur van ObservationCollection (namelijk: kan eigenschappen vasthouden die voor alle onderliggende Observations gelden) betekend het dat deze eigenschappen niet hoeven te worden opgenomen in onderliggende Observations. Dat maakt het moeilijk om te filteren van uit Specimen. De route zou dan zijn: 
+Het probleem is echter dat er een directe relatie ligt tussen ```ObservationCollection``` en ```Observation```, want de eerste omsluit de tweede.
+Echter tussen ```Specimen``` en ```Observation``` is er alleen een referentie.
+```ObservationCollection``` heeft de mogelijkheid om data te bepalen die gelden voor alle onderliggende ```Observation```s. Dit kan echter leiden tot problemen wanneer men wil gaan selecteren op ```Specimen```.
+Immers zou het zoeken gaan via ```Specimen``` naar ```Observation``` naar ```ObservationCollection```.
+Dat zorgt voor grote performance verliezen, op zijn minst.
 
-Sample => Observations => ObservationCollections
+Het is daarom prudenter om bij ```ObservationCollection``` alleen de basiszaken bij te houden, dus Id en member.
+De andere eigenschappen kunnen beter aan ```Observation``` worden toegekend, ondanks dat het iets meer data genereerd.
 
-Oplossing: we kunnen definiëren dat alleen de core-elementen voor een ObservationCollection wordt ingevuld.
-De gedeelde informatie moet dan altijd in Observations worden opgenomen. 
-In dat scenario kan Specimen ook goed zoeken in Observation.
+Hiermee kan in wezen de verschillende ingangen (```Specimen``` of ```ObservationCollection```) vervallen: er hoeft alleen gezocht te worden op waarden van ```Observation```, met als secundaire filter specifieke ```Specimen``` eigenschappen.
 
-Het is iets meer overhead, maar dit kan het zoeken flink optimaliseren. 
-```
+Daarmee kan de uitvoer óók worden geuniformeerd: er komen in alle gevallen separate delen voor ```ObservationCollection``` en ```Specimen```. De geunformeerde zoekingang kan dan eenvoudigweg ```Observation``` heten.
 
 ## Filteren
 
-Er kunnen twee data-centrische 'hoofdingangen' worden onderscheiden waarop gefilterd kan worden:
-
-- ObservationCollection
-- Specimen (een specialisatie van Sampling)
-
-ObservationCollections __bevatten__ Observations.
-Specimen kunnen __refereren__ aan Observations.
-
-Observations zijn dus altijd verbonden met een ObservationCollection.
-Observations zonder ObservationCollections zijn dus niet mogelijk.
-
-## ObservationCollection
-
-Een ObservationCollection bevat geobserveerde waarden behorende bij dezelfde 'meting'.
-
-## ObservationCollection filtering
+Er komt één data-centrisch 'hoofdingang': Observation.
 
 | Filterargument | Alias | Operators | Functies  | Toegestaan | Type |
 | ---------- | ------ | ---- | ---- | ---- | ---- |
-| observation/type | observationType | not, has, in, eq, ne, in | |  measure, category-observation, count-observation,timeseries-observation, truth-observation | String |
+| sample/type | sampletype | eq, ne | toupper, tolower, trim | homogeneous, summarize  | String |
+| sample/samplingTime | samplingTime | not, has, in, eq, ne, lt, gt, le, ge, in | day, hour, minute, month, second, year | | DateTime |
+| sample/samplingLocation/Geometry | sampleGeo | not, eq, ne | | distance_to, intersects | WKT |
+| sample/samplingLocation/Geometry/latitude | sampleLat | not, has, in, eq, ne, lt, gt, le, ge |  | | Number |
+| sample/samplingLocation/Geometry/longitude | sampleLon | not, has, in, eq, ne, lt, gt, le, ge | |  | Number |
+| sample/samplingLocation/Name | samplingLocation | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String || observation/type | observationType | not, has, in, eq, ne, in | |  measure, category-observation, count-observation,timeseries-observation, truth-observation | String |
 | observation/phenomenonTime | phenomenonTime | not, has, in, eq, ne, lt, gt, le, ge | day, hour, minute, month, second, year | | DateTime |
 | observation/observedProperty | observedProperty | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String  |
 | observation/featureOfInterest/Geometry | locationGeo | not, eq, ne | | distance_to, intersects | WKT |
@@ -65,18 +55,3 @@ Een ObservationCollection bevat geobserveerde waarden behorende bij dezelfde 'me
 | observation/link/href | observationRef  | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim | | String  |
 | observation/link/rel | observationRel | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim  | | String  |
 | observation/link/title | observationTitle | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim  | | String |
-
-## Specimen
-
-Een Sample is een monster. Een monster staat in wezen los van de de meetwaarden die eraan 'hangen'. Een Sample heeft referenties naar Observations.
-
-### Specimen filtering
-
-| Filterargument | Alias | Operators | Functies  | Toegestaan | Type |
-| ---------- | ------ | ---- | ---- | ---- | ---- |
-| sample/type | sampletype | eq, ne | toupper, tolower, trim | homogeneous, summarize  | String |
-| sample/samplingTime | samplingTime | not, has, in, eq, ne, lt, gt, le, ge, in | day, hour, minute, month, second, year | | DateTime |
-| sample/samplingLocation/Geometry | sampleGeo | not, eq, ne | | distance_to, intersects | WKT |
-| sample/samplingLocation/Geometry/latitude | sampleLat | not, has, in, eq, ne, lt, gt, le, ge |  | | Number |
-| sample/samplingLocation/Geometry/longitude | sampleLon | not, has, in, eq, ne, lt, gt, le, ge | |  | Number |
-| sample/samplingLocation/Name | samplingLocation | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |

@@ -14,7 +14,7 @@ Een voorbeeld van een output:
     "@context": "",
     "@nextLink" "",
     "@count": "",
-    "reference": {
+    "r": {
         "measurementobject": [{
             "id": "NL12-VEEN",
             "geo": "<geojson>"
@@ -50,23 +50,23 @@ Een voorbeeld van een output:
             }
         ],
     },
-    "samplingCollections": [
+    "specimen": [
         { 
             "id": "",
             "type": "",
             "sampledFeature": "",
-            "member": [ {"<<observationCollection>>"}]
+            "member": [ { "href": "/r/obs/123123-1" },  "href": "/r/obs/123123-2" } ]
         }
     ],
-    "observationcollections": [
+    "observations": [
         { 
             "id": "123123",
-            "measurementobject": "/reference/measurementobject/NL12-VEEN",
-            "quantity": "/reference/quantity/AANTPVLME",
-            "parameter": "/reference/parameter/Surirella",
-            "uom": "/reference/uom/DIMSLS",
-            "compartment": "/reference/compartment/OW",
-            "source": "/reference/source/1",
+            "measurementobject": "/r/measurementobject/NL12-VEEN",
+            "quantity": "/r/quantity/AANTPVLME",
+            "parameter": "/r/parameter/Surirella",
+            "uom": "/r/uom/DIMSLS",
+            "compartment": "/r/compartment/OW",
+            "source": "/r/source/1",
             "analysisTime": "2010-12-12T15:15:00Z",
             "startTime": "2010-12-12T16:00:00Z", 
             "endTime": "2010-12-12T18:00:00Z",
@@ -78,19 +78,19 @@ Een voorbeeld van een output:
         },
         {
             "id": "123124",
-            "measurementobject": "/reference/measurementobject/NL12-VEEN",
-            "quantity": "/reference/quantity/AANTPVLME",
-            "parameter": "/reference/parameter/Surirella",
-            "uom": "/reference/uom/DIMSLS",
-            "compartment": "/reference/compartment/OW",
-            "source": "/reference/source/1",
+            "measurementobject": "/r/measurementobject/NL12-VEEN",
+            "quantity": "/r/quantity/AANTPVLME",
+            "parameter": "/r/parameter/Surirella",
+            "uom": "/r/uom/DIMSLS",
+            "compartment": "/r/compartment/OW",
+            "source": "/r/source/1",
             "analysisTime": "2010-12-12T15:15:00Z",
             "startTime": "2010-12-12T16:00:00Z", 
             "endTime": "2010-12-12T18:00:00Z",
             "observation":
             [
                 { "id": "123124-1", "value": 234 },
-                { "id": "123124-2", "reference": "/reference/stageoflife/JU" }
+                { "id": "123124-2", "reference": "/r/stageoflife/JU" }
             ]
         }   
     ]

@@ -81,16 +81,12 @@ Er zijn meer typen, maar bovengenoemde liggen in de scope van dit project.
 
 Sampling kan in OMS van alles zijn, tot en met een monster dat in een museum wordt beheerd. Niet alles zal binnen de scope van dit project plaatsvinden.
 
-
 ## Samples
 
 ```Sample```s staan in OMS min of meer _naast_ ```ObservationCollection```s.
 Dit zorgt ervoor dat ```Sample```s niet nodig zijn voor ```ObservationCollection```s.
 Veelal zijn ```Sample```s niet nodig voor tijdreeksen. Ze kunnen echter nuttig zijn om, bijvoorbeeld, apparaat-informatie kwijt te kunnen.
 Bij een ```Sample``` in OMS worden referenties gelegd naar ```ObservationCollection```s.
-
-
-
 
 ## Data types
 
