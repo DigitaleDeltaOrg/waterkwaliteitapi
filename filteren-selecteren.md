@@ -11,18 +11,16 @@ De volgende OData features worden ge&iuml;mplementeerd:
 - ```$select```
 - ```$skip```
 - ```$top```
-- ```$count```: wanneer True, dan wordt totalObjectCount in het paging-blok gevuld. $count=True kan de performance beïnvloeden.
+- ```$count```: wanneer True, dan wordt @count in het [paginablok](paginablok.md) gevuld. ```$count=true``` kan de performance beïnvloeden.
 - Data types: Boolean, Int16/32/64, Double, Decimal(p, s), Guid, String, Date, DateTime, DateTimeOffset, Time, TimeOfDay, Duration, Geography (GeoJSON)
 
 De ```$expand``` en ```$search``` laten we in deze versie buiten beschouwing.
 
-De uitvoerformaten (behalve OGC O&M) worden, net als alle attributen, vastgelegd in het Definitieboek. In ieder geval wordt het offici&euml;le OGC O&M ge&euml;xporteerd.
-Mogelijk wordt een additioneel formaat, welke geschikter is voor timeseries en observaties voor het importeren gedefinieerd.
+De uitvoerformaten (behalve OGC OMS) worden, net als alle attributen, vastgelegd in het Definitieboek. In ieder geval wordt het offici&euml;le OGC OMS ge&euml;xporteerd.
 
 Vanuit het Definitieboek zal de CSDL voor OData worden gegenereerd via een REST webservice.
 De OpenAPI Specification kan worden via een merge actie worden gegenereerd via een REST webservice.
 
-_Uitzoeken: Is $expand nodig?_
-_Uitzoeken: Is $count nodig?_
+_Uitzoeken: Is ```$expand``` nodig?_
 
 Operaties om data toe te voegen, wijzigen of verwijderen worden **niet** ondersteund.

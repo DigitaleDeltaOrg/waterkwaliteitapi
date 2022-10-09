@@ -58,7 +58,6 @@ Wanneer gezocht wordt in observation op attributen, dan wordt tevens gezocht daa
 
 Het uitvoerformaat is standaard een set van resultaten met een reference sectie en een paginablok.
 
-
 ## Additioneel
 
-Om alleen de aantallen terug te krijgen, moet in de URI worden opgegeven: $top=0&$count=true.
+Om alleen de aantallen terug te krijgen, moet in de URI worden opgegeven: ```$top=0&$count=true```.

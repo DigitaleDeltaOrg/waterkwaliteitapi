@@ -14,4 +14,4 @@ Zoveel mogelijk worden standaards toegepast waaraan we ons hebben gecommitteerd:
 - [JSON for Linking Data](https://json-ld.org/)
 - [JSON Pointers](https://www.rfc-editor.org/rfc/rfc6901.html)
 
-OGC O&M 1956:2022 (vanaf nu genoemd: OMS) gaat boven de Aquo-specifieke toevoegingen aan IM Metingen: OMS is namelijk de nieuwe versie van O&M 1956:2011 (vanaf nu genoemd: O&M), en IM Metingen is op O&M gebaseerd.
+OGC O&M 1956:2022 (vanaf nu genoemd: OMS) gaat boven de Aquo-specifieke toevoegingen aan IM Metingen: OMS is namelijk de nieuwe versie van O&M 1956:2011 (vanaf nu genoemd: O&M). IM Metingen is (nog) op O&M gebaseerd.
