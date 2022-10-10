@@ -5,13 +5,14 @@
 Voor de Waterkwaliteit-API is de basis OMS, de opvolger van Observations and Measurements.
 De basis van IM Metingen is nog de originele versie, met uitbreidingen.
 
-OMS is echter enorm groot. Dat komt mede doordat het moet gaan gelden voor alle soorten metingen die er bestaan. De Waterkwaliteit-API zal hier een subset van gebruiken en tegelijkertijd proberen te voorkomen dat land- of domein-specifieke aanpassingen moeten gebeuren aan het model.
+OMS is echter enorm groot. Dat komt mede doordat het moet gaan gelden voor alle soorten metingen die er bestaan.
+De Waterkwaliteit-API zal hier een subset van gebruiken en tegelijkertijd proberen te voorkomen dat land- of domein-specifieke aanpassingen moeten gebeuren aan het model.
 
 Het volgende is veranderd in OMS ten opzicht van de originele O&M uit 2011.
 
 ## OMS
 
-De transitie van O&M naar OMS is groot.
+De transitie van O&M naar OMS is niet triviaal.
 
 Eén van de aspecten is de transitie van hard-typing naar soft-typing en de invloed daarop voor codelists:
 
@@ -25,6 +26,7 @@ to allow a single Observation and Sample instance to be classified using multipl
 ```
 
 Dit voorkomt dus land-specifieke aanpassingen aan het model, bijvoorbeeld met betrekking tot lengteklasse, levensstadium, etc.
+Dat komt uitwisseling weer ten goede.
 
 Het concept van meting en observatie is ook veranderd:
 
@@ -64,12 +66,24 @@ SampleCollections worden gebruikt om Samples te groeperen.
 Samples kunnen echter onderling ook een relatie hebben, door o.a. gebruik te maken van subsample.
 Via Sample is het o.a. mogelijk om sub-samples te definïeren door relaties aan te geven met andere Samples.
 
+De nieuwe structuur van Observation maakt het mogelijk dus om de w* vragen te beantwoorden: wie, wat, wanneer, waarmee, waarom.
+Ook een aantal puzzelstukjes die er nog waren in de originele DD-API vallen op hun plaats:
+
+- hoe om te gaan met kwaliteit van de meting
+- hoe om te gaan met nul-waarden
+- hoe om te gaan tijdintervallen
+
+Hiermee hebben we dus meer houvast.
+  
+## Concepten
+
 OMS kent de volgende (vrij vertaalde) concepten:
 
 Concepten:
 
 | Naam | Omschrijving |
 | ----- | ---------- |
+| Feature | Alles wat een identiteit heeft én eigenschappen bevat. Specifieke soorten features beschrijven de eigenschappen die de feature mag en moet hebben. |
 | Observer | Die- of datgene die Observation-gebeurtenissen genereert. Vertaling: de organisatie of het apparaat welke de Observaties doet. |
 | Deployment | Opdracht voor observaties aan Host. |
 | Host | Groepering van Observaties, zoals een fysiek platform, monitoringstation.  |
@@ -105,27 +119,4 @@ Voor de Waterkwaliteit-API zijn de volgende types van belang:
 Er zijn meer typen, maar bovengenoemde liggen in de scope van dit project.
 
 Sampling kan in OMS van alles zijn, tot en met een monster dat in een museum wordt beheerd. Niet alles zal binnen de scope van dit project plaatsvinden.
-
-## Samples
-
-```Sample```s staan in OMS min of meer _naast_ ```ObservationCollection```s.
-Dit zorgt ervoor dat ```Sample```s niet nodig zijn voor ```ObservationCollection```s.
-Veelal zijn ```Sample```s niet nodig voor tijdreeksen. Ze kunnen echter nuttig zijn om, bijvoorbeeld, apparaat-informatie kwijt te kunnen.
-Bij een ```Sample``` in OMS worden referenties gelegd naar ```ObservationCollection```s.
-
-SampleCollection.member
-SampleCollection.relatedCollection
-
-Sample.PreparationStep
-Sample.PreparationProcedure
-Sample.SamplingProcedure
-Sample.SampledFeature
-Sample.RelatedSample
-Sample.Parameter
-Sample.Sampler
-
-ObservationCollection.id
--ObservationCollection.collectionType
-ObservationCollection.member: Observation[0..*]
--ObservationCollection.memberCharacteristics: ObservationCharacteristics[0..1]
-
+In de Waterkwaliteit-API zal een subset van Sample worden gebruikt.

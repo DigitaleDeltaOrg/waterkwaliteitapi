@@ -1,0 +1,164 @@
+{
+    "r": [
+        { 
+            "locations": [
+            {
+                "id": "",
+                "code": "",
+                "link": [
+                    { "href": "", "rel": "", "title": ""  }
+                ]
+            }
+        ] },
+        { 
+            "compartments": [           
+            {
+            "id": "",
+            "code": "",
+            "link": [
+                { "href": "", "rel": "", "title": ""  }
+            ]
+        }]},
+        { 
+            "parameters": [           
+            {
+            "id": "",
+            "code": "",
+            "parameterType": "",
+            "link": [
+                { "href": "", "rel": "", "title": ""  }
+            ]
+        }]},
+        { 
+            "methods": [           
+            {
+                "id": "",
+                "code": "",
+                "link": [
+                    { "href": "", "rel": "", "title": ""  }
+                ]
+            }
+        ]},
+        { "units": [           
+            {
+                "id": "",
+                "code": "",
+                "symbol": "",
+                "link": [
+                    { "href": "", "rel": "", "title": ""  }
+                ]
+            }
+        ]},
+        { 
+            "quantities": [           
+            {
+                "id": "",
+                "code": "",
+                "link": [
+                    { "href": "", "rel": "", "title": ""  }
+                ]
+            }
+        ]}
+    ],
+    "samples": [
+        {
+            "id": "<uniquesampleid-1>"
+        },
+        {
+
+        }
+    ],
+    "observationcollections": [
+        {
+            "id": "<uniqueid1>",
+            "type": "summarize",
+            "member":
+                [
+                    {
+                        "id": "<uniqueid1>-01",
+                        "type": "CountObservation",
+                        "context": [{ "href": "", "rel": "", "title": "" }],
+                        "featureOfInterest": { "href": "", "rel": "", "title": "" },
+                        "phenomenonTime": { "instant":"2015-05-11"},
+                        "observedProperty": { "href": "", "rel": "", "title": "" },
+                        "procedure": { "href": "", "rel": "", "title": "" },
+                        "samplingStrategy": { "href": "<uniquesampleid-1>", "rel": "sample" } ,
+                        "resultTime": "2021-01-01 10:00:01",
+                        "parameter": [ "/r/parameters/parameter1" ],
+                        "resultQuality": {},
+                        "validTime": "2021-01-01 10:00:01",
+                        "result": 97
+                    },
+                    {
+                        "id": "<uniqueid1>-02",
+                        "type": "TruthObservation",
+                        "phenomenonTime": { "instant": "2011-05-11T00:00:00+10:00" },
+                        "observedProperty": { "href": "urn:example:Truth" },
+                        "procedure": { "href": "http://www.opengis.net/def/waterml/2.0/processType/Manual" },
+                        "samplingStrategy": { "href": "/"} ,
+                        "featureOfInterest": { "href": "http://waterml2.csiro.au/rgs-api/v1/monitoring-point/419009/" },
+                        "resultTime": "2011-05-12T09:00:00+10:00" ,
+                        "result": true  
+                    },
+                    {
+                        "id":"<uniqueid1>-03",
+                        "type": "CategoryObservation",
+                        "phenomenonTime": { "instant":"2015-05-11"},
+                        "observedProperty": {"href": "http://environment.data.gov.au/def/property/taxon"},
+                        "procedure": {"href":"http://www.opengis.net/def/waterml/2.0/processType/Manual"},
+                        "featureOfInterest": {"href":"http://example.org/sighting345"},
+                        "resultTime": "2015-05-12T09:00:00+10:00",
+                        "result": {
+                          "term": "johnstons-crocodile" ,
+                          "vocabulary": "http://environment.data.gov.au/def/object/"
+                        }
+                      }
+                ]
+        },
+        {
+            "id": "<uniqueid2>",
+            "type": "homogeneous",
+            "member":
+                [
+                    {
+                        "id": "<uniqueid2>-01",
+                        "type": "TimeseriesObservation",
+                        "resultTime": "2021-01-01 10:00:01",
+                        "result": {
+                            "metadata": {
+                              "temporalExtent": { "begin": "2010-01-01T00:00:00", "end": "2010-01-03T00:00:00" },
+                              "status": { "href": "http://" }
+                            },
+                            "defaultPointMetadata": {
+                              "interpolationType": { "href": "http://www.opengis.net/def/waterml/2.0/interpolationType/Continuous" },
+                              "quality": { "href": "http://www.opengis.net/def/waterml/2.0/quality/unchecked" },
+                              "uom" : "http://www.qudt.org/qudt/owl/1.0.0/unit/Instances.html#Meter"
+                            },
+                            "points": [
+                                {
+                                  "time": { "instant": "2010-01-01T00:00:00" },
+                                  "value": 3.2,
+                                  "metadata": {
+                                    "quality": { "term" : "suspect", "vocabulary": "http://www.opengis.net/def/waterml/2.0/quality" }
+                                  }
+                                },
+                                {
+                                  "time": { "instant": "2010-01-02T00:00:00" },
+                                  "value": 3.6
+                                },
+                                {
+                                  "time": { "instant": "2010-01-03T00:00:00" },
+                                  "value": null,
+                                  "metadata": {
+                                    "nilReason" : { "term" : "missing", "vocabulary": "http://www.opengis.net/def/nil/OGC/0" }
+                                  }
+                                }
+                              ]
+                          }
+                
+                    }
+                ]
+        }
+    ]
+}
+
