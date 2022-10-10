@@ -15,6 +15,9 @@ Het toevoegen van references levert geen problemen op: OMS beschrijft delen van 
 
 ## OMS JSON Schemas
 
+De volgende JSON schema's zijn van ná de O&M2011 naar vóór OMS2022: ze zijn 7 jaar uit.
+Over het algemeen zijn ze echter bruikbaar, maar mogelijk mogelijk meer up-to-date worden gemaakt.
+
 [Geometrie (GeoJSON)](https://raw.githubusercontent.com/peterataylor/om-json/master/Geometry.json)
 [Datum/tijd/intervallen](https://raw.githubusercontent.com/peterataylor/om-json/master/Temporal.json)
 [Algemeen](https://raw.githubusercontent.com/peterataylor/om-json/master/Common.json)
@@ -73,20 +76,24 @@ Het toevoegen van references levert geen problemen op: OMS beschrijft delen van 
             "endTime": "2010-12-12T18:00:00Z",
             "realization": 13,
             "observation":
-            [
-                {
-                    "timeStamp": "2010-12-12T16:00:00Z",
-                    "value": 6.46
-                },
-                {
-                    "timeStamp": "2010-12-12T17:00:00Z",
-                    "value": 4.4
-                },
-                {
-                    "timeStamp": "2010-12-12T18:00:00Z",
-                    "value": 4.86
-                }
-            ]
+            {
+                "type": "timeseries-observation",
+                "result": 
+                [
+                    {
+                        "timeStamp": "2010-12-12T16:00:00Z",
+                        "value": 6.46
+                    },
+                    {
+                        "timeStamp": "2010-12-12T17:00:00Z",
+                        "value": 4.4
+                    },
+                    {
+                        "timeStamp": "2010-12-12T18:00:00Z",
+                        "value": 4.86
+                    }
+                ]
+            }
         }
     ]
 }
@@ -153,8 +160,8 @@ Het toevoegen van references levert geen problemen op: OMS beschrijft delen van 
             "endTime": "2010-12-12T18:00:00Z",
             "observation":
             [
-                { "id": "123123-1", "value": 123 },
-                { "id": "123123-2", "reference": "/reference/stageoflife/AD" }
+                 { "id": "123123-1", "type": "measurement", "value": 234 },
+                { "id": "123123-2", "type": "category-observation", "reference": "/reference/stageoflife/JU" }
             ]
         },
         {
@@ -170,8 +177,8 @@ Het toevoegen van references levert geen problemen op: OMS beschrijft delen van 
             "endTime": "2010-12-12T18:00:00Z",
             "observation":
             [
-                { "id": "123124-1", "value": 234 },
-                { "id": "123124-2", "reference": "/reference/stageoflife/JU" }
+                { "id": "123124-1", "type": "measurement", "value": 234 },
+                { "id": "123124-2", "type": "category-observation", "reference": "/reference/stageoflife/JU" }
             ]
         }   
     ]
