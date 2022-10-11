@@ -11,3 +11,46 @@ Bij typeringen legt Aquo ook niet vast wat de acceptable waarden zijn.
 Dit kan leiden tot inconsistenties en (interpretatie-)fouten.
 
 Het Definitieboek kan een dienen als een bron om deze waarden wel te gaan standaardiseren.
+
+## Observation referenties
+
+- BiologischKenmerk\Gedrag (CategoryObservation)
+- BiologischKenmerk\Lengteklasse (CategoryObservation)
+- BiologischKenmerk\Levensstadium (CategoryObservation)
+- BiologischKenmerk\Levensvorm (CategoryObservation)
+- BiologischKenmerk\Verschijningsvorm (CategoryObservation)
+- Biotaxon
+- Compartiment (CategoryObservation)
+- Eenheid (CountObservation)
+- Geslacht (CategoryObservation)
+- Hoedanigheid\Koolwaterstoffractie (CategoryObservation)
+- Hoedanigheid\Korrelgroottefractie (CategoryObservation)
+- J of N (TruthObservation)
+- Kleur (CategoryObservation)
+- Kleursterkte (CategoryObservation)
+- Kwaliteitsoordeel (CategoryObservation)
+- Meetapparaat (CategoryObservation)
+- Meetinstantie (CategoryObservation)
+- Monsterbewerkingsmethode (CategoryObservation)
+- MonsterVoorbehandeling (CategoryObservation)
+- Meetapparaat (CategoryObservation)
+- Meetapparaat (CategoryObservation)
+- Parameter
+- RelatedObservationRollen
+- RelatedSamplingFeatureRollen
+- Waardebepalingsmethode
+- Waardebepalingstechniek
+- Waardebepalingsmethode
+
+## Sample referenties
+
+- Bemonsteringapparaat
+- Bemonsteringsmethode
+- Bemonsteringssoort
+- Bodemsoort
+- KenmerkBodemlaag
+- KenmerkMonstername
+- LocatietypeWaardeBepaling
+- Onderzoekssoort
+- RelatedObservationRollen
+- RelatedSamplingFeatureRollen
