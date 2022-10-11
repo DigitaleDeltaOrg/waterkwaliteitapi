@@ -10,3 +10,5 @@ Het [resultaatblok](resultaatblok.md) zal de meting-data bevatten.
 Een voorbeeld van een output:
 
 ```TODO```
+
+Pagineren gaat op basis van het aantal Observations. Tenzij specifiek opgegeven door de gebruiker, worden alle ObservationCollections en Samples gerelateerd aan de Observations in de export, meegegeven als losse blokken.

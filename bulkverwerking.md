@@ -40,3 +40,14 @@ Valideren is de eerste fase van verwerking. Pas wanneer de bulk-content volledig
 Om transparant te zijn, moeten alle __acties__ worden vastgelegd. De aanvrager kan ten allen tijde de history opvragen.
 
 [![History opvragen](https://mermaid.ink/img/pako:eNqNkt1KxDAQhV9lyJVC9wV6sVBtxUW2xf4ILrkZmtk2bpvUNF3UZd_daCgo0sVcDWdOviE5c2K1FsRCNtLrRKqmWGJjsOcK3BnQWFnLAZWF206Ssn_1gsyRjNe9Z7VeezGEVo5WG0m-nWpLYGTTWtB7mD1P2ElBZCzUP0b4rkN5ZghVGlXlfZZvdkn8P5yhurWkFnh3WX6zieMkvQSLOngDV31oOpACRNXQ0SA2YoFaZhlso_QZ8uSxSoqyuETPhhY7h51_adXJl3Hp_dnD1W_fNVcsYD2ZHqVwCZ6-LnJmW-qJs9CVAs2BM67OzoeT1cW7qllozUQBmwaBdk6bhXvsRqeSkG7C1q_E92YEzKW803r2nD8BATa9xg)](https://mermaid.live/edit#pako:eNqNkt1KxDAQhV9lyJVC9wV6sVBtxUW2xf4ILrkZmtk2bpvUNF3UZd_daCgo0sVcDWdOviE5c2K1FsRCNtLrRKqmWGJjsOcK3BnQWFnLAZWF206Ssn_1gsyRjNe9Z7VeezGEVo5WG0m-nWpLYGTTWtB7mD1P2ElBZCzUP0b4rkN5ZghVGlXlfZZvdkn8P5yhurWkFnh3WX6zieMkvQSLOngDV31oOpACRNXQ0SA2YoFaZhlso_QZ8uSxSoqyuETPhhY7h51_adXJl3Hp_dnD1W_fNVcsYD2ZHqVwCZ6-LnJmW-qJs9CVAs2BM67OzoeT1cW7qllozUQBmwaBdk6bhXvsRqeSkG7C1q_E92YEzKW803r2nD8BATa9xg)
+
+## Volgorde
+
+OMS heeft de mogelijkheid voor recursieve relaties:
+
+- Samples kunnen refereren aan andere Samples (via complex)
+- Samples (Specimen) kunnen refereren aan Observations (via complex)
+- Observations kunnen refereren aan Samples (via samplingStragety)
+- Observations kunnen refereren aan Observations (via context)
+- ObservationCollections kunnen refereren aan Observations (via member)
+- ObservationCollections kunnen refereren aan Samples (via samplingStragety)

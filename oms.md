@@ -62,9 +62,8 @@ In klassieke zin is een meting nu een ObservationCollection geworden. _Observati
 Dit maakt met mogelijk om nieuwe items toe te voegen aan een 'meting' zonder het model te hoeven wijzigen.
 
 Sample is een complex onderwerp.
-SampleCollections worden gebruikt om Samples te groeperen.
-Samples kunnen echter onderling ook een relatie hebben, door o.a. gebruik te maken van subsample.
-Via Sample is het o.a. mogelijk om sub-samples te definïeren door relaties aan te geven met andere Samples.
+SampleCollections worden gebruikt om Samples te groeperen (via member).
+Samplings kunnen echter onderling ook een relatie hebben, door o.a. gebruik te maken van subsample (via complex).
 
 De nieuwe structuur van Observation maakt het mogelijk dus om de w* vragen te beantwoorden: wie, wat, wanneer, waarmee, waarom.
 Ook een aantal puzzelstukjes die er nog waren in de originele DD-API vallen op hun plaats:
@@ -74,6 +73,17 @@ Ook een aantal puzzelstukjes die er nog waren in de originele DD-API vallen op h
 - hoe om te gaan tijdintervallen
 
 Hiermee hebben we dus meer houvast.
+
+### Refereren in plaats van embedden
+
+Observations kunnen op zichzelf staan.
+Zowel ObservationCollection als Sample hebben de mogelijkheid aan Observation te refereren als zijnde een link.
+Bij ObservationCollection zou het ook embedded (als deel van het object zelf) kunnen worden opgeslagen, maar dat maakt het systeem zodanig dat vanuit Samples refereren moeilijk gaat.
+Het wordt nog complexer: Observation kan namelijk ook een embedded Sample bevatten.
+
+Daarom staan Observations in de Waterkwaliteit-API op zichzelf. Zowel ObservationCollection als Sample kunnen refereren hieraan door middel van referenties. ObservationCollection via member, en Specimen via relatedObservation. Op deze wijze kunnen Observations vanuit twee standpunten worden gezocht én behoeven Samples en ObservationCollections niet per sé geëxporteerd te worden wanneer de gebuiker die informatie niet nodig heeft.
+
+Refereren wordt dus geprefereerd boven embedden.
   
 ## Concepten
 
