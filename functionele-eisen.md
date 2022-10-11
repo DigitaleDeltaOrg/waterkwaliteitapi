@@ -12,6 +12,10 @@ Data moet ook kunnen worden toegevoegd of verwijderd, [in bulk formaat](aanbiede
 De API committeert zich zoveel mogelijk aan [standaarden](standaarden.md).
 Daarnaast worden een aantal zaken aangescherpt, zoals welke delen we gebruiken, compacter maken van de data, etc.
 
+## Taal
+
+Er wordt zoveel mogelijk gebruik gemaakt van Engelse termen in imports en exports. Namen van entiteiten zijn daarom zoveel mogelijk Engels. Dit om verschillen in uitwisselingen met andere landen te voorkomen.
+
 ## Fouten
 
 Fouten worden gestandaardiseerd weergegeven.

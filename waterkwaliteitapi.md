@@ -7,8 +7,8 @@ Dit document is momenteel in voorstel-fase. Er zal de komende tijd nog flink aan
 ## TODO
 
 - [Definitieboek](definitieboek.md)
-- [OMS JSON definitie](oms-json.md)
-- [Definitie van log-berichten](logging.md)
+- [OMS JSON definitie](oms-json.md) (werk in uitvoering)
+- [Definitie van log-berichten](logging.md) (werk in uitvoering)
 - [Definitie van gestandaardiseerde validatiefouten als antwoord op bulk-verwerking](validatie.md)
 - [OData voorbeelden voor OMS](odata-en-oms.md)
 - Open API Specification
