@@ -19,7 +19,6 @@ Het Definitieboek kan een dienen als een bron om deze waarden wel te gaan standa
 - BiologischKenmerk\Levensstadium (CategoryObservation)
 - BiologischKenmerk\Levensvorm (CategoryObservation)
 - BiologischKenmerk\Verschijningsvorm (CategoryObservation)
-- Biotaxon
 - Compartiment (CategoryObservation)
 - Eenheid (CountObservation)
 - Geslacht (CategoryObservation)
@@ -35,12 +34,13 @@ Het Definitieboek kan een dienen als een bron om deze waarden wel te gaan standa
 - MonsterVoorbehandeling (CategoryObservation)
 - Meetapparaat (CategoryObservation)
 - Meetapparaat (CategoryObservation)
-- Parameter
+- Parameter (inclusief Biotaxon)
 - RelatedObservationRollen
 - RelatedSamplingFeatureRollen
 - Waardebepalingsmethode
 - Waardebepalingstechniek
 - Waardebepalingsmethode
+- Parameters\Grootheid -> ObservedProperty
 
 ## Sample referenties
 

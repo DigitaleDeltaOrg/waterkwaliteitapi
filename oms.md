@@ -125,6 +125,7 @@ Voor de Waterkwaliteit-API zijn de volgende types van belang:
 | truth-observation | Waar of onwaar | Boolean |
 | count-observation | Telling, bijvoorbeeld aantal cellen | Geheel getal, geen eenheid. Aquo DIMSLS |
 | timeseries-observation | Tijdreeks | Set van combinaties van tijdstip + gemeten waarde |
+| text-observation | Text | Bijvoorbeeld een opmerking? |
 
 Er zijn meer typen, maar bovengenoemde liggen in de scope van dit project.
 
