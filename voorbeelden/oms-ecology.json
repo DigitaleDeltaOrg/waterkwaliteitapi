@@ -68,13 +68,13 @@
         {
             "id": "<uniqueid1>-01",
             "type": "CountObservation",
-            "featureOfInterest": { "href": "#/references/measurementobjects/VEEN" },
+            "featureOfInterest": { "href": "/references/measurementobjects/VEEN" },
             "phenomenonTime": { "instant":"2015-05-11"},
-            "observedProperty": { "href": "#/references/quantities/AANTL" },
-            "procedure": { "href": "#/references/methods/MACEV_S530" },
-            "samplingStrategy": { "href": "#/samples/<uniquesampleid-1>", "rel": "sample" } ,
+            "observedProperty": { "href": "/references/quantities/AANTL" },
+            "procedure": { "href": "/references/methods/MACEV_S530" },
+            "samplingStrategy": { "href": "/samples/<uniquesampleid-1>", "rel": "sample" } ,
             "resultTime": "2021-01-01 10:00:01",
-            "parameter": [ "#/references/parameters/Abra alba" ],
+            "parameter": [ "/references/parameters/Abra alba" ],
             "resultQuality": {},
             "validTime": "2021-01-01 10:00:01",
             "result": 97
@@ -85,8 +85,8 @@
             "phenomenonTime": { "instant": "2011-05-11T00:00:00+10:00" },
             "observedProperty": { "href": "urn:example:Truth" },
             "procedure": { "href": "http://www.opengis.net/def/waterml/2.0/processType/Manual" },
-            "samplingStrategy": { "href": "#/samples/<uniquesampleid-1>", "rel": "sample" } ,
-            "featureOfInterest": { "href": "#/references/measurementobjects/VEEN" },
+            "samplingStrategy": { "href": "/samples/<uniquesampleid-1>", "rel": "sample" } ,
+            "featureOfInterest": { "href": "/references/measurementobjects/VEEN" },
             "resultTime": "2011-05-12T09:00:00+10:00",
             "result": true  
         },
@@ -96,7 +96,7 @@
             "phenomenonTime": { "instant":"2015-05-11"},
             "observedProperty": { "href": "http://environment.data.gov.au/def/property/taxon" },
             "procedure": { "href":"#/references/methods/MACEV_S530" },
-            "featureOfInterest": { "href": "#/references/measurementobjects/VEEN"},
+            "featureOfInterest": { "href": "/references/measurementobjects/VEEN"},
             "resultTime": "2015-05-12T09:00:00+10:00",
             "result": {
                 "term": "LS-AD",
@@ -108,7 +108,7 @@
         {
             "id": "<uniqueid1>",
             "type": "summarize",
-            "member": [ "#/observations/<uniqueid1>-01", "#/observations/<uniqueid1>-02", "#/observations/<uniqueid1>-03" ]
+            "member": [ "/observations/<uniqueid1>-01", "/observations/<uniqueid1>-02", "/observations/<uniqueid1>-03" ]
         }
     ],
     "samples": [

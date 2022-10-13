@@ -114,7 +114,7 @@
         {
             "id": "<uniqueid2>",
             "type": "homogeneous",
-            "member": [ "#/observations/<uniqueid2>-01" ]
+            "member": [ "/observations/<uniqueid2>-01" ]
         }
     ]
 }
