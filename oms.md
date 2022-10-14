@@ -135,4 +135,5 @@ In de Waterkwaliteit-API zal een subset van Sample worden gebruikt.
 ## OMS-light
 
 Het gehele OMS implementeren is te groot voor het doel, en zal ook draagvlak in de weg zitten.
-Daarom wordt 
+Daarom wordt een [verkorte versie van OMS](oms-light) geïntroduceerd, die echter wél compatibel is met de uitgebreide versie.
+Deze versie houdt _geen_ rekening met tijdsreeksen.
