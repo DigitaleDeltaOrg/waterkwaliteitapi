@@ -41,16 +41,16 @@ Het Definitieboek kan een dienen als een bron om deze waarden wel te gaan standa
 - Waardebepalingstechniek
 - Waardebepalingsmethode
 - Parameters\Grootheid -> ObservedProperty
+- Golflengte
+- Kwaliteitsoordeel
+- BodemlaagBodemkenmerken
 
 Toevoegingen: mogelijk nog niet in Aquo, of slechts deels:
 
 - Statistiek
-- Sediment
-- Golflengte
-- Conditie
-- Kwaliteitsoordeel
+- Conditie (o.a. Beschadigd, Exoskelet, Fragmenten)
 - Habitat
-- Meetpositie
+- Meetpositie (Begin, Eind, Midden)
 
 ## Sample referenties
 
