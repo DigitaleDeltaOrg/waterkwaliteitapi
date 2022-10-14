@@ -42,6 +42,16 @@ Het Definitieboek kan een dienen als een bron om deze waarden wel te gaan standa
 - Waardebepalingsmethode
 - Parameters\Grootheid -> ObservedProperty
 
+Toevoegingen: mogelijk nog niet in Aquo, of slechts deels:
+
+- Statistiek
+- Sediment
+- Golflengte
+- Conditie
+- Kwaliteitsoordeel
+- Habitat
+- Meetpositie
+
 ## Sample referenties
 
 - Bemonsteringapparaat

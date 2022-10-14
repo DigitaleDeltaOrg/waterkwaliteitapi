@@ -24,5 +24,5 @@ Validatiefouten zijn beschreven in onderdeel [validatie](validatie.md).
 
 ## Buiten scope
 
-- Deze specificatie houdt zich primair bezig met tijdreeksen en observaties. In de Waterkwaliteit-API worden grids gezien als buiten de scope van het project. Dat geldt ook voor MultiPoint- en AspectSets-gebaseerde timeseries.
-- Het OMS model is _enorm_. De beschrijving is maar liefst 130 pagina's lang. Er wordt in deze API slechts rekening gehouden met onderdelen die voor de API van belang zijn.
+- Deze specificatie houdt zich primair bezig met observaties. In de Waterkwaliteit-API worden grids en timeseries gezien als buiten de scope van het project. Dat geldt ook voor MultiPoint- en AspectSets-gebaseerde timeseries.
+- Het OMS model is _enorm_. De beschrijving is maar liefst 130 pagina's lang. Er wordt in deze API slechts rekening gehouden met onderdelen die voor de API van belang zijn. Daarom maakt de Waterkwaliteit-API gebruik van een [light versie van OMS](oms-light), met als toevoeging een referentiesysteem om koppelingen naar Aquo leesbaar te houden.

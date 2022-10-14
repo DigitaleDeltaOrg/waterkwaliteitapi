@@ -131,3 +131,8 @@ Er zijn meer typen, maar bovengenoemde liggen in de scope van dit project.
 
 Sampling kan in OMS van alles zijn, tot en met een monster dat in een museum wordt beheerd. Niet alles zal binnen de scope van dit project plaatsvinden.
 In de Waterkwaliteit-API zal een subset van Sample worden gebruikt.
+
+## OMS-light
+
+Het gehele OMS implementeren is te groot voor het doel, en zal ook draagvlak in de weg zitten.
+Daarom wordt 
