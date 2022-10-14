@@ -7,26 +7,10 @@ De CSDL helpt dan ook met de Discovery functionaliteit van OData.
 
 Via [aliassen](https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_Alias) kunnen complexe velddefinities worden vereenvoudigd.
 
-## Filteren op Specimen of ObservationCollection?
-
-Beide zijn legitime ingangen, voor andere doelgroepen.
-
-Het probleem is echter dat er een directe relatie ligt tussen ```ObservationCollection``` en ```Observation```, want de eerste omsluit de tweede.
-Echter tussen ```Specimen``` en ```Observation``` is er alleen een referentie.
-```ObservationCollection``` heeft de mogelijkheid om data te bepalen die gelden voor alle onderliggende ```Observation```s. Dit kan echter leiden tot problemen wanneer men wil gaan selecteren op ```Specimen```.
-Immers zou het zoeken gaan via ```Specimen``` naar ```Observation``` naar ```ObservationCollection```.
-Dat zorgt voor grote performance verliezen, op zijn minst.
-
-Het is daarom prudenter om bij ```ObservationCollection``` alleen de basiszaken bij te houden, dus Id en member.
-De andere eigenschappen kunnen beter aan ```Observation``` worden toegekend, ondanks dat het iets meer data genereerd.
-
-Hiermee kan in wezen de verschillende ingangen (```Specimen``` of ```ObservationCollection```) vervallen: er hoeft alleen gezocht te worden op waarden van ```Observation```, met als secundaire filter specifieke ```Specimen``` eigenschappen.
-
-Daarmee kan de uitvoer óók worden geuniformeerd: er komen in alle gevallen separate delen voor ```ObservationCollection``` en ```Specimen```. De geunformeerde zoekingang kan dan eenvoudigweg ```Observation``` heten.
-
 ## Filteren
 
-Er komt één data-centrisch 'hoofdingang': Observation.
+Er komt één data-centrisch 'hoofdingang': Observation. Deze zal standaard óók de Specimen en ObservationCollections retourneren.
+Via $select kan gekozen worden ome ze niet mee te geven.
 
 | Filterargument | Alias | Operators | Functies  | Toegestaan | Type |
 | ---------- | ------ | ---- | ---- | ---- | ---- |
