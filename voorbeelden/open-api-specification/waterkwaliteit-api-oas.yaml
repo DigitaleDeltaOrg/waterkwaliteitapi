@@ -1,0 +1,310 @@
+openapi: '3.0.2'
+info:
+  title: Waterkwaliteit-API
+  version: '1.0'
+  description: Definition of API to exchange aquatic data between (Dutch) organisations. Allows export and import.
+  termsOfService: ...
+  license:
+    name: MIT
+  contact: 
+    email: geri.wolters@ecosys.nl
+    name: Geri Wolters
+    url: https://ecosys.nl
+servers:
+  - url: https://api.server.test/v1
+security: 
+  - {}
+paths:
+  /references:
+    get:
+      summary: Query references using OData.
+      description: Query references using OData.
+      operationId: reference
+      tags: 
+        - References
+        - OData
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD
+
+  /observations:
+    get:
+      summary: Query observations using OData.
+      description: Query observations using OData.
+      operationId: observation
+      tags: 
+        - Observations
+        - OData
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD
+  /observations/bulk:
+    get: 
+      summary: Request the status of a bulk job.
+      description: v
+      operationId: observation-status-get
+      tags: 
+        - Observations
+        - OData
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD
+    post: 
+      summary: Import a new set of observations.
+      description: Import a new set of observations.
+      operationId: observation-import
+      tags: 
+        - Observations
+        - OData
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD
+    delete: 
+      summary: Remove a set of observations.
+      description: Remove a set of observations.
+      operationId: observation-delete
+      tags: 
+        - Observations
+        - OData
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD    
+                
+  /samples:
+    get:
+      summary: Query samples and associated observations using OData.
+      description: Query samples and associated observations using OData.
+      operationId: sample
+      tags: 
+        - Samples
+        - OData
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD
+
+  /observationcollections:
+    get:
+      summary: Query observation collections and associated observations using OData.
+      description: Query observation collections and associated observations using OData.
+      operationId: observationcollection
+      tags: 
+        - ObservationCollections
+        - OData
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD
+
+components:
+  securitySchemes: 
+    OAUTHClient: 
+      type: oauth2
+      flows: 
+        authorizationCode:
+          authorizationUrl: ...
+          tokenUrl: ...
+          scopes:
+            read: ...
+    OAUTHMachine: 
+      type: oauth2
+      flows:
+        clientCredentials: 
+          tokenUrl: ...
+          scopes:
+            write: ...              
+  schemas:
+    count:
+      anyOf:
+        - type: integer
+          minimum: 0
+        - type: string
+      description:
+        The number of entities in the collection. Available when using
+        the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+        query option.
+
+    entityReference:
+      type: object
+      properties:
+        "@id":
+          type: string
+          format: uri
+          description: "[Link to a related entity](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_LinktoRelatedEntitiesWhenCreatinganE)"
+
+    error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+
+    pagingBlock:  # TODO: Make external reference
+      type: object
+      properties: 
+        previousPage:
+          type: string
+          format: uri
+        nextPage:
+          type: string
+          format: uri
+        totalObjectCount:
+          type: integer
+        maxPageSize:
+          type: integer
+    
+    id:
+      type: string
+
+    reference:
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        name:
+          type: string
+        href:
+          type: string
+        type:
+          type: string
+      required: 
+        - id
+        - code
+        - type
+  
+    location:
+      type: object
+      $ref: '#/components/schemas/reference'
+      properties:
+        type: 
+          type: string = 'location'
+        geo: 
+          type: string
+          format: GeoJSON
+
+    observation:
+      type: object
+      $ref: '#/components/schemas/reference'
+      properties:
+        type: 
+          type: string = 'observation'
+    
+    sample:
+      type: object
+      $ref: '#/components/schemas/reference'
+      properties:
+        type: 
+          type: string = 'sample'
+      relatedObservation:
+        type: array
+        items:
+          $ref: '#/components/schemas/id'
+    
+    observationcollection:
+      type: object
+      $ref: '#/components/schemas/reference'
+      properties:
+        type: 
+          type: string = 'observationcollection'
+      member:
+        type: array
+        items:
+          $ref: '#/components/schemas/id'
+
+    unit:
+      type: object
+      $ref: '#/components/schemas/reference'
+      properties:
+        type: 
+          type: string = 'unit'
+
+    parameter:
+      type: object
+      $ref: '#/components/schemas/reference'
+      properties:
+        type: 
+          type: string = 'parameter'
+        parametertype:
+          type: string
+          
+    quantity:
+      type: object
+      $ref: '#/components/schemas/reference'
+      properties:
+        type: 
+          type: string = 'quantity'
+
+  parameters: # TODO: Make external reference
+    top:
+      name: top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+
+    skip:
+      name: skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+
+    count:
+      name: count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+    
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/error"
