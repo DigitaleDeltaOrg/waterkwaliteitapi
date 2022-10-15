@@ -1,12 +1,26 @@
 # OMS Import opbouw
 
-Een OMS import bestand heeft dezelde opbouw als het export formaat, minus het paging blok.
-Daarnaast zijn er andere eisen:
+Een OMS import heeft een andere struktuur dan het export formaat. Dat komt doordat Samples en ObservationCollections optioneel zijn. Bij het importeren worden daarom Observations los gezien van Samples en ObservationCollections.
+Dat zullen drie verschillende blokken zijn.
 
-- Een importbestand bevat alle benodigde informatie: er kan niet worden gepagineerd.
-- Observations staan zoveel mogelijk in een bepaalde volgorde:
-  - Ongekoppelde Observations eerst
-  - Daarna Observations die gekoppeld zijn aan ongekoppelde Observations
-  - Daarna de resterense Observations
+Het import-bestand zal verder duidelijk aangeven welke geografische datum wordt gebruikt.
+Het import-bestand zal ook een referentieblok bevatten, om de grootte van het bestand te beperken.
+Daarnaast kan het referentieblok dienen voor het aanmaken van ontbrekende referenties in het doelsysteem.
 
-Hiermee kunnen meervoudige updates worden voorkomen.
+```json
+{
+  "crs": "EPSG:28992",
+  "references": [
+    "locations": [],
+    "units": [],
+    "compartments": [],
+    "quantities": [],
+    "samplingmethods": [],
+    "parameters": [],
+    "...": [],
+  ],
+  "observations": [],
+  "samples": [{ "Id": "", "samplinglocation": "/references/locations/VEEN", "relatedObservation": [ "observation-id1", "observation-id2", "observation-id3" ]}],
+  "observationcollections": [ {"Id": "", "member": [ "observation-id1", "observation-id2", "observation-id3" ]}]
+}
+```

@@ -21,6 +21,7 @@ Het referentieblok staat [hier](referentieblok.md) beschreven.
 
 Het toevoegen van references levert geen problemen op: OMS beschrijft delen van het document (de payload van verschillende onderdelen), en wel het deel dat gerelateerd is aan een sample of een observation. Het beschrijft alleen de relevante elementen, dus bijvoorbeeld niet hoe een paging block er uit komt te zien.
 
+Voor de Waterkwaliteit-API 
 Een verdere complexiteit komt voort uit de relatie tussen Samples, ObservationCollections en Observations.
 De links tussen Samples en Observationsa is altijd indirect: door referenties.
 ObservationCollection kan echter Observations bevatten (embedden) óf er aan refereren.
@@ -35,7 +36,7 @@ Daarom worden Observations, ObservationCollections en Samples als separate onder
 
 De volgorde:
 
-- r
+- references
 - observations
 - observationcollections
 - samples

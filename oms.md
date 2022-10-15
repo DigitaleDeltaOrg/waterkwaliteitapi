@@ -53,37 +53,21 @@ the dataset-level and feature-level metadata commonly provided via catalogue ser
 Een observatie:
 
 - is geen meting, beschrijft context en resultaat van een observatie, dus hoe, wie, wat, waar heeft geobserveerd
-- heeft een bepaalde [type](ObservationCategories). Het type bepaald welke data kan worden vastgelegd. Een tijdsreeks kan wél als één Observation worden vastgelegd.
+- heeft een bepaalde [type](#observationtypes). Het type bepaald welke data kan worden vastgelegd. Een tijdsreeks kan wél als één Observation worden vastgelegd.
 - kan relaties hebben met andere observaties, zoals in ObservationCollection. _buiten scope_
 - de ```result``` van een ```Observation``` bevat het meetresultaat, afhankelijk van ```ObservationType```.
+- staat op zichzelf: het heeft geen (directe) relatie met Sample of ObservationCollection.
+- samplingStrategy wordt niet voor een directe relatie met Sample gebruikt. Het is bedoeld om aan te geven het mogelijk gaat om een sub-sample, die nu niet geïmplementeerd wordt in de Waterkwaliteit-API.
 
-In klassieke zin is een meting nu een ObservationCollection geworden. _ObservationCollection is ongeveer equivalent met het INSPIRE DataStream model._
+Een mogelijke rol van ObservationCollection is om meetwaarden in een bepaalde context te houden.
+Bijvoorbeeld: van parameter Abra Alba zijn 10 volwassen exemplaren gevonden. Dat resulteerd in een CountObservation van 10 en een CategoryObservation van stageoflife/adult.
+Alleen wanneer deze waarden worden bijeengehouden, heeft bovenstaande informatie betekenis. Dat kan dus met een ObservationCollection.
 
-Dit maakt met mogelijk om nieuwe items toe te voegen aan een 'meting' zonder het model te hoeven wijzigen.
+Observations staan dus op zichzelf.
+Een Sample kan refereren aan één of meerdere Observations (::relatedObservations).
+Een ObservationCollection kan refereren aan één of meerdere Observations (::member).
 
-Sample is een complex onderwerp.
-SampleCollections worden gebruikt om Samples te groeperen (via member).
-Samplings kunnen echter onderling ook een relatie hebben, door o.a. gebruik te maken van subsample (via complex).
-
-De nieuwe structuur van Observation maakt het mogelijk dus om de w* vragen te beantwoorden: wie, wat, wanneer, waarmee, waarom.
-Ook een aantal puzzelstukjes die er nog waren in de originele DD-API vallen op hun plaats:
-
-- hoe om te gaan met kwaliteit van de meting
-- hoe om te gaan met nul-waarden
-- hoe om te gaan tijdintervallen
-
-Hiermee hebben we dus meer houvast.
-
-### Refereren in plaats van embedden
-
-Observations kunnen op zichzelf staan.
-Zowel ObservationCollection als Sample hebben de mogelijkheid aan Observation te refereren als zijnde een link.
-Bij ObservationCollection zou het ook embedded (als deel van het object zelf) kunnen worden opgeslagen, maar dat maakt het systeem zodanig dat vanuit Samples refereren moeilijk gaat.
-Het wordt nog complexer: Observation kan namelijk ook een embedded Sample bevatten.
-
-Daarom staan Observations in de Waterkwaliteit-API op zichzelf. Zowel ObservationCollection als Sample kunnen refereren hieraan door middel van referenties. ObservationCollection via member, en Specimen via relatedObservation. Op deze wijze kunnen Observations vanuit twee standpunten worden gezocht én behoeven Samples en ObservationCollections niet per sé geëxporteerd te worden wanneer de gebuiker die informatie niet nodig heeft.
-
-Refereren wordt dus geprefereerd boven embedden.
+Dit heeft consequenties voor een importmodel, maar ook voor het opvraagmodel.
   
 ## Concepten
 
@@ -95,8 +79,6 @@ Concepten:
 | ----- | ---------- |
 | Feature | Alles wat een identiteit heeft én eigenschappen bevat. Specifieke soorten features beschrijven de eigenschappen die de feature mag en moet hebben. |
 | Observer | Die- of datgene die Observation-gebeurtenissen genereert. Vertaling: de organisatie of het apparaat welke de Observaties doet. |
-| Deployment | Opdracht voor observaties aan Host. |
-| Host | Groepering van Observaties, zoals een fysiek platform, monitoringstation.  |
 | Sampler | Apparaat, entiteit (persoon, organisatie) die Samples aanmaakt. |
 | ObservationCollection | Een collectie van gelijksoortige Observations. Vrij vertaald: alle elementen die tezamen een klassieke meting vormen. |
 | Sample | Monster. Een Observation hoeft niet noodzakelijkerwijs uit een monster voort te komen. Sample komt voort uit een sampler, wat een apparaat kan zijn. |
@@ -104,9 +86,6 @@ Concepten:
 | Specimen | Specialisatie van een monster, waar onder anderen kan worden aangegeven waar het monster genomen is en waar het zich momenteel bevindt. |
 | Observation | Een gemeten waarde. Dit kan numeriek zijn, maar ook een type. Zie [ObservationTypes](#observationtypes). Er kunnen niet meerdere waarden in Observation worden opgenomen (behalve bij een timeseries, waar het gaat om een array van gemeten waarden). Daarom zijn er ObservationCollections, om de verschillende gemeten of geobserveerde waarden, te combineren tot een klassieke meting. |
 | FeatureOfInterest | Het te onderzoeken onderwerp, bijvoorbeeld het waterlichaam of een specifieke locatie. proximate is het te onderzoeken monster. ultimate is het totale object. Dus proximate is een subset van ultimate. Voor het waterdomein zal dit vaak een locatie zijn. |
-
-Conceptuele vertaling: wat wij in het verleden zagen als een meting, is eigenlijk een een serie afzonderlijke observaties: een ObservationCollection.
-Iedere separaat geconstateerd item is een observatie. In het geval van tijdsreeksen kan dat een serie meetwaarden/tijdstip combinaties zijn.
 
 ## Wie/waar is de eigenaar?
 

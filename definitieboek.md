@@ -7,9 +7,7 @@ Deze kan worden gebruikt voor het genereren van onder anderen de [Common Schema 
 
 Aquo legt wel grootheden vast, maar er wordt niet gedefinieerd in welke eenheden een dergelijke grootheid mag worden vastgelegd.
 Bij typeringen legt Aquo ook niet vast wat de acceptable waarden zijn.
-
 Dit kan leiden tot inconsistenties en (interpretatie-)fouten.
-
 Het Definitieboek kan een dienen als een bron om deze waarden wel te gaan standaardiseren.
 
 ## Observation referenties

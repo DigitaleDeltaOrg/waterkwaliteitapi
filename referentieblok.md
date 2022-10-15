@@ -12,7 +12,7 @@ Er wordt gebruik gemaakt van [JSON-LD](https://json-ld.org/).
 Het referentieblok ziet er als volgt uit (eigenschappen beschreven in JSON-LD worden geprefixed door een '@'):
 
 ``` json
-    "ref": {
+    "references": {
         "locations": [{
             "id": "NL12-VEEN",
             "code": "NL12-VEEN",
@@ -30,17 +30,17 @@ Het referentieblok ziet er als volgt uit (eigenschappen beschreven in JSON-LD wo
             "type": "Units",
             "name": "kubieke meter per uur"
         }],
-        "quantity": [{
+        "quantities": [{
             "id": "Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e",
             "code": "Debiet",
             "context": [{"href": "https://www.aquo.nl/index.php/Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e"}]
         }],
-        "source": [{
+        "sources": [{
             "id": "2",
             "code": "RWS",
             "name": "Rijkswaterstaat"
         }],
-        "compartment": [{
+        "compartments": [{
             "@id": "Id-ebfe5456-9b14-4925-b444-0b5c98b6642a",
             "@context": [{"href": "https://www.aquo.nl/index.php/Id-ebfe5456-9b14-4925-b444-0b5c98b6642a"}],
             "code": "OW",
@@ -50,6 +50,6 @@ Het referentieblok ziet er als volgt uit (eigenschappen beschreven in JSON-LD wo
 ```
 
 Referen naar een bepaald item in de reference gaat dan met:
-```/reference/measurementobject/NL12-VEEN``` of ```/reference/compartment/OW```
+```/reference/measurementobject/NL12-VEEN``` of ```/reference/compartments/OW```
 
 Het referentieblok komt meteen na het pagingblok, dus vóór het resultaatblok.

@@ -1,84 +1,170 @@
 # Resultaatblok
 
-Omdat in OMS er geen directe relatie bestaat tussen monster en observatiecollecties, worden beiden als separate entiteiten in de resultaatset meegegeven:
+Het formaat van de output zal afhankelijk zijn van het opgegeven export formaat (```$reportFormat```).
+De volgende formaten zijn in ieder geval aanwezig:
 
-{ "result": {
-    "samples": [],
-    "observationcollections": []
-}}
+- observationcollections: de 'root' is altijd ```ObservationCollection```. Daarbinnen staan de ```Observation```s.
+- samples: de 'root' is altijd Sample. Daarbinnen staan de Observations.
+- observations: de root is een ```Observation```. Aan ```Sample```s en ```ObservationCollection```s wordt gerefereerd.
 
-Het volgende voorbeeld is een ```ObservationCollection``` met alle mogelijke ```Observation```-types voor de Waterkwaliteit-API.
-De data is fictief en deze combinatie van timeseries en niet-timeseries is erg onwaarschijnlijk.
+## samples
+
+Het volgende fictief voorbeeld is een ```Sample```s en met meerdere ```Observation```s.
 
 ``` json
-{ 
-    "observationcollections": [
-        "id": "observation collection a34",
-        "phenomenonTime": { "instant":"2015-05-11" },
-        "featureOfInterest": { "href":"http://example.org/sighting345" },
+"samples": [
+    { 
+        "id": "<uniquesampleid>",
+        "samplingLocation": "",
+        "samplingMethod": "",
+        "samplingTime": "",
+        "sampledFeature": "",
         "member": [
             {
-                "id":"o96",
-                "type": "CategoryObservation",
-                "observedProperty": { "href": "http://environment.data.gov.au/def/property/taxon" },
-                "procedure": { "href":"http://www.opengis.net/def/waterml/2.0/processType/Manual" },
-                "resultTime": "2015-05-12T09:00:00+10:00",
-                "result": { "term": "johnstons-crocodile", "vocabulary": "http://environment.data.gov.au/def/object/"
-                }
-            },
-            {
-                "id": "boolean-test-instance",
-                "type": "TruthObservation",
-                "phenomenonTime": { "instant": "2011-05-11T00:00:00+10:00" },
-                "observedProperty": { "href": "urn:example:Truth" },
-                "procedure": { "href": "http://www.opengis.net/def/waterml/2.0/processType/Manual" },
-                "featureOfInterest": { "href": "http://waterml2.csiro.au/rgs-api/v1/monitoring-point/419009/" },
-                "resultTime": "2011-05-12T09:00:00+10:00" ,
-                "result": true
-            },
-            {
-                "id": "boolean-test-instance",
+                "id": "<uniqueid1>-01",
                 "type": "CountObservation",
-                "phenomenonTime": { "instant": "2011-05-11" },
-                "observedProperty": { "href": "urn:example:Frequency" },
-                "procedure": { "href": "http://www.opengis.net/def/waterml/2.0/processType/Manual" },
-                "featureOfInterest": { "href": "http://waterml2.csiro.au/rgs-api/v1/monitoring-point/419009/" },
-                "resultTime": "2011-05-12T09:00:00+10:00",
+                "featureOfInterest": { "href": "/references/measurementobjects/VEEN" },
+                "phenomenonTime": { "datetime": "2015-05-11"},
+                "observedProperty": { "href": "/references/quantities/AANTL" },
+                "procedure": { "href": "/references/methods/MACEV_S530" },
+                "samplingStrategy": { "href": "/references/strategy/random" } ,
+                "resultTime":  { "datetime": "2015-05-11"},
+                "parameter": [ "/references/parameters/Abra_alba" ],
+                "resultQuality": {},
+                "validTime":  { "datetime": "2015-05-11"},
                 "result": 97
             },
             {
-                "id":"measure-instance-test",
-                "type" : "Measurement",
-                "phenomenonTime": { "instant":"2011-05-11T00:00:00+10:00" },
-                "observedProperty": {"href":"http://environment.data.gov.au/def/property/air_temperature"},
-                "procedure": {"href":"http://www.opengis.net/def/waterml/2.0/processType/Sensor"},
-                "featureOfInterest": {"href":"http://waterml2.csiro.au/rgs-api/v1/monitoring-point/419009/"},
-                "resultTime": "2011-05-12T09:00:00+10:00",
-                "result": { "value": 3.2, "uom": "http://qudt.org/vocab/unit#DegreeCelsius" }
+                "id": "<uniqueid1>-02",
+                "type": "TruthObservation",
+                "procedure": { "href": "http://www.opengis.net/def/waterml/2.0/processType/Manual" },
+                "featureOfInterest": { "href": "/references/measurementobjects/VEEN" },
+                "resultTime":  { "datetime": "2015-05-11"},
+                "result": true  
             },
             {
-                "id":"timeseries-instance-test",
-                "type" : "http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_DiscreteTimeSeriesObservation",
-                "phenomenonTime": { "begin":"2015-08-03", "end":"2015-08-05" },
-                "observedProperty": {"href":"http://environment.data.gov.au/def/property/air_temperature"},
-                "procedure": {"href":"http://www.opengis.net/def/waterml/2.0/processType/Sensor"},
-                "featureOfInterest": {"href":"http://waterml2.csiro.au/rgs-api/v1/monitoring-point/419009/"},
-                "resultTime": "2015-08-05T09:00:00+10:00",
+                "id":"<uniqueid1>-03",
+                "type": "CategoryObservation",
+                "phenomenonTime":  { "datetime": "2015-05-11"},
+                "observedProperty": { "href": "http://environment.data.gov.au/def/property/taxon" },
+                "procedure": { "href":"#/references/methods/MACEV_S530" },
+                "featureOfInterest": { "href": "/references/measurementobjects/VEEN"},
+                "resultTime":  { "datetime": "2015-05-11"},
                 "result": {
-                    "metadata": { },
-                    "defaultPointMetadata": {
-                        "interpolationType": { "href": "http://www.opengis.net/def/waterml/2.0/interpolationType/Continuous" },
-                        "quality": { "href": "http://www.opengis.net/def/waterml/2.0/quality/unchecked" },
-                        "uom" : "http://qudt.org/vocab/unit#DegreeCelsius"
-                    },
-                    "points": [
-                        { "time":  { "instant": "2015-08-03" }, "value": 3.2 },
-                        { "time":  { "instant": "2015-08-04" }, "value": 3.5 },
-                        { "time":  { "instant": "2015-08-05" }, "value": 3.6 }
-                    ]
+                    "term": "LS-AD",
+                    "vocabulary": "https://www.aquo.nl/index.php/Id-01bfddaf-2f04-44ef-817d-2312f924a85d"
                 }
             }
-        ]
+        ] 
     }
+]
+    
 
+```
+
+## observationcollections
+
+Het volgende fictief voorbeeld is een ```ObservationCollection```s en met meerdere ```Observation```s.
+
+``` json
+"observationcollections": [
+    { 
+        "id": "<uniqueobservationcollectionid>",
+        "member": [
+        { 
+            "id": "<uniqueid1>", 
+            "type": "summerize", 
+            "member": [
+                {
+                    "id": "<uniqueid1>-01",
+                    "type": "CountObservation",
+                    "featureOfInterest": { "href": "/references/measurementobjects/VEEN" },
+                    "phenomenonTime": { "datetime": "2015-05-11"},
+                    "observedProperty": { "href": "/references/quantities/AANTL" },
+                    "procedure": { "href": "/references/methods/MACEV_S530" },
+                    "samplingStrategy": { "href": "/references/strategy/random" } ,
+                    "resultTime":  { "datetime": "2015-05-11"},
+                    "parameter": [ "/references/parameters/Abra_alba" ],
+                    "resultQuality": {},
+                    "validTime":  { "datetime": "2015-05-11"},
+                    "result": 97
+                },
+                {
+                    "id": "<uniqueid1>-02",
+                    "type": "TruthObservation",
+                    "procedure": { "href": "http://www.opengis.net/def/waterml/2.0/processType/Manual" },
+                    "featureOfInterest": { "href": "/references/measurementobjects/VEEN" },
+                    "resultTime":  { "datetime": "2015-05-11"},
+                    "result": true  
+                },
+                {
+                    "id":"<uniqueid1>-03",
+                    "type": "CategoryObservation",
+                    "phenomenonTime":  { "datetime": "2015-05-11"},
+                    "observedProperty": { "href": "http://environment.data.gov.au/def/property/taxon" },
+                    "procedure": { "href":"#/references/methods/MACEV_S530" },
+                    "featureOfInterest": { "href": "/references/measurementobjects/VEEN"},
+                    "resultTime":  { "datetime": "2015-05-11"},
+                    "result": {
+                        "term": "LS-AD",
+                        "vocabulary": "https://www.aquo.nl/index.php/Id-01bfddaf-2f04-44ef-817d-2312f924a85d"
+                    }
+                }
+            ] 
+        }]
+    }
+]
+```
+
+## observations
+
+Het volgende fictief voorbeeld is een ```ObservationCollection```s en met meerdere ```Observation```s.
+Via context wordt gerefereerd aan Samples en ObservationCollections.
+In dit formaat worden observations, samples en observationcollections als separate entiteiten meegegeven en wordt ernaar gelinkt.
+
+``` json
+{ 
+    "observations": [
+        {
+            "id": "<uniqueid1>-01",
+            "type": "CountObservation",
+            "featureOfInterest": { "href": "/references/measurementobjects/VEEN" },
+            "phenomenonTime": { "datetime": "2015-05-11"},
+            "observedProperty": { "href": "/references/quantities/AANTL" },
+            "procedure": { "href": "/references/methods/MACEV_S530" },
+            "samplingStrategy": { "href": "/references/strategy/random" } ,
+            "resultTime":  { "datetime": "2015-05-11"},
+            "parameter": [ "/references/parameters/Abra_alba" ],
+            "resultQuality": {},
+            "validTime":  { "datetime": "2015-05-11"},
+            "result": 97,
+            "context": [ "/observationcollections/observationcollectionid-1", "/samples/sampleid-2"]
+        },
+        {
+            "id": "<uniqueid1>-02",
+            "type": "TruthObservation",
+            "procedure": { "href": "http://www.opengis.net/def/waterml/2.0/processType/Manual" },
+            "featureOfInterest": { "href": "/references/measurementobjects/VEEN" },
+            "resultTime":  { "datetime": "2015-05-11"},
+            "result": true,
+            "context": []  
+        },
+        {
+            "id":"<uniqueid1>-03",
+            "type": "CategoryObservation",
+            "phenomenonTime":  { "datetime": "2015-05-11"},
+            "observedProperty": { "href": "http://environment.data.gov.au/def/property/taxon" },
+            "procedure": { "href":"#/references/methods/MACEV_S530" },
+            "featureOfInterest": { "href": "/references/measurementobjects/VEEN"},
+            "resultTime":  { "datetime": "2015-05-11"},
+            "result": {
+                "term": "LS-AD",
+                "vocabulary": "https://www.aquo.nl/index.php/Id-01bfddaf-2f04-44ef-817d-2312f924a85d"
+            },
+            "context": []
+        }
+    ],
+    "observationcollections": [],
+    "samples": [] 
+}
 ```

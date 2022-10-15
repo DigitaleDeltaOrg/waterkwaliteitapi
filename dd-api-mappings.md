@@ -38,11 +38,11 @@ Iedere timeseries wordt een TimeseriesObservation. Er is geen ObservationCollect
 
 { 
     "references": [
-        "quantity": { "code": "Debiet", "href": "https://www.aquo.nl/index.php/Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e"},
-        "unit": { "code": "m3_min", "href": "https://www.aquo.nl/index.php/Id-e7385e19-fd7f-4ce5-8099-36d15f733907"},
-        "compartment": { "code": "PC", "href": "https://www.aquo.nl/index.php/Id-6134f3bb-6048-431d-a130-01290d84172c"},
-        "location": { "code": "VEEN", "href": "https://www.aquo.nl/index.php/Id-6134f3bb-6048-431d-a130-01290d84172c", "geo": {}},
-        "source": { "code": "NS_23"},
+        "quantity": {  "Id": "", "code": "Debiet", "name": "", "href": "https://www.aquo.nl/index.php/Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e"},
+        "unit": {  "Id": "", "code": "m3_min", "name": "", "href": "https://www.aquo.nl/index.php/Id-e7385e19-fd7f-4ce5-8099-36d15f733907"},
+        "compartment": {  "Id": "", "code": "PC", "name": "", "href": "https://www.aquo.nl/index.php/Id-6134f3bb-6048-431d-a130-01290d84172c"},
+        "location": {  "Id": "", "code": "VEEN", "name": "", "href": "https://www.aquo.nl/index.php/Id-6134f3bb-6048-431d-a130-01290d84172c", "geo": {}},
+        "source": { "Id": "", "code": "NS_23", "name": ""},
     ]
 },
 
