@@ -1,15 +1,13 @@
 # OMS Import opbouw
 
-Een OMS import heeft een andere struktuur dan het export formaat. Dat komt doordat Samples en ObservationCollections optioneel zijn. Bij het importeren worden daarom Observations los gezien van Samples en ObservationCollections.
-Dat zullen drie verschillende blokken zijn.
+Een OMS import heeft dezelfde struktuur als de [Observations-style](oms-observation-style.md) export.
+Samples en ObservationCollections worden beschouwd als referenties.
+Via de ```Content-csr``` header wordt de geografische datum meegegeven.
 
-Het import-bestand zal verder duidelijk aangeven welke geografische datum wordt gebruikt.
-Het import-bestand zal ook een referentieblok bevatten, om de grootte van het bestand te beperken.
-Daarnaast kan het referentieblok dienen voor het aanmaken van ontbrekende referenties in het doelsysteem.
+Het referentieblok dient om eventuele gerefereerde entiteiten toe te voegen.
 
 ```json
 {
-  "crs": "EPSG:28992",
   "references": [
     "locations": [],
     "units": [],
@@ -17,10 +15,14 @@ Daarnaast kan het referentieblok dienen voor het aanmaken van ontbrekende refere
     "quantities": [],
     "samplingmethods": [],
     "parameters": [],
+    "samples": [],
+    "observationcollections": [],
     "...": [],
   ],
-  "observations": [],
-  "samples": [{ "Id": "", "samplinglocation": "/references/locations/VEEN", "relatedObservation": [ "observation-id1", "observation-id2", "observation-id3" ]}],
-  "observationcollections": [ {"Id": "", "member": [ "observation-id1", "observation-id2", "observation-id3" ]}]
+  "observations": []
 }
 ```
+
+Voor verwerking, moet de integriteit worden gewaakt. Daartoe worden éérst alle referenties _behalve_ samples en observationcollections verwerkt.
+Daarna worden observations verwerkt.
+Daarna pas alle referenties naar samples en observationcollections.

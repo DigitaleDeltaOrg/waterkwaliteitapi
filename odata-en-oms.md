@@ -13,7 +13,6 @@ De CSDL helpt dan ook met de Discovery functionaliteit van OData.
 
 Via [aliassen](https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_Alias) kunnen complexe velddefinities worden vereenvoudigd.
 
-
 ## Filteren
 
 De volgende endpoints zijn nodig:
