@@ -13,23 +13,28 @@ De CSDL helpt dan ook met de Discovery functionaliteit van OData.
 
 Via [aliassen](https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csdl-json-v4.01.html#sec_Alias) kunnen complexe velddefinities worden vereenvoudigd.
 
+
 ## Filteren
 
 De volgende endpoints zijn nodig:
 
 - ```/References``` -> Alle gereferenties die binnen het systeem bekend zijn, zoals locaties, parameters, grootheden, eenheden, hoedanigheden, etc.
-- ```/Measurements``` -> Specimen en Observations
+- ```/observations``` -> Observation-stijl uitvoer
+- ```/samples``` -> Sample-stijl uitvoer
+- ```/observationcollections``` -> ObservationCollection-stijl uitvoer
 
 ### Reference filtering
+
+Het filteren op referenties gaat met de volgende zoekopties.
 
 ```/References``` retourneert een lijst van bekende types.
 ```/Reference?$filter=type eq 'locations'``` haalt alle locaties op.
 ```/Reference?$filter=type eq 'locations' and geo.distance(Location/geo, geography'POINT(-122 43)') gt 1)``` haalt aleen locaties op met een maximale afstand van opgegeven WKT locatie.
 ```/Reference?$filter=code eq '123'``` haalt alle referenties op, ongeacht het type, met code '123'.
 
-### Measurement filtering
+### Metingen filtering
 
-De filtermogelijkheden voor Measurements zijn:
+Voor /observations, /samples en /observationcollections zijn er de volgende filtering opties:
 
 | Filterargument | Operators | Functies  | Toegestaan | Type |
 | ---------- | ---- | ---- | ---- | ---- |
@@ -67,8 +72,6 @@ De filtermogelijkheden voor Measurements zijn:
 
 Paden zijn mogelijk: ```/sample(1)/observationcollection(1)/measure/uom(1)``` is een valide zoekopdracht, maar zal zeer onwaarschijnlijk worden gebruikt.
 
-$count is altijd op basis van het aantal samples.
-
-
+$count is altijd op basis het hoofdtype: dus aantal Observations voor /observations, aantal Samples voor /samples, etc.
 
 Opmerking: OData kan momenteel niet zoeken op GeoJSON. Het ondersteund wél zoeken via WKT.

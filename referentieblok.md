@@ -14,7 +14,7 @@ Het referentieblok ziet er als volgt uit (eigenschappen beschreven in JSON-LD wo
 ``` json
     "references": {
         "locations": [{
-            "id": "NL12-VEEN",
+            "@id": "NL12-VEEN",
             "code": "NL12-VEEN",
             "type": "NamedGeoObject",
             "geo": {
@@ -25,18 +25,18 @@ Het referentieblok ziet er als volgt uit (eigenschappen beschreven in JSON-LD wo
         }],
         "uom": [{
             "context": [{"href": "https://www.aquo.nl/index.php/Id-315b7646-3b9d-45c4-a387-d0ebb8d6c04b"}],
-            "id": "Id-315b7646-3b9d-45c4-a387-d0ebb8d6c04b",
+            "@id": "Id-315b7646-3b9d-45c4-a387-d0ebb8d6c04b",
             "code": "kuub_uur",
             "type": "Units",
             "name": "kubieke meter per uur"
         }],
         "quantities": [{
-            "id": "Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e",
+            "@id": "Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e",
             "code": "Debiet",
-            "context": [{"href": "https://www.aquo.nl/index.php/Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e"}]
+            "@context": [{"href": "https://www.aquo.nl/index.php/Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e"}]
         }],
         "sources": [{
-            "id": "2",
+            "@id": "2",
             "code": "RWS",
             "name": "Rijkswaterstaat"
         }],

@@ -36,7 +36,7 @@ Daarom wordt hier Kennisplatform APIs aangehouden. Daar is de volgende oplossing
 - Wanneer de server niet om kan gaan met de CRS, dan kan de server een BAD REQUEST teruggeven, met daarin een ```Accept-Crs``` header met als data de CRS'en die de server wel accepteert. Dit wordt beschouwd als een validatiefout.
 
 Het effect is dat het opgegeven CRS geldt voor alle GeoJSON binnen de download dan wel upload.
-De server dient minimaal de volgende CRS'en te ondersteunen: ```EPSG:4326``` (WGS84), ```EPSG:28992``` (Amersfoort/RD New), ```ESPG:4258``` (ETRS89). 
+De server dient minimaal de volgende CRS'en te ondersteunen: ```EPSG:4326``` (WGS84), ```EPSG:28992``` (Amersfoort/RD New), ```ESPG:4258``` (ETRS89).
 Het wordt aangeraden om ook de specifieke EPSG's voor onze regio te gebruiken (de 31n varianten).
 
 Voor conversie kan RDNAPTRANS of een omgeving-specifieke Proj-library worden gebruikt.

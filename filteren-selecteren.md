@@ -20,5 +20,5 @@ _Uitzoeken: Is ```$expand``` nodig?_
 
 Operaties om data toe te voegen, wijzigen of verwijderen worden **niet** ondersteund.
 
-De te gebruiken zoekmogelijkheden staan beschreven in het hoofdstuk [OMS en data](odata-en-oms.md).
+De te gebruiken zoekmogelijkheden staan beschreven in het hoofdstuk [OData en OMS](odata-en-oms.md).
 De te gebruiken exportformaten staan beschreven in het hoofdstuk [OMS export opbouw](oms-export-opbouw.md).

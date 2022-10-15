@@ -1,0 +1,42 @@
+{ 
+    "observations": [
+        {
+            "id": "<uniqueid1>-01",
+            "type": "CountObservation",
+            "featureOfInterest": { "href": "/references/measurementobjects/VEEN" },
+            "phenomenonTime": { "datetime": "2015-05-11"},
+            "observedProperty": { "href": "/references/quantities/AANTL" },
+            "procedure": { "href": "/references/methods/MACEV_S530" },
+            "samplingStrategy": { "href": "/references/strategy/random" } ,
+            "resultTime":  { "datetime": "2015-05-11"},
+            "parameter": [ "/references/parameters/Abra_alba" ],
+            "resultQuality": {},
+            "validTime":  { "datetime": "2015-05-11"},
+            "result": 97,
+            "context": [ "/observationcollections/observationcollectionid-1", "/samples/sampleid-2"]
+        },
+        {
+            "id": "<uniqueid1>-02",
+            "type": "TruthObservation",
+            "procedure": { "href": "http://www.opengis.net/def/waterml/2.0/processType/Manual" },
+            "featureOfInterest": { "href": "/references/measurementobjects/VEEN" },
+            "resultTime":  { "datetime": "2015-05-11"},
+            "result": true,
+            "context": []  
+        },
+        {
+            "id":"<uniqueid1>-03",
+            "type": "CategoryObservation",
+            "phenomenonTime":  { "datetime": "2015-05-11"},
+            "observedProperty": { "href": "http://environment.data.gov.au/def/property/taxon" },
+            "procedure": { "href":"#/references/methods/MACEV_S530" },
+            "featureOfInterest": { "href": "/references/measurementobjects/VEEN"},
+            "resultTime":  { "datetime": "2015-05-11"},
+            "result": {
+                "term": "LS-AD",
+                "vocabulary": "https://www.aquo.nl/index.php/Id-01bfddaf-2f04-44ef-817d-2312f924a85d"
+            },
+            "context": []
+        }
+    ]
+}

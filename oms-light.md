@@ -103,12 +103,12 @@ Wanneer een veld gemarkeerd is met een *, dan is het een verplicht veld.
 - SamplingMethod: link: /references/samplingmethods/...
 - *SamplingLocation: link: /references/locations/...
 - SamplingSampledFeature: link: /references/features/...
-- members: ObservationCollection[1..n]
+- members: Links:ObservationCollection[1..n]
 
 ### ObservationCollection
 
 - *Uniek Id: string
-- *member: Observation[1..n]
+- *member: Links:Observation[1..n]
 
 ### Observation
 
