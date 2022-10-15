@@ -5,7 +5,7 @@ De Waterkwaliteit-API heeft een aantal functionele eisen. Die staan hieronder ve
 ## Zowel export (opvragen) and import (data toevoegen of wijzigen)
 
 Via de Waterkwaliteit API moet zowel data kunnen worden [opgevraagd in OData formaat](filteren-selecteren.md).
-Data moet ook kunnen worden toegevoegd of verwijderd, [in bulk formaat](aanbieden-bulk-verwerking).
+Data moet ook kunnen worden toegevoegd of verwijderd, [in bulk formaat](bulkverwerking.md).
 
 ## Standaarden
 
@@ -25,4 +25,4 @@ Validatiefouten zijn beschreven in onderdeel [validatie](validatie.md).
 ## Buiten scope
 
 - Deze specificatie houdt zich primair bezig met observaties. In de Waterkwaliteit-API worden grids en timeseries gezien als buiten de scope van het project. Dat geldt ook voor MultiPoint- en AspectSets-gebaseerde timeseries.
-- Het OMS model is _enorm_. De beschrijving is maar liefst 130 pagina's lang. Er wordt in deze API slechts rekening gehouden met onderdelen die voor de API van belang zijn. Daarom maakt de Waterkwaliteit-API gebruik van een [light versie van OMS](oms-light), met als toevoeging een referentiesysteem om koppelingen naar Aquo leesbaar te houden.
+- Het OMS model is _enorm_. De beschrijving is maar liefst 130 pagina's lang. Er wordt in deze API slechts rekening gehouden met onderdelen die voor de API van belang zijn. Daarom maakt de Waterkwaliteit-API gebruik van een [light versie van OMS](oms-light.md), met als toevoeging een referentiesysteem om koppelingen naar Aquo leesbaar te houden.

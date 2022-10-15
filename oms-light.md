@@ -83,7 +83,7 @@ Daarnaast zou het de complexiteit verhogen: naast zoeken in Observation zou ook 
 
 ## Light-plus
 
-Er is wél een toevoeging, die de OMS specificatie niet in de weg zit: het [referentiesysteem](referentieblok), om links naar Aquo leesbaar te houden.
+Er is wél een toevoeging, die de OMS specificatie niet in de weg zit: het [referentiesysteem](referentieblok.md), om links naar Aquo leesbaar te houden.
 Het doel van JSON is namelijk het leesbaar houden van de content. Links met alleen Ids zonder context, doet dat te niet.
 
 ## Vastlegging

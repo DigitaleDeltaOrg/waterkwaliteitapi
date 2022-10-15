@@ -1,6 +1,12 @@
 # OData en OMS
 
-temp: [](https://docs.ogc.org/is/18-088/18-088.html)
+Het opvraagmechanisme van [SensorThings API](https://docs.ogc.org/is/18-088/18-088.html) geeft een houvast aan hoe aan API voor metingen, gecombineerd met OData eruit kan zien.
+Echter, SensorThings lijkt niet gebruik te maken van ObservationCollection, waardoor de meetwaarden los staan. Echter is bij Waterkwaliteit-API juist de samenhang van de meetwaarden van belang.
+
+Het create/update/delete mechanisme van SensorThings API zal *niet* worden gebruikt. Toevoegen van data zal in grote volumes gaan, dus een [bulk-geörienteerde API](bulkverwerking.md) is beter geschikt voor de Waterkwaliteit-API.
+
+Door toevoeging van de ObservationCollection laag tussen Sample (Specimen) en Observation is dat echter wel te bewerkstelligen.
+Daarnaast is er veel meer metadata benodigd bij het vastleggen van ecologische waarnemingen. Dat betekent veel meer endpoints in de situatie zoals beschreven in SensorThings API. Echter, door gebruik te maken van het [referentiessysteem](referentieblok.md), is dat ook op te lossen.
 
 OData en OMS kunnen worden geïntegreerd. Voor OData geldt dat een Entity Data Model nodig is voor de beste werking. Vanuit het OMS én de Definitieboek kan een EDM worden gegenereerd als een CSDL.
 De CSDL helpt dan ook met de Discovery functionaliteit van OData.
@@ -9,33 +15,55 @@ Via [aliassen](https://docs.oasis-open.org/odata/odata-csdl-json/v4.01/odata-csd
 
 ## Filteren
 
-Er komt één data-centrisch 'hoofdingang': Observation. Deze zal standaard óók de Specimen en ObservationCollections retourneren.
-Via $select kan gekozen worden ome ze niet mee te geven.
+De volgende endpoints zijn nodig:
 
-| Filterargument | Alias | Operators | Functies  | Toegestaan | Type |
-| ---------- | ------ | ---- | ---- | ---- | ---- |
-| sample/type | sampletype | eq, ne | toupper, tolower, trim | homogeneous, summarize  | String |
-| sample/samplingTime | samplingTime | not, has, in, eq, ne, lt, gt, le, ge, in | day, hour, minute, month, second, year | | DateTime |
-| sample/samplingLocation/Geometry | sampleGeo | not, eq, ne | | distance_to, intersects | WKT |
-| sample/samplingLocation/Geometry/latitude | sampleLat | not, has, in, eq, ne, lt, gt, le, ge |  | | Number |
-| sample/samplingLocation/Geometry/longitude | sampleLon | not, has, in, eq, ne, lt, gt, le, ge | |  | Number |
-| sample/samplingLocation/Name | samplingLocation | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String || observation/type | observationType | not, has, in, eq, ne, in | |  measure, category-observation, count-observation,timeseries-observation, truth-observation | String |
-| observation/phenomenonTime | phenomenonTime | not, has, in, eq, ne, lt, gt, le, ge | day, hour, minute, month, second, year | | DateTime |
-| observation/observedProperty | observedProperty | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String  |
-| observation/featureOfInterest/Geometry | locationGeo | not, eq, ne | | distance_to, intersects | WKT |
-| observation/featureOfInterest/Geometry/latitude | lat | not, has, in, eq, ne, lt, gt, le, ge | |  | Number |
-| observation/featureOfInterest/Geometry/longitude | lon | not, has, in, eq, ne, lt, gt, le, ge | | | Number |
-| observation/featureOfInterest/Name | locationName | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim | | String |
-| observation/samplingStrategy | strategy | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
-| observation/procedure | procedure | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
-| observation/resultTime | resultTime | not, has, in, eq, ne, lt, gt, le, ge | day, hour, minute, month, second, year | | DateTime |
-| observation/parameter | parameter | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
-| observation/measure/uom | uom | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
-| observation/measure/value | value | not, has, in, eq, ne, lt, gt, le, ge |  | | Number |
-| observation/text | text | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim | | String |
-| observation/truth | truth | not, has, in, eq, ne | | | Bool |
-| observation/vocabTerm/term | term | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim | | String |
-| observation/vocabTerm/vocabulary | vocab | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim | | String |
-| observation/link/href | observationRef  | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim | | String  |
-| observation/link/rel | observationRel | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim  | | String  |
-| observation/link/title | observationTitle | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim  | | String |
+- ```/References``` -> Alle gereferenties die binnen het systeem bekend zijn, zoals locaties, parameters, grootheden, eenheden, hoedanigheden, etc.
+- ```/Measurements``` -> Specimen, ObservationCollections en Observations
+
+### Reference filtering
+
+```/References``` retourneert een lijst van bekende types.
+```/Reference?$filter=type eq 'locations'``` haalt alle locaties op.
+```/Reference?$filter=type eq 'locations' and geo.distance(Location/geo, geography'POINT(-122 43)') gt 1)```
+```/Reference?$filter=code eq '123'``` haalt alle referenties op, ongeacht het type, met code '123'.
+
+### Measurement filtering
+
+De filtermogelijkheden voor Measurements zijn:
+
+| Filterargument | Operators | Functies  | Toegestaan | Type |
+| ---------- | ---- | ---- | ---- | ---- |
+| ```sample(id)``` | |  | | String |
+| ```sample/samplingTime``` | not, has, in, eq, ne, lt, gt, le, ge, in | day, hour, minute, month, second, year | | DateTime | |
+| ```sample/samplingLocation(id)``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
+| ```sample/samplingLocation/Code```  | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
+| ```sample/samplingLocation/Geometry```  | not, eq, ne | | geo.distance, geo.length, geo.intersects | WKT |  |
+| ```sample/samplingLocation/Name```  | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String ||
+| ```observationcollection(id)``` | | | | String |
+| ```observation(id)``` | | | | String |
+| ```observation/type``` | not, has, in, eq, ne, in | |  measure, category-observation, count-observation, truth-observation | String |
+| ```observation/phenomenonTime``` | not, has, in, eq, ne, lt, gt, le, ge | day, hour, minute, month, second, year | | DateTime |
+| ```observation/observedProperty(id)``` | | | | String |
+| ```observation/observedProperty/Code``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String  |
+| ```observation/observedProperty/Name``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String  |
+| ```observation/featureOfInterest(id)``` | | | | String |
+| ```observation/featureOfInterest/Geometry``` | not, eq, ne | | geo.distance, geo.length, geo.intersects | WKT |
+| ```observation/featureOfInterest/Name``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim | | String |
+| ```observation/samplingStrategy(id))```  | | | | String |
+| ```observation/samplingStrategy/Code``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
+| ```observation/samplingStrategy/Name``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
+| ```observation/procedure``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
+| ```observation/resultTime``` | not, has, in, eq, ne, lt, gt, le, ge | day, hour, minute, month, second, year | | DateTime |
+| ```observation/parameter(id))```  | | | | String |
+| ```observation/parameter/Code``` |  not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
+| ```observation/parameter/Name``` |  not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
+| ```observation/measure/uom(id))```  | | | | String |
+| ```observation/measure/uom/Code``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
+| ```observation/measure/uom/Name``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring | toupper, tolower, trim | | String |
+| ```observation/measure/value``` | not, has, in, eq, ne, lt, gt, le, ge |  | | Number |
+| ```observation/text``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim | | String |
+| ```observation/truth``` | not, has, in, eq, ne | | | Bool |
+| ```observation/vocabTerm/term``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim | | String |
+| ```observation/vocabTerm/vocabulary``` | not, has, in, eq, ne, startswith, endswith, contains, concat, indexof, length, substring  | toupper, tolower, trim | | String |
+
+Opmerking: OData kan momenteel niet zoeken op GeoJSON. Het ondersteund wél zoeken via WKT.

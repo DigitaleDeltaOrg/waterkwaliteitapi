@@ -102,7 +102,7 @@ Concepten:
 | Sample | Monster. Een Observation hoeft niet noodzakelijkerwijs uit een monster voort te komen. Sample komt voort uit een sampler, wat een apparaat kan zijn. |
 | SamplingProcedure | Het proces van monstername. |
 | Specimen | Specialisatie van een monster, waar onder anderen kan worden aangegeven waar het monster genomen is en waar het zich momenteel bevindt. |
-| Observation | Een gemeten waarde. Dit kan numeriek zijn, maar ook een type. Zie [ObservationTypes](ObservationTypes). Er kunnen niet meerdere waarden in Observation worden opgenomen (behalve bij een timeseries, waar het gaat om een array van gemeten waarden). Daarom zijn er ObservationCollections, om de verschillende gemeten of geobserveerde waarden, te combineren tot een klassieke meting. |
+| Observation | Een gemeten waarde. Dit kan numeriek zijn, maar ook een type. Zie [ObservationTypes](#observationtypes). Er kunnen niet meerdere waarden in Observation worden opgenomen (behalve bij een timeseries, waar het gaat om een array van gemeten waarden). Daarom zijn er ObservationCollections, om de verschillende gemeten of geobserveerde waarden, te combineren tot een klassieke meting. |
 | FeatureOfInterest | Het te onderzoeken onderwerp, bijvoorbeeld het waterlichaam of een specifieke locatie. proximate is het te onderzoeken monster. ultimate is het totale object. Dus proximate is een subset van ultimate. Voor het waterdomein zal dit vaak een locatie zijn. |
 
 Conceptuele vertaling: wat wij in het verleden zagen als een meting, is eigenlijk een een serie afzonderlijke observaties: een ObservationCollection.
@@ -124,7 +124,6 @@ Voor de Waterkwaliteit-API zijn de volgende types van belang:
 | category-observation | Een geconstateerde categorie, bijvoorbeeld lengteklasse. | Referentie naar waarde. _Deze worden in het [Definitieboek](definitieboek.md) vastgelegd_. |
 | truth-observation | Waar of onwaar | Boolean |
 | count-observation | Telling, bijvoorbeeld aantal cellen | Geheel getal, geen eenheid. Aquo DIMSLS |
-| timeseries-observation | Tijdreeks | Set van combinaties van tijdstip + gemeten waarde |
 | text-observation | Text | Bijvoorbeeld een opmerking? |
 
 Er zijn meer typen, maar bovengenoemde liggen in de scope van dit project.
@@ -135,5 +134,5 @@ In de Waterkwaliteit-API zal een subset van Sample worden gebruikt.
 ## OMS-light
 
 Het gehele OMS implementeren is te groot voor het doel, en zal ook draagvlak in de weg zitten.
-Daarom wordt een [verkorte versie van OMS](oms-light) geïntroduceerd, die echter wél compatibel is met de uitgebreide versie.
+Daarom wordt een [verkorte versie van OMS](oms-light.md) geïntroduceerd, die echter wél compatibel is met de uitgebreide versie.
 Deze versie houdt _geen_ rekening met tijdsreeksen.

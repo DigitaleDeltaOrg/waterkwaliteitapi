@@ -12,31 +12,31 @@ Er wordt gebruik gemaakt van [JSON-LD](https://json-ld.org/).
 Het referentieblok ziet er als volgt uit (eigenschappen beschreven in JSON-LD worden geprefixed door een '@'):
 
 ``` json
-    "reference": {
-        "measurementobject": [{
-            "@id": "NL12-VEEN",
+    "ref": {
+        "locations": [{
+            "id": "NL12-VEEN",
             "code": "NL12-VEEN",
-            "@type": "NamedGeoObject",
+            "type": "NamedGeoObject",
             "geo": {
-                "latitude": "40.75",
-                "longitude": "73.98"
+                "type": "Point",
+                "coordinates": [40.75, 73.98 ]
             },
             "name": "Veen"
         }],
         "uom": [{
-            "@context": [{"href": "https://www.aquo.nl/index.php/Id-315b7646-3b9d-45c4-a387-d0ebb8d6c04b"}],
-            "@id": "Id-315b7646-3b9d-45c4-a387-d0ebb8d6c04b",
+            "context": [{"href": "https://www.aquo.nl/index.php/Id-315b7646-3b9d-45c4-a387-d0ebb8d6c04b"}],
+            "id": "Id-315b7646-3b9d-45c4-a387-d0ebb8d6c04b",
             "code": "kuub_uur",
-            "@type": "Units",
+            "type": "Units",
             "name": "kubieke meter per uur"
         }],
         "quantity": [{
-            "@id": "Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e",
+            "id": "Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e",
             "code": "Debiet",
             "context": [{"href": "https://www.aquo.nl/index.php/Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e"}]
         }],
         "source": [{
-            "@id": "2",
+            "id": "2",
             "code": "RWS",
             "name": "Rijkswaterstaat"
         }],
