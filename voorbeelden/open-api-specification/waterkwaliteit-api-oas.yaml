@@ -279,32 +279,40 @@ components:
 
     countObservation:
       type: object
+      $ref: "#/components/schemas/entityReference"
       properties: 
         count: 
           type: number
 
-    meeasureObservation:
+    measureObservation:
       type: object
+      $ref: "#/components/schemas/entityReference"
       properties:
         value: 
           type: number
         uom: 
           $ref: "#/components/schemas/reference"
+      required:
+        - value
+        - uom 
     
     textObservation:
       type: object
+      $ref: "#/components/schemas/entityReference"
       properties:
         text: 
           type: string
 
     truthObservation:
       type: object
+      $ref: "#/components/schemas/entityReference"
       properties:
         truth: 
           type: boolean
 
     vocabTermObservation:
       type: object
+      $ref: "#/components/schemas/entityReference"
       properties: 
         term: 
           type: string
@@ -476,7 +484,7 @@ components:
           format: date-time
         result:
           oneOf: 
-          - $ref: "#/components/schemas/meeasureObservation"
+          - $ref: "#/components/schemas/measureObservation"
           - $ref: "#/components/schemas/vocabTermObservation"
           - $ref: "#/components/schemas/truthObservation"
           - $ref: "#/components/schemas/countObservation"
@@ -554,28 +562,34 @@ components:
         type: string
 
     sampleResult:
-      type: array
-      items: 
-        allOf: 
-          -  $ref: "#/components/schemas/pagingBlock"
-          -  $ref: "#/components/schemas/referenceList"
-          -  $ref: "#/components/schemas/sampleList"
+      type: object
+      properties:
+        paging: 
+          $ref: "#/components/schemas/pagingBlock"
+        references: 
+          $ref: "#/components/schemas/referenceList"
+        result:   
+          $ref: "#/components/schemas/sampleList"
 
     observationResult:
-      type: array
-      items: 
-        allOf: 
-          -  $ref: "#/components/schemas/pagingBlock"
-          -  $ref: "#/components/schemas/referenceList"
-          -  $ref: "#/components/schemas/observationList"
+      type: object
+      properties: 
+        paging: 
+          $ref: "#/components/schemas/pagingBlock"
+        references: 
+          $ref: "#/components/schemas/referenceList"
+        result:   
+          $ref: "#/components/schemas/observationList"      
 
     observationCollectionResult:
-      type: array
-      items: 
-        allOf: 
-          -  $ref: "#/components/schemas/pagingBlock"
-          -  $ref: "#/components/schemas/referenceList"
-          -  $ref: "#/components/schemas/observationCollectionList"
+      type: object
+      properties:
+        paging: 
+          $ref: "#/components/schemas/pagingBlock"
+        references: 
+          $ref: "#/components/schemas/referenceList"
+        result:   
+          $ref: "#/components/schemas/observationCollectionList"
 
     validationResult:
       type: object
