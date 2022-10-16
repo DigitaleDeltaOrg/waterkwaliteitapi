@@ -10,7 +10,7 @@ Dit document is momenteel in voorstel-fase. Er zal de komende tijd nog flink aan
 - [Definitie van log-berichten](logging.md) (werk in uitvoering)
 - [Definitie van gestandaardiseerde validatiefouten als antwoord op bulk-verwerking](validatie.md)
 - [OData voorbeelden voor OMS](odata-en-oms.md)
-- [Open API Schema](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/DigitaleDeltaOrg/waterkwaliteitapi/main/voorbeelden/open-api-specification/waterkwaliteit-api-oas.yaml&nocors) (werk in uitvoering)
+- [Open API Schema](https://editor.swagger.io/?url=https://raw.githubusercontent.com/DigitaleDeltaOrg/waterkwaliteitapi/main/voorbeelden/open-api-specification/waterkwaliteit-api-oas.yaml) (werk in uitvoering)
 
 ## Samenvatting
 
