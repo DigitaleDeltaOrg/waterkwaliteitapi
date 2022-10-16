@@ -277,6 +277,40 @@ components:
           format: uri
           description: "[Link to a related entity](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_LinktoRelatedEntitiesWhenCreatinganE)"
 
+    countObservation:
+      type: object
+      properties: 
+        count: 
+          type: number
+
+    meeasureObservation:
+      type: object
+      properties:
+        value: 
+          type: number
+        uom: 
+          $ref: "#/components/schemas/reference"
+    
+    textObservation:
+      type: object
+      properties:
+        text: 
+          type: string
+
+    truthObservation:
+      type: object
+      properties:
+        truth: 
+          type: boolean
+
+    vocabTermObservation:
+      type: object
+      properties: 
+        term: 
+          type: string
+        vocabulary:
+          $ref: "#/components/schemas/reference"
+
     error:
       type: object
       required:
@@ -428,6 +462,29 @@ components:
       properties:
         type: 
           type: string = 'observation'
+        phenomenonTime:
+          type: string
+          format: date-time
+        observedProperty:
+          $ref: "#/components/schemas/reference"
+        procedure:
+          $ref: "#/components/schemas/reference"
+        samplingStrategy:
+          $ref: "#/components/schemas/reference"
+        resultTime:
+          type: string
+          format: date-time
+        result:
+          oneOf: 
+          - $ref: "#/components/schemas/meeasureObservation"
+          - $ref: "#/components/schemas/vocabTermObservation"
+          - $ref: "#/components/schemas/truthObservation"
+          - $ref: "#/components/schemas/countObservation"
+          - $ref: "#/components/schemas/textObservation"
+      required: 
+        - id
+        - type
+        - result
     
     sample:
       type: object
@@ -523,6 +580,7 @@ components:
     validationResult:
       type: object
 
+    # ==== start GeoJSON ====
     geometry:
       type: object
       description: GeoJSon geometry
@@ -605,8 +663,7 @@ components:
               items:
                 type: array
                 items:
-                  $ref: '#/components/schemas/point'
-  
+                  $ref: '#/components/schemas/point' 
   
     multiPolygon:
       type: object
@@ -681,6 +738,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/feature'
+    # ==== end GeoJSON ====
 
   parameters:
     top:
@@ -730,42 +788,42 @@ components:
             "$ref": "#/components/schemas/error"
 
     observation:
-      description: Error
+      description: Observation result
       content:
         application/json:
           schema:
             "$ref": "#/components/schemas/observationResult"
 
     observationcollection:
-      description: Error
+      description: ObservationCollection result
       content:
         application/json:
           schema:
             "$ref": "#/components/schemas/observationCollectionResult"
 
     sample:
-      description: Error
+      description: Sample result
       content:
         application/json:
           schema:
             "$ref": "#/components/schemas/sampleResult"
 
     referencetype:
-      description: Error
+      description: Reference type result
       content:
         application/json:
           schema:
             "$ref": "#/components/schemas/referenceTypeResult"
         
     reference:
-      description: Error
+      description: Reference result
       content:
         application/json:
           schema:
             "$ref": "#/components/schemas/referenceResult"
               
     validation:
-      description: Error
+      description: Validation result
       content:
         application/json:
           schema:
