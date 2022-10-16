@@ -141,7 +141,7 @@ Wanneer een veld gemarkeerd is met een *, dan is het een verplicht veld.
 
 Iedere Observation kan dus slechts één enkele waarde bevatten. Bij elkaar behorende meetwaarden worden verzameld in een ObservationCollection.
 
-ResultTime is hier verplicht, want niet verplicht is in OMS. De reden: resultTime moet ergens in de structuur worden vastgelegd. Dat kan in de context van de Waterkwaliteit-API slechts op één plek: Observation.
+ResultTime is hier verplicht, want niet verplicht is in OMS. De reden: resultTime moet ergens in de structuur worden vastgelegd. In OMS kan dat binnen een TimeSeries, maar dat is niet onderdeel van OMS Light. Daar kan in de context van de Waterkwaliteit-API slechts op één plek: in Observation.
 
 Een veld welke niet standaard aanwezig is, is de eigenaar. Daartoe kan echter bij de ObservationCollection een extra Observation worden opgegeven van het type CategoryObervation. Die kan dan als term de code van de organisatie bevatten, en als vocabulary een link naar /references/relations.
 In het Definitieboek kan worden vastgelegd dat deze vereist is (meetinstantie).
