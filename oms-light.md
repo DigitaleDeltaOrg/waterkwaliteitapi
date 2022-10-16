@@ -1,7 +1,7 @@
 # OMS-light
 
-OMS-light is een vereenvoudigde versie van OMS, waar toch alle zaken in staan die nodig zijn voor de Waterkwaliteit-API.
-Hierdoor wordt compatibiliteit met OMS gehandhaald: er worden alleen niet-relevante elementen weggelaten, gezien vanuit het bereik van deze versie van de Waterkwaliteit-API.
+OMS-light is een vereenvoudigde versie van OMS, waar alle zaken in staan die nodig zijn voor de Waterkwaliteit-API.
+Hierdoor wordt compatibiliteit met OMS gehandhaafd: er worden alleen niet-relevante elementen weggelaten, gezien vanuit het bereik van deze versie van de Waterkwaliteit-API.
 
 OMS-light is beschreven in [YAML](https://yaml.org) formaat omdat het leesbaarder is dan JSON. Daarnaast zijn voorbeelden gegeven in JSON formaat.
 

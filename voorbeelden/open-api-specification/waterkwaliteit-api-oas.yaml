@@ -465,6 +465,7 @@ components:
               - $ref: '#/components/schemas/feature'
               - $ref: '#/components/schemas/featureCollection'
         namespace: string
+        krwWaterType: string
 
     compartment:
       type: object
