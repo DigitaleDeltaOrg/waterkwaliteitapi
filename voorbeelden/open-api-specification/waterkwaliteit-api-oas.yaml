@@ -101,6 +101,15 @@ paths:
         '400':
           description: BAD
           $ref: "#/components/responses/validation"
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT FOUND
+        '429':
+          description: TOO MANY REQUESTS
+
     post: 
       summary: Import a new set of observations.
       description: Import a new set of observations.
@@ -109,14 +118,23 @@ paths:
         - Observations
         - OData
       responses:
-        '200':
-          description: OK. Body contains transaction id
+        '202':
+          description: ACCEPTED. Body contains transaction id
           content: 
             text/plain:
               schema:
                 type: string
         '400':
-          description: BAD
+          description: BAD REQUEST - Error in payload
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '413':
+          description: PAYLOAD TOO LARGE
+        '429':
+          description: TOO MANY REQUESTS
+
     delete: 
       summary: Remove a set of observations.
       description: Remove a set of observations.
@@ -125,10 +143,22 @@ paths:
         - Observations
         - OData
       responses:
-        '200':
-          description: OK
+        '202':
+          description: ACCEPTED. Body contains transaction id
+          content: 
+            text/plain:
+              schema:
+                type: string
         '400':
-          description: BAD    
+          description: BAD REQUEST - Error in payload
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '413':
+          description: PAYLOAD TOO LARGE
+        '429':
+          description: TOO MANY REQUESTS   
                 
   /samples:
     get:
@@ -199,6 +229,7 @@ components:
           tokenUrl: ...
           scopes:
             write: ...              
+
   schemas:
     count:
       anyOf:
@@ -349,7 +380,11 @@ components:
           type: string = 'location'
         geo: 
           type: 
-            $ref: '#/components/schemas/geometry'
+            oneOf:
+              - $ref: '#/components/schemas/geometry'
+              - $ref: '#/components/schemas/geometryCollection'
+              - $ref: '#/components/schemas/feature'
+              - $ref: '#/components/schemas/featureCollection'
         namespace: string
 
     compartment:
@@ -469,26 +504,15 @@ components:
       required:
         - type
           
-    point3D:
+    point:
       type: array
-      description: Point in 3D space
+      description: Point in 2D space
       externalDocs:
         url: http://geojson.org/geojson-spec.html#id2
       minItems: 2
-      maxItems: 3
+      maxItems: 2
       items:
         type: number
-    
-    point:
-      type: object
-      description: GeoJSon geometry
-      externalDocs:
-        url: http://geojson.org/geojson-spec.html#id2
-      allOf:
-        - $ref: "#/components/schemas/geometry"
-        - properties:
-            coordinates:
-              $ref: '#/components/schemas/point3D'
   
     lineString:
       type: object
@@ -501,7 +525,7 @@ components:
             coordinates:
               type: array
               items:
-                $ref: '#/components/schemas/point3D'
+                $ref: '#/components/schemas/point'
   
     polygon:
       type: object
@@ -516,7 +540,7 @@ components:
               items:
                 type: array
                 items:
-                  $ref: '#/components/schemas/point3D'
+                  $ref: '#/components/schemas/point'
   
     multiPoint:
       type: object
@@ -529,7 +553,7 @@ components:
             coordinates:
               type: array
               items:
-                $ref: '#/components/schemas/point3D'
+                $ref: '#/components/schemas/point'
   
     multiLineString:
       type: object
@@ -544,7 +568,7 @@ components:
               items:
                 type: array
                 items:
-                  $ref: '#/components/schemas/point3D'
+                  $ref: '#/components/schemas/point'
   
   
     multiPolygon:
@@ -562,7 +586,7 @@ components:
                 items:
                   type: array
                   items:
-                    $ref: '#/components/schemas/point3D'
+                    $ref: '#/components/schemas/point'
   
     geometryCollection:
       type: object
