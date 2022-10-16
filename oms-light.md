@@ -145,3 +145,5 @@ ResultTime is hier verplicht, want niet verplicht is in OMS. De reden: resultTim
 
 Een veld welke niet standaard aanwezig is, is de eigenaar. Daartoe kan echter bij de ObservationCollection een extra Observation worden opgegeven van het type CategoryObervation. Die kan dan als term de code van de organisatie bevatten, en als vocabulary een link naar /references/relations.
 In het Definitieboek kan worden vastgelegd dat deze vereist is (meetinstantie).
+
+De volledige specificatie wordt [hier](https://editor.swagger.io/?url=https://raw.githubusercontent.com/DigitaleDeltaOrg/waterkwaliteitapi/main/voorbeelden/open-api-specification/waterkwaliteit-api-oas.yaml) gevisualiseerd.
