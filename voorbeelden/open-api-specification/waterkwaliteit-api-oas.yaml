@@ -407,11 +407,20 @@ components:
       properties:
         type: 
           type: string = 'sample'
-        # TODO: Additional properties
-      relatedObservation:
-        type: array
-        items:
-          $ref: '#/components/schemas/reference'
+        samplingLocation: 
+          $ref: "#/components/schemas/reference"
+        samplingMethod:
+          $ref: "#/components/schemas/reference"       
+        samplingTime: 
+          type: string
+          format: date-time
+        sampledFeature:
+          $ref: "#/components/schemas/reference"       
+        relatedObservation:
+          type: array
+          items:
+            $ref: '#/components/schemas/reference'
+      # TODO: Additional properties
     
     observationCollection:
       type: object
@@ -419,11 +428,11 @@ components:
       properties:
         type: 
           type: string = 'observationCollection'
-        # TODO: Additional properties
-      member:
-        type: array
-        items:
-          $ref: '#/components/schemas/reference'
+        member:
+          type: array
+          items:
+            $ref: '#/components/schemas/reference'
+      # TODO: Additional properties
 
     unit:
       type: object
