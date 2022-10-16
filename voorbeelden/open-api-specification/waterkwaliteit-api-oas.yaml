@@ -423,6 +423,17 @@ components:
           -  $ref: "#/components/schemas/quantityList"
           -  $ref: "#/components/schemas/parameterList"
 
+    minimalReferenceList:
+      type: array
+      items: 
+        anyOf: 
+          -  $ref: "#/components/schemas/locationList"
+          -  $ref: "#/components/schemas/compartmentList"
+          -  $ref: "#/components/schemas/unitList"
+          -  $ref: "#/components/schemas/parameterList"
+          -  $ref: "#/components/schemas/quantityList"
+          -  $ref: "#/components/schemas/parameterList"
+
     reference:
       type: object
       $ref: "#/components/schemas/entityReference"
@@ -540,7 +551,7 @@ components:
       items: 
         allOf: 
           -  $ref: "#/components/schemas/pagingBlock"
-          -  $ref: "#/components/schemas/referenceList"
+          -  $ref: "#/components/schemas/minimalReferenceList"
 
     referenceTypeResult:
       type: array
