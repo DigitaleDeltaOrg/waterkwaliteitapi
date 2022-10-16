@@ -6,6 +6,7 @@ info:
   termsOfService: ...
   license:
     name: MIT
+    url: ...
   contact: 
     email: geri.wolters@ecosys.nl
     name: Geri Wolters
@@ -26,6 +27,38 @@ paths:
       responses:
         '200':
           description: OK
+          $ref: "#/components/responses/referencetype"
+        '400':
+          description: BAD
+  
+  /references/{type}:
+    get:
+      description: Retrieve known references of specified type in system.
+      summary: Retrieve known references of specified type in system.
+      operationId: reference-by-type
+      parameters:
+      - in: path
+        required: true
+        name: type
+        schema:
+          type: string
+      - in: query
+        $ref: "#/components/parameters/filter"
+      - in: query
+        $ref: "#/components/parameters/top"
+      - in: query
+        $ref: "#/components/parameters/count"
+      - in: query
+        $ref: "#/components/parameters/skip"
+      - in: query
+        $ref: "#/components/parameters/orderby"
+      tags: 
+        - References
+        - OData
+      responses:
+        '200':
+          description: OK
+          $ref: "#/components/responses/reference"
         '400':
           description: BAD
 
@@ -34,18 +67,30 @@ paths:
       summary: Query observations using OData.
       description: Query observations using OData.
       operationId: observation
+      parameters: 
+        - in: query
+          $ref: "#/components/parameters/filter"
+        - in: query
+          $ref: "#/components/parameters/top"
+        - in: query
+          $ref: "#/components/parameters/count"
+        - in: query
+          $ref: "#/components/parameters/skip"
+        - in: query
+          $ref: "#/components/parameters/orderby"
       tags: 
         - Observations
         - OData
       responses:
         '200':
           description: OK
+          $ref: "#/components/responses/observation"
         '400':
           description: BAD
   /observations/bulk:
     get: 
       summary: Request the status of a bulk job.
-      description: v
+      description: Request the status of a bulk job.
       operationId: observation-status-get
       tags: 
         - Observations
@@ -55,6 +100,7 @@ paths:
           description: OK
         '400':
           description: BAD
+          $ref: "#/components/responses/validation"
     post: 
       summary: Import a new set of observations.
       description: Import a new set of observations.
@@ -64,7 +110,11 @@ paths:
         - OData
       responses:
         '200':
-          description: OK
+          description: OK. Body contains transaction id
+          content: 
+            text/plain:
+              schema:
+                type: string
         '400':
           description: BAD
     delete: 
@@ -85,12 +135,24 @@ paths:
       summary: Query samples and associated observations using OData.
       description: Query samples and associated observations using OData.
       operationId: sample
+      parameters: 
+        - in: query
+          $ref: "#/components/parameters/filter"
+        - in: query
+          $ref: "#/components/parameters/top"
+        - in: query
+          $ref: "#/components/parameters/count"
+        - in: query
+          $ref: "#/components/parameters/skip"
+        - in: query
+          $ref: "#/components/parameters/orderby"
       tags: 
-        - Samples
-        - OData
+      - Samples
+      - OData
       responses:
         '200':
           description: OK
+          $ref: "#/components/responses/sample"
         '400':
           description: BAD
 
@@ -99,12 +161,24 @@ paths:
       summary: Query observation collections and associated observations using OData.
       description: Query observation collections and associated observations using OData.
       operationId: observationcollection
+      parameters: 
+        - in: query
+          $ref: "#/components/parameters/filter"
+        - in: query
+          $ref: "#/components/parameters/top"
+        - in: query
+          $ref: "#/components/parameters/count"
+        - in: query
+          $ref: "#/components/parameters/skip"
+        - in: query
+          $ref: "#/components/parameters/orderby"
       tags: 
         - ObservationCollections
         - OData
       responses:
         '200':
           description: OK
+          $ref: "#/components/responses/observationcollection"
         '400':
           description: BAD
 
@@ -179,8 +253,9 @@ components:
               type: object
               description: The structure of this object is service-specific
 
-    pagingBlock:  # TODO: Make external reference
+    pagingBlock:
       type: object
+      $ref: "#/components/schemas/entityReference"
       properties: 
         previousPage:
           type: string
@@ -192,12 +267,64 @@ components:
           type: integer
         maxPageSize:
           type: integer
-    
-    id:
-      type: string
+        $ref: "#/components/schemas/count"
+          
+    locationList:
+      type: array
+      items: 
+        $ref: "#/components/schemas/location"
+        
+    parameterList:
+      type: array
+      items: 
+        $ref: "#/components/schemas/parameter"
+        
+    compartmentList:
+      type: array
+      items: 
+        $ref: "#/components/schemas/compartment"
+        
+    quantityList:
+      type: array
+      items: 
+        $ref: "#/components/schemas/quantity"
+        
+    observationCollectionList:
+      type: array
+      items: 
+        $ref: "#/components/schemas/observationCollection"
+
+    observationList:
+      type: array
+      items: 
+        $ref: "#/components/schemas/observation"
+        
+    sampleList:
+      type: array
+      items: 
+        $ref: "#/components/schemas/sample"
+        
+    unitList:
+      type: array
+      items: 
+        $ref: "#/components/schemas/unit"
+
+    referenceList:
+      type: array
+      items: 
+        anyOf: 
+          -  $ref: "#/components/schemas/locationList"
+          -  $ref: "#/components/schemas/compartmentList"
+          -  $ref: "#/components/schemas/observationCollectionList"
+          -  $ref: "#/components/schemas/sampleList"
+          -  $ref: "#/components/schemas/unitList"
+          -  $ref: "#/components/schemas/parameterList"
+          -  $ref: "#/components/schemas/quantityList"
+          -  $ref: "#/components/schemas/parameterList"
 
     reference:
       type: object
+      $ref: "#/components/schemas/entityReference"
       properties:
         id:
           type: string
@@ -221,8 +348,16 @@ components:
         type: 
           type: string = 'location'
         geo: 
-          type: string
-          format: GeoJSON
+          type: 
+            $ref: '#/components/schemas/geometry'
+        namespace: string
+
+    compartment:
+      type: object
+      $ref: '#/components/schemas/reference'
+      properties:
+        type: 
+          type: string = 'compartment'
 
     observation:
       type: object
@@ -237,48 +372,258 @@ components:
       properties:
         type: 
           type: string = 'sample'
+        # TODO: Additional properties
       relatedObservation:
         type: array
         items:
-          $ref: '#/components/schemas/id'
+          $ref: '#/components/schemas/reference'
     
-    observationcollection:
+    observationCollection:
       type: object
       $ref: '#/components/schemas/reference'
       properties:
         type: 
-          type: string = 'observationcollection'
+          type: string = 'observationCollection'
+        # TODO: Additional properties
       member:
         type: array
         items:
-          $ref: '#/components/schemas/id'
+          $ref: '#/components/schemas/reference'
 
     unit:
       type: object
       $ref: '#/components/schemas/reference'
       properties:
-        type: 
-          type: string = 'unit'
+        type: string = 'unit'
+        symbol: string
 
     parameter:
       type: object
       $ref: '#/components/schemas/reference'
       properties:
-        type: 
-          type: string = 'parameter'
-        parametertype:
-          type: string
+        type: string = 'parameter'
+        parametertype: string
+        taxontype: string
+        author: string
           
     quantity:
       type: object
       $ref: '#/components/schemas/reference'
       properties:
-        type: 
-          type: string = 'quantity'
+        type: string = 'quantity'
 
-  parameters: # TODO: Make external reference
+    referenceResult:
+      type: array
+      items: 
+        allOf: 
+          -  $ref: "#/components/schemas/pagingBlock"
+          -  $ref: "#/components/schemas/referenceList"
+
+    referenceTypeResult:
+      type: array
+      items: 
+        type: string
+
+    sampleResult:
+      type: array
+      items: 
+        allOf: 
+          -  $ref: "#/components/schemas/pagingBlock"
+          -  $ref: "#/components/schemas/referenceList"
+          -  $ref: "#/components/schemas/sampleList"
+
+    observationResult:
+      type: array
+      items: 
+        allOf: 
+          -  $ref: "#/components/schemas/pagingBlock"
+          -  $ref: "#/components/schemas/referenceList"
+          -  $ref: "#/components/schemas/observationList"
+
+    observationCollectionResult:
+      type: array
+      items: 
+        allOf: 
+          -  $ref: "#/components/schemas/pagingBlock"
+          -  $ref: "#/components/schemas/referenceList"
+          -  $ref: "#/components/schemas/observationCollectionList"
+
+    validationResult:
+      type: object
+
+    geometry:
+      type: object
+      description: GeoJSon geometry
+      properties:
+        type: 
+          type: string
+          enum:
+            - Point
+            - LineString
+            - Polygon
+            - MultiPoint
+            - MultiLineString
+            - MultiPolygon
+      discriminator: 
+        propertyName: type
+      required:
+        - type
+          
+    point3D:
+      type: array
+      description: Point in 3D space
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#id2
+      minItems: 2
+      maxItems: 3
+      items:
+        type: number
+    
+    point:
+      type: object
+      description: GeoJSon geometry
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#id2
+      allOf:
+        - $ref: "#/components/schemas/geometry"
+        - properties:
+            coordinates:
+              $ref: '#/components/schemas/point3D'
+  
+    lineString:
+      type: object
+      description: GeoJSon geometry
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#id3
+      allOf:
+        - $ref: "#/components/schemas/geometry"
+        - properties:
+            coordinates:
+              type: array
+              items:
+                $ref: '#/components/schemas/point3D'
+  
+    polygon:
+      type: object
+      description: GeoJSon geometry
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#id4
+      allOf:
+        - $ref: "#/components/schemas/geometry"
+        - properties:
+            coordinates:
+              type: array
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/point3D'
+  
+    multiPoint:
+      type: object
+      description: GeoJSon geometry
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#id5
+      allOf:
+        - $ref: "#/components/schemas/geometry"
+        - properties:
+            coordinates:
+              type: array
+              items:
+                $ref: '#/components/schemas/point3D'
+  
+    multiLineString:
+      type: object
+      description: GeoJSon geometry
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#id6
+      allOf:
+        - $ref: "#/components/schemas/geometry"
+        - properties:
+            coordinates:
+              type: array
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/point3D'
+  
+  
+    multiPolygon:
+      type: object
+      description: GeoJSon geometry
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#id6
+      allOf:
+        - $ref: "#/components/schemas/geometry"
+        - properties:
+            coordinates:
+              type: array
+              items:
+                type: array
+                items:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/point3D'
+  
+    geometryCollection:
+      type: object
+      description: GeoJSon geometry collection
+      required:
+        - type
+        - geometries
+      externalDocs:
+        url: http://geojson.org/geojson-spec.html#geometrycollection
+      properties:
+        type:
+          type: string
+          enum:
+          - GeometryCollection
+        geometries:
+          type: array
+          items:
+            $ref: '#/components/schemas/geometry'
+  
+    feature:
+      type: object
+      description: GeoJSon Feature
+      required:
+        - type
+        - id
+        - geometry
+      externalDocs:
+        url: https://tools.ietf.org/html/rfc7946#section-3.2
+      properties:
+        type:
+          type: string
+          enum:
+            - Feature
+        id:
+          type: integer
+        geometry:
+          $ref: '#/components/schemas/geometryCollection'
+        properties:
+          type: object
+  
+    featureCollection:
+      type: object
+      description: GeoJSon Feature collection
+      required:
+        - type
+        - features
+      externalDocs:
+        url: https://tools.ietf.org/html/rfc7946#section-3.3
+      properties:
+        type:
+          type: string
+          enum:
+          - FeatureCollection
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/feature'
+
+  parameters:
     top:
-      name: top
+      name: $top
       in: query
       description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
       schema:
@@ -286,8 +631,15 @@ components:
         minimum: 0
       example: 50
 
+    filter:
+      name: $filter
+      in: query
+      description: OData [filter](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+      schema:
+        type: string
+
     skip:
-      name: skip
+      name: $skip
       in: query
       description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
       schema:
@@ -295,12 +647,19 @@ components:
         minimum: 0
 
     count:
-      name: count
+      name: $count
       in: query
       description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
       schema:
         type: boolean
-    
+
+    orderby:
+      name: $orderby
+      in: query
+      description: Sorging of items, see [OrderBy](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+      schema:
+        type: string
+
   responses:
     error:
       description: Error
@@ -308,3 +667,46 @@ components:
         application/json:
           schema:
             "$ref": "#/components/schemas/error"
+
+    observation:
+      description: Error
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/observationResult"
+
+    observationcollection:
+      description: Error
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/observationCollectionResult"
+
+    sample:
+      description: Error
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/sampleResult"
+
+    referencetype:
+      description: Error
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/referenceTypeResult"
+        
+    reference:
+      description: Error
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/referenceResult"
+              
+    validation:
+      description: Error
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/validationResult"
+        

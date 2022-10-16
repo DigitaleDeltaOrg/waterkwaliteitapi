@@ -37,3 +37,7 @@ Het [Definitieboek](definitieboek.md) zal leidend zijn met betrekking tot de dat
 ## Functionele eisen
 
 De functionele eisen zijn [hier](functionele-eisen.md) beschreven.
+
+## Open API Schema
+
+[Open API Schema]()
