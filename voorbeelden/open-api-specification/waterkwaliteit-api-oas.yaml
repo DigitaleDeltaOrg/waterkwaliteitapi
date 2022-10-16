@@ -446,8 +446,6 @@ components:
       type: object
       $ref: '#/components/schemas/reference'
       properties:
-        type: 
-          type: string = 'location'
         geo: 
           type: 
             oneOf:
@@ -460,16 +458,12 @@ components:
     compartment:
       type: object
       $ref: '#/components/schemas/reference'
-      properties:
-        type: 
-          type: string = 'compartment'
 
     observation:
       type: object
-      $ref: '#/components/schemas/reference'
       properties:
-        type: 
-          type: string = 'observation'
+        type:
+          type: string
         phenomenonTime:
           type: string
           format: date-time
@@ -478,6 +472,8 @@ components:
         procedure:
           $ref: "#/components/schemas/reference"
         samplingStrategy:
+          $ref: "#/components/schemas/reference"
+        featureOfInterest:
           $ref: "#/components/schemas/reference"
         resultTime:
           type: string
@@ -498,8 +494,6 @@ components:
       type: object
       $ref: '#/components/schemas/reference'
       properties:
-        type: 
-          type: string = 'sample'
         samplingLocation: 
           $ref: "#/components/schemas/reference"
         samplingMethod:
@@ -513,32 +507,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/reference'
-      # TODO: Additional properties
     
     observationCollection:
       type: object
       $ref: '#/components/schemas/reference'
       properties:
-        type: 
-          type: string = 'observationCollection'
         member:
           type: array
           items:
             $ref: '#/components/schemas/reference'
-      # TODO: Additional properties
 
     unit:
       type: object
       $ref: '#/components/schemas/reference'
       properties:
-        type: string = 'unit'
         symbol: string
 
     parameter:
       type: object
       $ref: '#/components/schemas/reference'
       properties:
-        type: string = 'parameter'
         parametertype: string
         taxontype: string
         author: string
@@ -546,8 +534,6 @@ components:
     quantity:
       type: object
       $ref: '#/components/schemas/reference'
-      properties:
-        type: string = 'quantity'
 
     referenceResult:
       type: array
@@ -570,6 +556,10 @@ components:
           $ref: "#/components/schemas/referenceList"
         result:   
           $ref: "#/components/schemas/sampleList"
+      required:
+        - paging
+        - references
+        - result   
 
     observationResult:
       type: object
@@ -579,7 +569,11 @@ components:
         references: 
           $ref: "#/components/schemas/referenceList"
         result:   
-          $ref: "#/components/schemas/observationList"      
+          $ref: "#/components/schemas/observationList"
+      required:
+        - paging
+        - references
+        - result      
 
     observationCollectionResult:
       type: object
@@ -590,7 +584,11 @@ components:
           $ref: "#/components/schemas/referenceList"
         result:   
           $ref: "#/components/schemas/observationCollectionList"
-
+      required:
+        - paging
+        - references
+        - result   
+    
     validationResult:
       type: object
 
