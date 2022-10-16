@@ -1,0 +1,37 @@
+{
+    "references": {
+        "locations": [{
+            "@id": "NL12-VEEN",
+            "code": "NL12-VEEN",
+            "type": "NamedGeoObject",
+            "geo": {
+                "type": "Point",
+                "coordinates": [40.75, 73.98 ]
+            },
+            "name": "Veen"
+        }],
+        "uom": [{
+            "context": [{"href": "https://www.aquo.nl/index.php/Id-315b7646-3b9d-45c4-a387-d0ebb8d6c04b"}],
+            "@id": "Id-315b7646-3b9d-45c4-a387-d0ebb8d6c04b",
+            "code": "kuub_uur",
+            "type": "Units",
+            "name": "kubieke meter per uur"
+        }],
+        "quantities": [{
+            "@id": "Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e",
+            "code": "Debiet",
+            "@context": [{"href": "https://www.aquo.nl/index.php/Id-01b89ecb-6f63-4463-b3c7-d9a712d7ed1e"}]
+        }],
+        "sources": [{
+            "@id": "2",
+            "code": "RWS",
+            "name": "Rijkswaterstaat"
+        }],
+        "compartments": [{
+            "@id": "Id-ebfe5456-9b14-4925-b444-0b5c98b6642a",
+            "@context": [{"href": "https://www.aquo.nl/index.php/Id-ebfe5456-9b14-4925-b444-0b5c98b6642a"}],
+            "code": "OW",
+            "name": "oppervlaktewater"
+        }]
+    }
+}
