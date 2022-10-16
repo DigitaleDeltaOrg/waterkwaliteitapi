@@ -89,12 +89,11 @@ paths:
           description: BAD
   /observations/bulk:
     get: 
-      summary: Request the status of a bulk job.
-      description: Request the status of a bulk job.
-      operationId: observation-status-get
+      summary: Request an overview of all bulk-requests.
+      description: Request an overview of all bulk-requests.
+      operationId: observation-bulk-history
       tags: 
-        - Observations
-        - OData
+        - Bulk
       responses:
         '200':
           description: OK
@@ -111,12 +110,13 @@ paths:
           description: TOO MANY REQUESTS
 
     post: 
-      summary: Import a new set of observations.
-      description: Import a new set of observations.
-      operationId: observation-import
+      summary: Request inserts/updates of a set of observations.
+      description: Request inserts/updates of a set of observations.
+      operationId: observation-bulk-import
       tags: 
-        - Observations
-        - OData
+        - Bulk
+        - Inserts
+        - Updates
       responses:
         '202':
           description: ACCEPTED. Body contains transaction id
@@ -136,12 +136,12 @@ paths:
           description: TOO MANY REQUESTS
 
     delete: 
-      summary: Remove a set of observations.
-      description: Remove a set of observations.
-      operationId: observation-delete
+      summary: Request removal of a set of observations.
+      description: Request removal of a set of observations.
+      operationId: observation-bulk-delete
       tags: 
-        - Observations
-        - OData
+        - Bulk
+        - Delete
       responses:
         '202':
           description: ACCEPTED. Body contains transaction id
@@ -160,6 +160,34 @@ paths:
         '429':
           description: TOO MANY REQUESTS   
                 
+  /observations/bulk/{transactionId}:
+    get: 
+      summary: Request the status of a bulk job.
+      description: Request the status of a bulk job.
+      operationId: observation-bulk-status
+      parameters:
+        - in: path
+          required: true
+          name: transactionId
+          schema:
+            type: string    
+      tags: 
+        - Bulk
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD
+          $ref: "#/components/responses/validation"
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT FOUND
+        '429':
+                  description: TOO MANY REQUESTS
+ 
   /samples:
     get:
       summary: Query samples and associated observations using OData.
