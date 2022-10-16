@@ -29,7 +29,7 @@ paths:
           description: OK
           $ref: "#/components/responses/referencetype"
         '400':
-          description: BAD
+          description: BAD REQUEST
   
   /references/{type}:
     get:
@@ -60,7 +60,7 @@ paths:
           description: OK
           $ref: "#/components/responses/reference"
         '400':
-          description: BAD
+          description: BAD REQUEST
 
   /observations:
     get:
@@ -86,7 +86,7 @@ paths:
           description: OK
           $ref: "#/components/responses/observation"
         '400':
-          description: BAD
+          description: BAD REQUEST
   /observations/bulk:
     get: 
       summary: Request an overview of all bulk-requests.
@@ -98,7 +98,7 @@ paths:
         '200':
           description: OK
         '400':
-          description: BAD
+          description: BAD REQUEST
           $ref: "#/components/responses/validation"
         '401':
           description: UNAUTHORIZED
@@ -602,6 +602,7 @@ components:
     
     validationResult:
       type: object
+      # TODO
 
     # ==== start GeoJSON ====
     geometry:
