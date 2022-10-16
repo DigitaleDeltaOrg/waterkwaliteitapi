@@ -40,4 +40,4 @@ De functionele eisen zijn [hier](functionele-eisen.md) beschreven.
 
 ## Open API Schema
 
-[Open API Schema](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/DigitaleDeltaOrg/waterkwaliteitapi/main/voorbeelden/open-api-specification/waterkwaliteit-api-oas.yaml)
+[Open API Schema](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/DigitaleDeltaOrg/waterkwaliteitapi/main/voorbeelden/open-api-specification/waterkwaliteit-api-oas.yaml&nocors)
