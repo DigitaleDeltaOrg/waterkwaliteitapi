@@ -276,48 +276,8 @@ components:
           type: string
           format: uri
           description: "[Link to a related entity](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_LinktoRelatedEntitiesWhenCreatinganE)"
-
-    countObservation:
-      type: object
-      $ref: "#/components/schemas/entityReference"
-      properties: 
-        count: 
-          type: number
-
-    measureObservation:
-      type: object
-      $ref: "#/components/schemas/entityReference"
-      properties:
-        value: 
-          type: number
-        uom: 
-          $ref: "#/components/schemas/reference"
       required:
-        - value
-        - uom 
-    
-    textObservation:
-      type: object
-      $ref: "#/components/schemas/entityReference"
-      properties:
-        text: 
-          type: string
-
-    truthObservation:
-      type: object
-      $ref: "#/components/schemas/entityReference"
-      properties:
-        truth: 
-          type: boolean
-
-    vocabTermObservation:
-      type: object
-      $ref: "#/components/schemas/entityReference"
-      properties: 
-        term: 
-          type: string
-        vocabulary:
-          $ref: "#/components/schemas/reference"
+        - "@id"
 
     error:
       type: object
@@ -370,6 +330,7 @@ components:
           type: integer
         $ref: "#/components/schemas/count"
           
+    # ==== start lists ====
     locationList:
       type: array
       items: 
@@ -434,6 +395,124 @@ components:
           -  $ref: "#/components/schemas/quantityList"
           -  $ref: "#/components/schemas/parameterList"
 
+    # ==== end list ====
+
+    # ==== start supported observation types ====
+    countObservation:
+      type: object
+      $ref: "#/components/schemas/entityReference"
+      properties: 
+        count: 
+          type: number
+      required:
+        - number
+
+    measureObservation:
+      type: object
+      $ref: "#/components/schemas/entityReference"
+      properties:
+        value: 
+          type: number
+        uom: 
+          $ref: "#/components/schemas/reference"
+      required:
+        - value
+        - uom 
+    
+    textObservation:
+      type: object
+      $ref: "#/components/schemas/entityReference"
+      properties:
+        text: 
+          type: string
+      required:
+        - text
+
+    truthObservation:
+      type: object
+      $ref: "#/components/schemas/entityReference"
+      properties:
+        truth: 
+          type: boolean
+      required:
+        - truth
+
+    vocabTermObservation:
+      type: object
+      $ref: "#/components/schemas/entityReference"
+      properties: 
+        term: 
+          type: string
+        vocabulary:
+          $ref: "#/components/schemas/reference"
+      required:
+        - term
+
+    # ==== end supported observation types ====
+
+    # ==== start observations, samples and observationcollections 
+    observation:
+      type: object
+      properties:
+        type:
+          type: string
+        phenomenonTime:
+          type: string
+          format: date-time
+        observedProperty:
+          $ref: "#/components/schemas/reference"
+        procedure:
+          $ref: "#/components/schemas/reference"
+        samplingStrategy:
+          $ref: "#/components/schemas/reference"
+        featureOfInterest:
+          $ref: "#/components/schemas/reference"
+        resultTime:
+          type: string
+          format: date-time
+        result:
+          oneOf: 
+          - $ref: "#/components/schemas/measureObservation"
+          - $ref: "#/components/schemas/vocabTermObservation"
+          - $ref: "#/components/schemas/truthObservation"
+          - $ref: "#/components/schemas/countObservation"
+          - $ref: "#/components/schemas/textObservation"
+      required: 
+        - id
+        - type
+        - result
+
+
+    sample:
+      type: object
+      $ref: '#/components/schemas/reference'
+      properties:
+        samplingLocation: 
+          $ref: "#/components/schemas/reference"
+        samplingMethod:
+          $ref: "#/components/schemas/reference"       
+        samplingTime: 
+          type: string
+          format: date-time
+        sampledFeature:
+          $ref: "#/components/schemas/reference"       
+        relatedObservation:
+          type: array
+          items:
+            $ref: '#/components/schemas/reference'
+    
+    observationCollection:
+      type: object
+      $ref: '#/components/schemas/reference'
+      properties:
+        member:
+          type: array
+          items:
+            $ref: '#/components/schemas/reference'
+
+    # ==== end observations, samples and observationcollections ====
+
+    # ==== start references and related ====
     reference:
       type: object
       $ref: "#/components/schemas/entityReference"
@@ -471,64 +550,6 @@ components:
       type: object
       $ref: '#/components/schemas/reference'
 
-    observation:
-      type: object
-      properties:
-        type:
-          type: string
-        phenomenonTime:
-          type: string
-          format: date-time
-        observedProperty:
-          $ref: "#/components/schemas/reference"
-        procedure:
-          $ref: "#/components/schemas/reference"
-        samplingStrategy:
-          $ref: "#/components/schemas/reference"
-        featureOfInterest:
-          $ref: "#/components/schemas/reference"
-        resultTime:
-          type: string
-          format: date-time
-        result:
-          oneOf: 
-          - $ref: "#/components/schemas/measureObservation"
-          - $ref: "#/components/schemas/vocabTermObservation"
-          - $ref: "#/components/schemas/truthObservation"
-          - $ref: "#/components/schemas/countObservation"
-          - $ref: "#/components/schemas/textObservation"
-      required: 
-        - id
-        - type
-        - result
-    
-    sample:
-      type: object
-      $ref: '#/components/schemas/reference'
-      properties:
-        samplingLocation: 
-          $ref: "#/components/schemas/reference"
-        samplingMethod:
-          $ref: "#/components/schemas/reference"       
-        samplingTime: 
-          type: string
-          format: date-time
-        sampledFeature:
-          $ref: "#/components/schemas/reference"       
-        relatedObservation:
-          type: array
-          items:
-            $ref: '#/components/schemas/reference'
-    
-    observationCollection:
-      type: object
-      $ref: '#/components/schemas/reference'
-      properties:
-        member:
-          type: array
-          items:
-            $ref: '#/components/schemas/reference'
-
     unit:
       type: object
       $ref: '#/components/schemas/reference'
@@ -547,6 +568,9 @@ components:
       type: object
       $ref: '#/components/schemas/reference'
 
+    # ==== end references and related ====
+
+    # ==== start results ====
     referenceResult:
       type: array
       items: 
@@ -605,6 +629,7 @@ components:
       type: object
       # TODO
 
+    # ==== end results ====
     # ==== start GeoJSON ====
     geometry:
       type: object
