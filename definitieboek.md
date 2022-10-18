@@ -62,3 +62,5 @@ Toevoegingen: mogelijk nog niet in Aquo, of slechts deels:
 - Onderzoekssoort
 - RelatedObservationRollen
 - RelatedSamplingFeatureRollen
+
+Het definitieboek legt vast welke informatie kan worden opgenomen in het [Referentieblok](referentieblok.md).
