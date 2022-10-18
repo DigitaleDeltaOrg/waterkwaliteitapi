@@ -8,4 +8,4 @@ Voor ophalen van data wordt gebruik gemaakt van OAUTH2 Authentication Flow.
 
 Voor het wijzigen van data wordt ook gebruik gemaakt van OAUTH2, maar dan de Client Credential Flow. Deze staat op de nominatielijst van Kennisplatform API. Voor de Waterkwaliteit-API mogen we daar alvast op voorsorteren.
 
-__Alle__ verbindingen in een test- of productie-scenario __moeten__ TLS 1.3 zijn, of beter.
+__Alle__ verbindingen in een test- of productie-scenario __moeten__ TLS 1.2 zijn, of beter.
