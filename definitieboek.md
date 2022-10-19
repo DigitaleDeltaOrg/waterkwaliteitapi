@@ -12,13 +12,13 @@ Het Definitieboek kan een dienen als een bron om deze waarden wel te gaan standa
 
 ## Observation referenties
 
+- **Grootheid**
+- **Compartiment (CategoryObservation)**
 - BiologischKenmerk\Gedrag (CategoryObservation)
 - BiologischKenmerk\Lengteklasse (CategoryObservation)
 - BiologischKenmerk\Levensstadium (CategoryObservation)
 - BiologischKenmerk\Levensvorm (CategoryObservation)
 - BiologischKenmerk\Verschijningsvorm (CategoryObservation)
-- Compartiment (CategoryObservation)
-- Eenheid (CountObservation)
 - Geslacht (CategoryObservation)
 - Hoedanigheid\Koolwaterstoffractie (CategoryObservation)
 - Hoedanigheid\Korrelgroottefractie (CategoryObservation)

@@ -17,7 +17,7 @@ Dit document is momenteel in voorstel-fase. Er zal de komende tijd nog flink aan
 - Waterkwaliteit API is een voorloper van de 1-API strategie van de Digitale Delta
 - Zowel [opvragen van data (OData)](filteren-selecteren.md) als aanbieden van data
 - Aanbieden van data gaat asynchroon
-- Een subset van OGC O&M 1956:2022 vormt de basis van [import-](oms-import-opbouw.md) en [export-](oms-export-opbouw.md)formaten
+- Een [subset](oms-light.md) van OGC O&M 1956:2022 vormt de basis van [import-](oms-import-opbouw.md) en [export-](oms-export-opbouw.md)formaten
 - JSON is het primaire transport formaat, [maar vereist restricties](omgaan-met-data.md).
 - [Definitieboek](definitieboek.md) gaat bepalen welke onderdelen optioneel dan wel verplicht zijn voor data
 - [Authenticatie gaat via de OAUTH2 protocollen Authorization Flow voor interactieve zaken (opvragen) en Client Credentials Flow bij machine-to-machine (aanbieden)](beveiliging.md)
