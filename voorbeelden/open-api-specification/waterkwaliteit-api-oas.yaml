@@ -497,8 +497,6 @@ components:
         - $ref: "#/components/schemas/entityReference"
         - type: object
           properties:
-            "@id":
-              $ref: "#/components/schemas/entityReference"
             samplingLocation: 
               $ref: "#/components/schemas/reference"
             samplingMethod:
