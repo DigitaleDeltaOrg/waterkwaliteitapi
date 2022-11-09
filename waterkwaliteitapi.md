@@ -32,6 +32,23 @@ Naast observaties en monsters zal deze API zich ook richten op meetlocaties/obje
 
 Het [Definitieboek](definitieboek.md) zal leidend zijn met betrekking tot de data die **moet** en _kan_ worden uitgewisseld.
 
+## Interpretatie Observations, Measurement and Sampling
+
+OMS (de opvolger van Observations & Measurements, waar IM Metingen door is onstaan) is een flexibel, compleet en complex model. In OMS is het niet meer nodig om landspecifieke uitbreidingen toe te voegen, zoals gebeurd is bij IM Metingen. Er is eerder behoefte aan restricties en definities. Daarom is de gedachte om Nederlandse profielen voor OMS op te stellen.
+
+Door het gebruik van het referentiesysteem zijn alle eigenschappen die nodig zijn in Nederland in het OMS model te plaatsen. Om wildgroei te voorkomen, kan dus het definitieboek worden gebruikt. Een aantal velden die in IM metingen staan, vinden we niet terug in OMS, zoals compartiment. Echter heeft OMS een metadata systeem die kan worden gebruikt in combinatie met het referentiesysteem, waardoor als nog op een standaard wijze dit soort velden kunnen worden opgenomen en gecodificeerd.
+
+Tevens bevat het OMS model een methode om observaties aan elkaar te relateren. Daarmee kan bijvoorbeeld het volgende scenario worden opgelost:
+
+``` quote
+wanneer wij een vissenmonitoring uitvoeren hebben wij een meting van aantal X vissen van soort Y, met gewicht Z. 
+Dit gewicht Z hoort bij de observatie van X vissen, dus dit kan niet als losse observatie worden opgeslagen. 
+Het moet namelijk gekoppeld worden aan aantal X van soort Y.  
+```
+
+Bij ecologische metingen gebeurd het vaak dat er een gemeten en berekende waarde is. Beiden kunnen een andere eenheid hebben.
+Dit scenario kan ook worden opgelost met gerelateerde observaties.
+
 ## Functionele eisen
 
 De functionele eisen zijn [hier](functionele-eisen.md) beschreven.
