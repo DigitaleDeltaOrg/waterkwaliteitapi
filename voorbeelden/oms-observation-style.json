@@ -5,9 +5,8 @@
             "type": "CountObservation",
             "featureOfInterest": { "href": "/references/measurementobjects/VEEN" },
             "phenomenonTime": { "datetime": "2015-05-11"},
-            "observedProperty": { "href": "/references/quantities/AANTL" },
+            "observableProperty": { "href": "/references/quantities/AANTL" },
             "procedure": { "href": "/references/methods/MACEV_S530" },
-            "samplingStrategy": { "href": "/references/strategy/random" } ,
             "resultTime":  { "datetime": "2015-05-11"},
             "parameter": [ "/references/parameters/Abra_alba" ],
             "resultQuality": {},
@@ -28,14 +27,11 @@
             "id":"<uniqueid1>-03",
             "type": "CategoryObservation",
             "phenomenonTime":  { "datetime": "2015-05-11"},
-            "observedProperty": { "href": "http://environment.data.gov.au/def/property/taxon" },
+            "parameter": [ "/references/parameters/Abra_alba" ],
             "procedure": { "href":"#/references/methods/MACEV_S530" },
             "featureOfInterest": { "href": "/references/measurementobjects/VEEN"},
             "resultTime":  { "datetime": "2015-05-11"},
-            "result": {
-                "term": "LS-AD",
-                "vocabulary": "https://www.aquo.nl/index.php/Id-01bfddaf-2f04-44ef-817d-2312f924a85d"
-            },
+            "metadata": [ "/ref/LS/AD"],
             "context": []
         }
     ]
