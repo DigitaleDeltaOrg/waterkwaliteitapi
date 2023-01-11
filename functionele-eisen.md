@@ -4,7 +4,7 @@ De Waterkwaliteit-API heeft een aantal functionele eisen. Die staan hieronder ve
 
 ## Zowel export (opvragen) and import (data toevoegen of wijzigen)
 
-Via de Waterkwaliteit API moet zowel data kunnen worden [opgevraagd in OData formaat](filteren-selecteren.md).
+Via de Waterkwaliteit API moet zowel data kunnen worden [opgevraagd in OData formaat](filteren-selecteren.md). Het exportformaat moet voldoen aan de specificaties zoals aangegeven in het [waterkwaliteit-api-oas.yaml](Open API model). Een visuele representatie kan [Hier](https://editor.swagger.io/?url=https://raw.githubusercontent.com/DigitaleDeltaOrg/waterkwaliteitapi/main/voorbeelden/open-api-specification/waterkwaliteit-api-oas.yaml) worden bekeken.
 Data moet ook kunnen worden toegevoegd of verwijderd, [in bulk formaat](bulkverwerking.md).
 
 ## Standaarden
@@ -22,7 +22,6 @@ Fouten worden gestandaardiseerd weergegeven.
 De HTTP Status codes (o.a. fouten) zijn beschreven in onderdeel [HTTP Fouten](http-fouten.md).
 Validatiefouten zijn beschreven in onderdeel [validatie](validatie.md).
 
-## Buiten scope
+## Beveiliging
 
-- Deze specificatie houdt zich primair bezig met observaties. In de Waterkwaliteit-API worden grids en timeseries gezien als buiten de scope van het project. Dat geldt ook voor MultiPoint- en AspectSets-gebaseerde timeseries.
-- Het OMS model is _enorm_. De beschrijving is maar liefst 130 pagina's lang. Er wordt in deze API slechts rekening gehouden met onderdelen die voor de API van belang zijn. Daarom maakt de Waterkwaliteit-API gebruik van een [light versie van OMS](oms-light.md), met als toevoeging een referentiesysteem om koppelingen naar Aquo leesbaar te houden.
+[Beveiliging](beveiliging.md) is uiteraard een belangrijk onderdeel van deze specificatie.

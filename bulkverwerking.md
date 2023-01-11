@@ -1,25 +1,25 @@
 # Aanbieden: Bulk verwerking
 
 Bulk-verwerking is niet iets dat ingebakken is in REST. Wegens volume van de data en de verwerkingstijd, is gekozen voor een asynchrone oplossing.
-Toevoegen en verwijderen is toegestaan.
-Updaten is *niet* toegestaan. Dit om een aantal redenen:
+Toevoegen, updaten en verwijderen is toegestaan.
+Updaten van meetobjecten is toegestaan. Updaten van monsters en metingen __niet__.
 
-- Metingen behoren immutable te zijn
+Dit om een aantal redenen:
+
+- Metingen behoren immutable te zijn.
 - Updaten van data, helemaal indien deze in een bepaalde structuur staan, is zeer inefficient en kan vaak niet in een bulk-operatie plaatsvinden.
 - Ook de historie bijhouden wordt ingewikkeld.
 
-Moeten metingen worden gemuteerd, dan dienen deze eerst verwijderd te worden, en daarna opnieuw ge&iuml;mporteerd.
+Zijn monsters en metingen fout, dan dienen deze eerst verwijderd te worden, en daarna opnieuw ge&iuml;mporteerd.
 
 Authenticeren gaat met de OAUTH2 Client Credential Flow, die wordt gebruikt als machine-to-machine koppeling.
 De API implementatie dient het inlog-account te associëren met een bepaalde organisatie en op basis daarvan te valideren of het verzoek terecht is.
 
-*Data aanleveren moet laagdrempelig gebeuren om draagvlak te krijgen en behouden.*
-Mogelijk is het IM Metingen formaat of het O&M formaat te complex en leidt tot een groter datavolume.
-We kunnen kijken naar vereenvoudigde formaten: een timeseries formaat en een monster-gebaseerd formaat. Voor timeseries zou het bekende DD-API formaat, met kleine aanpassingen, kunnen worden gebruikt. Voor de andere metingen kunnen we een formaat distilleren die dichter staat bij OMS.
-
 Verwerking zal niet meteen gebeuren. Daarom kan de client een status bij de server opvragen.
 
 Valideren is de eerste fase van verwerking. Pas wanneer de bulk-content volledig gevalideerd is, kan er daadwerkelijk worden ge&iuml;mporteerd.
+
+Alle bulk-operaties worden gelogged. Zie [Logging](logging.md).
 
 [Fouten in validatie](validatie.md#validatiefouten) worden ook gestandaardiseerd.
 
@@ -40,14 +40,3 @@ Valideren is de eerste fase van verwerking. Pas wanneer de bulk-content volledig
 Om transparant te zijn, moeten alle __acties__ worden vastgelegd. De aanvrager kan ten allen tijde de history opvragen.
 
 [![History opvragen](https://mermaid.ink/img/pako:eNqNkt1KxDAQhV9lyJVC9wV6sVBtxUW2xf4ILrkZmtk2bpvUNF3UZd_daCgo0sVcDWdOviE5c2K1FsRCNtLrRKqmWGJjsOcK3BnQWFnLAZWF206Ssn_1gsyRjNe9Z7VeezGEVo5WG0m-nWpLYGTTWtB7mD1P2ElBZCzUP0b4rkN5ZghVGlXlfZZvdkn8P5yhurWkFnh3WX6zieMkvQSLOngDV31oOpACRNXQ0SA2YoFaZhlso_QZ8uSxSoqyuETPhhY7h51_adXJl3Hp_dnD1W_fNVcsYD2ZHqVwCZ6-LnJmW-qJs9CVAs2BM67OzoeT1cW7qllozUQBmwaBdk6bhXvsRqeSkG7C1q_E92YEzKW803r2nD8BATa9xg)](https://mermaid.live/edit#pako:eNqNkt1KxDAQhV9lyJVC9wV6sVBtxUW2xf4ILrkZmtk2bpvUNF3UZd_daCgo0sVcDWdOviE5c2K1FsRCNtLrRKqmWGJjsOcK3BnQWFnLAZWF206Ssn_1gsyRjNe9Z7VeezGEVo5WG0m-nWpLYGTTWtB7mD1P2ElBZCzUP0b4rkN5ZghVGlXlfZZvdkn8P5yhurWkFnh3WX6zieMkvQSLOngDV31oOpACRNXQ0SA2YoFaZhlso_QZ8uSxSoqyuETPhhY7h51_adXJl3Hp_dnD1W_fNVcsYD2ZHqVwCZ6-LnJmW-qJs9CVAs2BM67OzoeT1cW7qllozUQBmwaBdk6bhXvsRqeSkG7C1q_E92YEzKW803r2nD8BATa9xg)
-
-## Volgorde
-
-OMS heeft de mogelijkheid voor recursieve relaties:
-
-- Samples kunnen refereren aan andere Samples (via complex)
-- Samples (Specimen) kunnen refereren aan Observations (via complex)
-- Observations kunnen refereren aan Samples (via samplingStragety)
-- Observations kunnen refereren aan Observations (via context)
-- ObservationCollections kunnen refereren aan Observations (via member)
-- ObservationCollections kunnen refereren aan Samples (via samplingStragety)

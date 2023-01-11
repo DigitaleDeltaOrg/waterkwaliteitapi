@@ -1,0 +1,747 @@
+openapi: '3.0.2'
+info:
+  title: Waterkwaliteit-API
+  version: '1.0'
+  description: Definition of API to exchange aquatic data between (Dutch) organisations. Allows export and import.
+  termsOfService: ...
+  license:
+    name: GPL
+    url: ...
+servers:
+  - url: https://api.server.test/v1
+security: 
+  - {}
+paths:
+  /measurements:
+    get:
+      summary: Query measurements using OData.
+      description: Query measurements using OData.
+      operationId: measurements
+      parameters: 
+        - in: query
+          $ref: "#/components/parameters/filter"
+        - in: query
+          $ref: "#/components/parameters/top"
+        - in: query
+          $ref: "#/components/parameters/count"
+        - in: query
+          $ref: "#/components/parameters/skip"
+      tags: 
+        - Measurements
+        - OData
+      responses:
+        '200':
+          description: OK
+          $ref: "#/components/responses/measurements"
+        '400':
+          description: BAD REQUEST
+  /samples:
+    get:
+      summary: Query samples using OData.
+      description: Query samples using OData.
+      operationId: samples
+      parameters: 
+        - in: query
+          $ref: "#/components/parameters/filter"
+        - in: query
+          $ref: "#/components/parameters/top"
+        - in: query
+          $ref: "#/components/parameters/count"
+        - in: query
+          $ref: "#/components/parameters/skip"
+        - in: query
+          $ref: "#/components/parameters/orderby"
+      tags: 
+        - Measurements
+        - OData
+      responses:
+        '200':
+          description: OK
+          $ref: "#/components/responses/samples"
+        '400':
+          description: BAD REQUEST
+  /measurementobjects:
+    get:
+      summary: Query measurement objects using OData.
+      description: Query measurement objects using OData.
+      operationId: measurementobjects
+      parameters: 
+        - in: query
+          $ref: "#/components/parameters/filter"
+        - in: query
+          $ref: "#/components/parameters/top"
+        - in: query
+          $ref: "#/components/parameters/count"
+        - in: query
+          $ref: "#/components/parameters/skip"
+        - in: query
+          $ref: "#/components/parameters/orderby"
+      tags: 
+        - Measurements
+        - OData
+      responses:
+        '200':
+          description: OK
+          $ref: "#/components/responses/measurementobjects"
+        '400':
+          description: BAD REQUEST
+  /upload/bulk:
+    get: 
+      summary: Request an overview of all bulk-requests.
+      description: Request an overview of all bulk-requests.
+      operationId: observation-bulk-history
+      tags: 
+        - Bulk
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD REQUEST
+          $ref: "#/components/responses/validation"
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT FOUND
+        '429':
+          description: TOO MANY REQUESTS
+
+    post: 
+      summary: Request inserts/updates of a set of observations.
+      description: Request inserts/updates of a set of observations.
+      operationId: observation-bulk-import
+      requestBody: 
+        $ref: '#/components/schemas/uploadPayload'
+      tags: 
+        - Bulk
+        - Inserts
+      responses:
+        '202':
+          description: ACCEPTED. Body contains transaction id
+          content: 
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: BAD REQUEST - Errors in payload
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '413':
+          description: PAYLOAD TOO LARGE
+        '429':
+          description: TOO MANY REQUESTS
+
+    delete: 
+      summary: Request removal of a set of observations.
+      description: Request removal of a set of observations.
+      operationId: observation-bulk-delete
+      requestBody:
+        $ref: '#/components/schemas/deletePayload'
+      tags: 
+        - Bulk
+        - Delete
+      responses:
+        '202':
+          description: ACCEPTED. Body contains transaction id
+          content: 
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: BAD REQUEST - Errors in payload
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '413':
+          description: PAYLOAD TOO LARGE
+        '429':
+          description: TOO MANY REQUESTS   
+                
+  /upload/bulk/{transactionId}:
+    get: 
+      summary: Request the status of a bulk job.
+      description: Request the status of a bulk job.
+      operationId: observation-bulk-status
+      parameters:
+        - in: path
+          required: true
+          name: transactionId
+          schema:
+            type: string    
+      tags: 
+        - Bulk
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: BAD
+          $ref: "#/components/responses/validation"
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT FOUND
+        '429':
+                  description: TOO MANY REQUESTS
+
+components:
+  securitySchemes: 
+    OAUTHClient: 
+      type: oauth2
+      flows: 
+        authorizationCode:
+          authorizationUrl: ...
+          tokenUrl: ...
+          scopes:
+            read: ...
+    OAUTHMachine: 
+      type: oauth2
+      flows:
+        clientCredentials: 
+          tokenUrl: ...
+          scopes:
+            write: ...              
+
+  schemas:
+    count:
+      anyOf:
+        - type: integer
+          minimum: 0
+        - type: string
+      description:
+        The number of entities in the collection. Available when using
+        the [$count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+        query option.
+
+    error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            target:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    type: string
+                  message:
+                    type: string
+                  target:
+                    type: string
+            innererror:
+              type: object
+              description: The structure of this object is service-specific
+
+    pagingBlock:
+      type: object
+      properties:
+        "@context":
+          type: string
+          format: uri
+        "@nextLink":
+          type: string
+          format: uri
+        "@count":
+          $ref: "#/components/schemas/count"
+          
+    identificationType:
+      type: object
+      properties:
+        "@context":
+          type: string
+        "@type":
+          type: string
+        "@id":
+          type: string
+      required:
+      - "@id"
+
+    measurementObjectType:
+      type: object
+      properties:
+        identification:
+          $ref: "#/components/schemas/identificationType"
+          description: Lokale identificatie van het meetpunt/meetobject volgens bronhouder.
+        description:
+          type: string
+          description: Omschrijving van het meetpunt/meetobject (max. 100 tekens). Opgelet!
+            Gebruik alleen de tekens 'A-Z','a-z','0-9','_','-', vooral geen ';'!
+        geometry:
+          $ref: "#/components/schemas/geometry"
+        krwWaterType:
+          type: string
+          description: Aquo-code van het KRW-watertype.
+        waterCourseCategory:
+          type: string
+          description: 'Code van de watergangcategorie waarin het meetpunt ligt: A -
+            Primaire watergang, B - Secundaire watergang, C - Tertiaire watergang, O
+            - Overige watergangen'
+          enum:
+          - A
+          - B
+          - C
+          - O
+        locatedInGeoObject:
+          type: string
+          description: Code/identificatie van een geoobject waarin het meetpunt ligt.
+            Een identificatie moet beperkt zijn tot 36 tekens en mag alleen de tekens
+            'A-Z','a-z','0-9','_','-' bevatten
+        belongsToGeoObject:
+          type: string
+          description: Code/identificatie  van een geoobject waar het meetpunt bij hoort,
+            bijv. de KRW-monitoringlocatie. Een identificatie moet beperkt zijn tot
+            36 tekens en mag alleen de tekens  Een identificatie moet beperkt zijn tot
+            36 tekens en mag alleen de tekens 'A-Z','a-z','0-9','_','-' bevatten
+        weightingFactor:
+          type: number
+          description: Factor die de bijdrage (naar rato van het oppervlak) van het
+            meetpunt aan het oordeel van 'HoortBijGeoObject' weergeeft. Deze wegingsfactor
+            moet dus evenredig zijn met de oppervlakte die het meetpunt representeert.
+            De som van de wegingsfactoren (per KRW. mon.loc.) hoeft geen 1 te zijn,
+            en kan dus de getalswaarde van de representatieve oppervlakte bevatten
+      required:
+      - namespace
+      - identification
+      - description
+      - geometry
+      - krwWaterType
+
+    sampleType:
+      type: object
+      properties:
+        identification:
+          $ref: "#/components/schemas/identificationType"
+        measurementObjectIdentification:
+          $ref: "#/components/schemas/identificationType"
+        materialClass:
+          type: string
+        phenomenonTime:
+          type: string
+          description: Bemonsteringsdatum/tijd.
+          format: date-time
+        geometry:
+          $ref: "#/components/schemas/geometry"
+        samplingMethod:
+          type: string
+          description: Bemonsteringsmethode.
+        sampleProcessingMethod:
+          type: string
+          description: Monsterbewerkingsmethode.
+        organ:
+          type: string
+          description: Orgaan.
+        organism:
+          type: string
+          description: Organisme.
+      required:
+      - identification
+      - namespace
+      - phenomenonTime
+
+    measurementType:
+      description: ''
+      type: object
+      properties:
+        identification:
+          $ref: "#/components/schemas/identificationType"
+        measurementObjectIdentification:
+          $ref: "#/components/schemas/identificationType"
+          description: Lokale identificatie van het meetpunt/meetobject volgens bronhouder.
+          required:
+          - identification
+        sampleIdentification:
+          $ref: "#/components/schemas/identificationType"
+          description: Lokale identificatie van het meetpunt/meetobject volgens bronhouder.
+        resultTime:
+          type: string
+          description: Meetdatum (zonder tijd).
+          format: date
+        start:
+          type: string
+          description: Starttijd
+          format: time
+        end:
+          type: string
+          description: Eindtijd
+          format: time
+        quantity:
+          type: string
+          description: Grootheid.
+        typing:
+          type: string
+          description: Geobserveerde parameter (typering).
+        parameter:
+          type: string
+          description: Geobserveerde parameter (Chemische stof of object).
+        biotaxon:
+          type: string
+          description: Geobserveerde parameter (Taxon uit TWN lijst).
+        condition:
+          type: string
+          description: Hoedanigheid.
+        unit:
+          type: string
+          description: Eenheid. Mag ontbreken indien de waarde geen dimensie heeft.
+        compartment:
+          type: string
+          description: Analysecompartiment.
+        numericValue:
+          type: number
+          description: Numerieke waarde.
+        alphanumericValue:
+          type: string
+          description: Alfanumerieke waarde (classificatie).
+        limitSymbol:
+          type: string
+          description: Limietsymbool.
+          enum:
+            - "<"
+            - ">"
+        sensingLocationType:
+          type: string
+          description: Locatie type waardebepaling.
+        analyticalTechnique:
+          type: string
+          description: Analysemethode.
+        valueProcessingMethod:
+          type: string
+          description: Bewerkingsmethode.
+        valuationMethod:
+          type: string
+          description: Waardebepalingsmethode.
+        stageOfLife:
+          type: string
+          description: Levensstadium.
+        lengthClass:
+          type: string
+          description: Lengteklasse.
+        gender:
+          type: string
+          description: Geslacht.
+        appearance:
+          type: string
+          description: Verschijningsvorm.
+        lifeform:
+          type: string
+          description: Levensvorm.
+        behaviour:
+          type: string
+          description: Gedrag.
+      required:
+      - identification
+      - sampleIdentification
+      - measurementObjectIdentification
+      - resultTime
+      - start
+      - quantity
+      - compartment
+
+    uploadPayload: 
+      type: object
+      properties:
+        measurementObjects:
+          type: array
+          items:
+             $ref: "#/components/schemas/measurementObjectType"
+        samples:
+          type: array
+          items:
+             $ref: "#/components/schemas/sampleType"
+        measurements:
+          type: array
+          items:
+             $ref: "#/components/schemas/measurementType"
+          
+    deletePayload:
+      type: object
+      properties:
+        measurementObjectIds:
+          type: array
+          items: 
+            $ref: '#/components/schemas/identificationType'
+        sampleIds:
+          type: array
+          items: 
+            $ref: '#/components/schemas/identificationType'
+        measurementIds:
+          type: array
+          items: 
+            $ref: '#/components/schemas/identificationType'          
+
+    geometry:
+      description: "GeoJSon geometry"
+      externalDocs: 
+        url: "http://geojson.org/geojson-spec.html#geometry-objects"
+      type: object
+      discriminator:
+        propertyName: type
+      properties:
+        type:
+          type: string
+          description: "the geometry type"
+          enum: 
+            - Point
+            - LineString
+            - Polygon
+            - MultiPoint
+            - MultiLineString
+            - MultiPolygon
+      required:
+        - type
+        - coordinates
+      x-ngsi: 
+        type: GeoProperty
+
+    point:
+      allOf: 
+        - 
+          $ref: "#/components/schemas/geometry"
+        - 
+          properties:
+            type:
+              type: string
+              description: "the geometry type"
+              enum: 
+                - Point
+            coordinates: &Position
+              items: 
+                type: number
+              maxItems: 3
+              minItems: 2
+              type: array
+      description: "GeoJSON Point"
+      externalDocs: 
+        url: "http://geojson.org/geojson-spec.html#id2"
+      type: object
+      x-ngsi: 
+        uri: "https://purl.org/geojson/vocab#Point"
+        uri-prefix: "https://purl.org/geojson/vocab#"
+
+    lineString: 
+      allOf: 
+        - 
+          $ref: "#/components/schemas/geometry"
+        - 
+          properties: 
+            type:
+              type: string
+              description: "the geometry type"
+              enum: 
+                - LineString
+            coordinates: 
+              items: *Position
+              type: array
+      description: "GeoJSON LineString"
+      externalDocs: 
+        url: "http://geojson.org/geojson-spec.html#id3"
+      type: object
+      x-ngsi: 
+        uri: "https://purl.org/geojson/vocab#LineString"
+        uri-prefix: "https://purl.org/geojson/vocab#"
+
+    multiLineString:
+      allOf: 
+        - $ref: "#/components/schemas/geometry"
+        - properties: 
+            type:
+              type: string
+              description: "the geometry type"
+              enum: 
+                - MultiLineString
+            coordinates: 
+              items: 
+                items: *Position
+                type: array
+              type: array
+      description: "GeoJSON Multi Line String"
+      externalDocs: 
+        url: "http://geojson.org/geojson-spec.html#id6"
+      type: object
+      x-ngsi: 
+        uri: "https://purl.org/geojson/vocab#MultiLineString"
+        uri-prefix: "https://purl.org/geojson/vocab#"
+
+    multiPoint:
+      allOf: 
+        - $ref: "#/components/schemas/geometry"
+        - properties: 
+            type:
+              type: string
+              description: "the geometry type"
+              enum: 
+                - MultiPoint
+            coordinates: 
+              items: *Position
+              type: array
+      description: "GeoJSON Multi Point"
+      externalDocs: 
+        url: "http://geojson.org/geojson-spec.html#id5"
+      type: object
+      x-ngsi: 
+        uri: "https://purl.org/geojson/vocab#MultiPoint"
+        uri-prefix: "https://purl.org/geojson/vocab#"
+
+    multiPolygon:
+      allOf: 
+        - 
+          $ref: "#/components/schemas/geometry"
+        - 
+          properties: 
+            type:
+              type: string
+              description: "the geometry type"
+              enum: 
+                - MultiPolygon
+            coordinates: 
+              items: 
+                items: 
+                  items: *Position
+                  type: array
+                type: array
+              type: array
+      description: "GeoJSON Multi Polygon"
+      externalDocs: 
+        url: "http://geojson.org/geojson-spec.html#id6"
+      type: object
+      x-ngsi: 
+        uri: "https://purl.org/geojson/vocab#MultiPolygon"
+        uri-prefix: "https://purl.org/geojson/vocab#"
+
+    polygon: 
+      allOf: 
+        - 
+          $ref: "#/components/schemas/geometry"
+        - 
+          properties:
+            type:
+              type: string
+              description: "the geometry type"
+              enum: 
+                - Polygon
+            coordinates: 
+              items: 
+                items: *Position
+                type: array
+              type: array
+      description: "GeoJSON Polygon"
+      externalDocs: 
+        url: "http://geojson.org/geojson-spec.html#id4"
+      type: object
+      x-ngsi: 
+        uri: "https://purl.org/geojson/vocab#Polygon"
+        uri-prefix: "https://purl.org/geojson/vocab#"
+    
+    validationResult:
+      type: object
+      # TODO
+
+
+    
+
+    # ==== end results ====
+
+  parameters:
+    top:
+      name: $top
+      in: query
+      description: Show only the first n items, see [Paging - Top](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptiontop)
+      schema:
+        type: integer
+        minimum: 0
+      example: 50
+
+    filter:
+      name: $filter
+      in: query
+      description: OData [filter](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionfilter)
+      schema:
+        type: string
+
+    skip:
+      name: $skip
+      in: query
+      description: Skip the first n items, see [Paging - Skip](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionskip)
+      schema:
+        type: integer
+        minimum: 0
+
+    count:
+      name: $count
+      in: query
+      description: Include count of items, see [Count](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptioncount)
+      schema:
+        type: boolean
+
+    orderby:
+      name: $orderby
+      in: query
+      description: Sorging of items, see [OrderBy](http://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part1-protocol.html#sec_SystemQueryOptionorderby)
+      schema:
+        type: string
+
+  responses:
+    error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/error"
+              
+    validation:
+      description: Validation result
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/validationResult"
+        
+    measurements:
+      description: Measurement result
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/pagingBlock"
+              - type: array
+                $ref: "#/components/schemas/measurementType"
+
+    samples:
+      description: Samples result
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/pagingBlock"
+              - type: array
+                $ref: "#/components/schemas/sampleType"
+
+
+    measurementobjects:
+      description: Measurement objects result
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/pagingBlock"
+              - type: array
+                $ref: "#/components/schemas/measurementObjectType"
