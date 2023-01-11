@@ -1,58 +1,27 @@
-# Waterkwaliteit API - Voorstel
+# Waterkwaliteit API
 
-## Status
-
-Dit document is momenteel in voorstel-fase. Er zal de komende tijd nog flink aan gesleuteld worden.
-
-## TODO
-
-- [Definitieboek](definitieboek.md)
-- [Definitie van log-berichten](logging.md) (werk in uitvoering)
-- [Definitie van gestandaardiseerde validatiefouten als antwoord op bulk-verwerking](validatie.md)
-- [OData voorbeelden voor OMS](odata-en-oms.md)
-- [Open API Schema](https://editor.swagger.io/?url=https://raw.githubusercontent.com/DigitaleDeltaOrg/waterkwaliteitapi/main/voorbeelden/open-api-specification/waterkwaliteit-api-oas.yaml) (werk in uitvoering)
+Dit document wordt gebruikt om door te kunnen linken naar specifieke onderdelen van de specificatie.
 
 ## Samenvatting
 
-- Waterkwaliteit API is een voorloper van de 1-API strategie van de Digitale Delta
-- Zowel [opvragen van data (OData)](filteren-selecteren.md) als aanbieden van data
-- Aanbieden van data gaat asynchroon
-- Een [subset](oms-light.md) van OGC O&M 1956:2022 vormt de basis van [import-](oms-import-opbouw.md) en [export-](oms-export-opbouw.md)formaten
-- JSON is het primaire transport formaat, [maar vereist restricties](omgaan-met-data.md).
-- [Definitieboek](definitieboek.md) gaat bepalen welke onderdelen optioneel dan wel verplicht zijn voor data
+- Waterkwaliteit API is een voorloper van de 1-API strategie van de Digitale Delta, maar heeft een andere doelgroep
+- Zowel [opvragen van data (OData)](filteren-selecteren.md) als [aanbieden van data](bulkverwerking.md) wordt ondersteund.
+- Aanbieden van data gaat asynchroon, zodat wachttijden worden voorkomen.
+- JSON is het primaire transport formaat, [maar vereist restricties](omgaan-met-data.md)
 - [Authenticatie gaat via de OAUTH2 protocollen Authorization Flow voor interactieve zaken (opvragen) en Client Credentials Flow bij machine-to-machine (aanbieden)](beveiliging.md)
 
 ## Introductie
 
-De Waterkwaliteit API is een voorloper van de 1-API strategie van de Digitale Delta.
-Deze API moet het mogelijk maken om data op te halen via [OData](https://odata.org), maar ook data in de vorm van een Digitale Delta-formaat, aan te leveren. Niet alle export formaten zullen als import formaat worden geaccepteerd.
-Het aanleveren zal gaan in [bulk-vorm](bulkverwerking.md), waarbij meerdere metingen of aan metingen gerelateerde entiteiten als een enkele set wordt aangeboden en verwerkt.
-
-Naast observaties en monsters zal deze API zich ook richten op meetlocaties/objecten, omdat deze cruciaal voor de context zijn. Er is echter een manier om beiden tezamen te houden in een enkel bestand, namelijk via het [referentiesysteem](referentieblok).
-
-Het [Definitieboek](definitieboek.md) zal leidend zijn met betrekking tot de data die **moet** en _kan_ worden uitgewisseld.
-
-## Interpretatie Observations, Measurement and Sampling
-
-OMS (de opvolger van Observations & Measurements, waar IM Metingen door is onstaan) is een flexibel, compleet en complex model. In OMS is het niet meer nodig om landspecifieke uitbreidingen toe te voegen, zoals gebeurd is bij IM Metingen. Er is eerder behoefte aan restricties en definities. Daarom is de gedachte om Nederlandse profielen voor OMS op te stellen.
-
-Door het gebruik van het referentiesysteem zijn alle eigenschappen die nodig zijn in Nederland in het OMS model te plaatsen. Om wildgroei te voorkomen, kan dus het definitieboek worden gebruikt. Een aantal velden die in IM metingen staan, vinden we niet terug in OMS, zoals compartiment. Echter heeft OMS een metadata systeem die kan worden gebruikt in combinatie met het referentiesysteem, waardoor als nog op een standaard wijze dit soort velden kunnen worden opgenomen en gecodificeerd.
-
-Tevens bevat het OMS model een methode om observaties aan elkaar te relateren. Daarmee kan bijvoorbeeld het volgende scenario worden opgelost:
-
-``` quote
-wanneer wij een vissenmonitoring uitvoeren hebben wij een meting van aantal X vissen van soort Y, met gewicht Z. 
-Dit gewicht Z hoort bij de observatie van X vissen, dus dit kan niet als losse observatie worden opgeslagen. 
-Het moet namelijk gekoppeld worden aan aantal X van soort Y.  
-```
-
-Bij ecologische metingen gebeurd het vaak dat er een gemeten en berekende waarde is. Beiden kunnen een andere eenheid hebben.
-Dit scenario kan ook worden opgelost met gerelateerde observaties.
+De Waterkwaliteit API is een voorloper van de 1-API strategie van de Digitale Delta. De doelgroep is echter anders: de basis is een JSON encoding van IM Metingen-CSV, om grote wijzigingen te voorkomen.
+Deze API moet het mogelijk maken om data op te halen via [OData](https://odata.org), maar ook data (meetobjecten, monsters en metingen) aan te leveren.
+Dat zal gaan in [bulk-vorm](bulkverwerking.md), waarbij meerdere metingen, monsters en/of meetobjecten als een enkele set wordt aangeboden en achteraf verwerkt.
 
 ## Functionele eisen
 
 De functionele eisen zijn [hier](functionele-eisen.md) beschreven.
 
-## Open API Schema
+## Specificaties
 
-[Open API Schema](https://editor.swagger.io/?url=https://raw.githubusercontent.com/DigitaleDeltaOrg/waterkwaliteitapi/main/voorbeelden/open-api-specification/waterkwaliteit-api-oas.yaml)
+De [edmx definitie](waterkwaliteit-api.edmx) kan gebruikt worden voor het aanmaken van de OData definitie.
+De [yaml definitie](waterkwaliteit-api-oas.yaml) kan worden gebruikt voor het genereren van het skelet van de client- of server-kant van het systeem.
+De [json definitie](waterkwaliteit-api.json) kan als basis worden gebruikt voor het valideren van het formaat van de imports/exports.

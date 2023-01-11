@@ -1,0 +1,94 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Waterquality">
+            <EntityType Name="MeasurementObject">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+				<Property Name="id" Type="Waterquality.Identification" Nullable="false"/>
+				<Property Name="description" Type="Edm.String" Nullable="false"/>
+				<Property Name="geometry" Type="Edm.Geometry" Nullable="false"/>
+				<Property Name="krwWaterType" Type="Edm.String" Nullable="false"/>
+				<Property Name="waterCourseCategory" Type="Edm.String" />,
+				<Property Name="locatedInGeoObject" Type="Edm.String" />
+				<Property Name="belongsToGeoObject" Type="Edm.String" />
+				<Property Name="weightingFactor" Type="Edm.Decimal" />
+            </EntityType>
+            <EntityType Name="Sample">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+				<Property Name="id" Type="Identification" Nullable="false"/>
+                <Property Name="measurementObjectId" Type="Identification" Nullable="false"/>
+				<Property Name="materialClass" Type="Edm.String" Nullable="false"/>
+				<Property Name="samplingTime" Type="Edm.DateTime" Nullable="false"/>
+				<Property Name="geometry" Type="Edm.Geometry" />
+				<Property Name="samplingDevice" Type="Edm.String" />
+				<Property Name="samplingMethod" Type="Edm.String" />
+				<Property Name="sampleProcessingMethod" Type="Edm.String" />
+				<Property Name="samplingType" Type="Edm.String" />
+				<Property Name="organ" Type="Edm.String" />
+				<Property Name="organism" Type="Edm.String" />
+                <NavigationalProperty Name="measurementobject" Type="Waterquality.MeasurementObject" />
+            </EntityType>
+            <EntityType Name="Measurement">
+                 <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+				<Property Name="id" Type="Waterquality.Identification" Nullable="false"/>
+                <Property Name="measurementObjectId" Type="Identification" Nullable="false"/>
+                <Property Name="sampleId" Type="Identification" Nullable="false"/>
+				<Property Name="resultDate" Type="Edm.DateTime" Nullable="false"/>
+				<Property Name="resultTime" Type="Edm.Time"/>
+				<Property Name="phenomenonStartDate" Type="Edm.DateTime" Nullable="false"/>
+				<Property Name="phenomenonStartTime" Type="Edm.Time"/>
+				<Property Name="phenomenonEndDate" Type="Edm.DateTime" Nullable="false"/>
+				<Property Name="phenomenonEndTime" Type="Edm.Time"/>
+				<Property Name="quantity" Type="Edm.String"/>
+				<Property Name="typing" Type="Edm.String"/>
+				<Property Name="parameter" Type="Edm.String"/>
+				<Property Name="biotaxon" Type="Edm.String"/>
+				<Property Name="condition" Type="Edm.String"/>
+				<Property Name="unit" Type="Edm.String"/>
+				<Property Name="compartment" Type="Edm.String"/>
+				<Property Name="numericValue" Type="Edm.Decimal"/>
+				<Property Name="alphanumericValue" Type="Edm.String"/>
+				<Property Name="limitSymbol" Type="Edm.String"/>
+				<Property Name="sensingLocationType" Type="Edm.String"/>
+				<Property Name="analyticalTechnique" Type="Edm.String"/>
+				<Property Name="valueProcessingMethod" Type="Edm.String"/>
+				<Property Name="valuationMethod" Type="Edm.String"/>
+				<Property Name="qualityIndicatorType" Type="Edm.String"/>
+				<Property Name="stageOfLife" Type="Edm.String"/>
+				<Property Name="lengthClass" Type="Edm.String"/>
+				<Property Name="gender" Type="Edm.String"/>
+				<Property Name="appearance" Type="Edm.String"/>
+				<Property Name="lifeform" Type="Edm.String"/>
+				<Property Name="behaviour" Type="Edm.String"/>
+                <NavigationProperty Name="MeasurementObject" Type="Waterquality.MeasurementObject"  Nullable="false" />
+                <NavigationProperty Name="Sample" Type="Waterquality.Sample" Nullable="false" />
+            </EntityType>
+            <ComplexType Name="Identification">
+                <Key>
+                    <PropertyRef Name="id"/>
+                </Key>
+                <Property Name="@contaxt" Type="Edm.String" Nullable="false"/>
+                <Property Name="@type" Type="Edm.String" Nullable="false"/>
+                <Property Name="@id" Type="Edm.String" Nullable="false"/>
+            </ComplexType>
+        </Schema>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Default">
+            <EntityContainer Name="Container">
+                <EntitySet Name="measurementobjects" EntityType="Waterquality.MeasurementObject">
+                </EntitySet>
+                <EntitySet Name="samples" EntityType="Waterquality.Sample">
+                    <NavigationalPropertyBinding Path="MeasurementObject" Type="MeasurementObject" />
+                </EntitySet>
+                <EntitySet Name="measurements" EntityType="Waterquality.Measurement">
+                    <NavigationalPropertyBinding Path="MeasurementObject" Type="MeasurementObject" />
+                    <NavigationalPropertyBinding Path="Sample" Type="Sample"/>
+                </EntitySet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

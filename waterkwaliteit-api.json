@@ -1,0 +1,315 @@
+{
+	"$id": "https://digitale_delta/waterkwaliteit-api.json",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "waterkwaliteit-api",
+	"type": "object",
+	"properties": {
+		"measurementobjects": {
+			"description": "Meetobjecten (meetlocaties)",
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/measurementObjectType"
+			}
+		},
+		"samples": {
+			"description": "Metingen",
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/sampleType"
+			}
+		},
+		"measurements": {
+			"description": "Metingen",
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/measurementType"
+			}
+		}
+	},
+	"$defs": {
+		"geometryType": {
+			"$ref": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/geojson.json"
+		},
+		"identificationType": {
+			"type": "object",
+			"properties": {
+				"@context": {
+					"type": "string",
+					"description": "Namespace van de organisatie."
+				},
+				"@type": {
+					"type": "string",
+					"description": "Type aanduiding. Mogelijke waarden: measurementobject, sample, measurement.",
+					"enum": [
+						"measurementobject",
+						"sample",
+						"measurement"
+					]
+				},
+				"@id": {
+					"type": "string",
+					"description": "Unieke aanduiding van het object binnen @context, maar liever nog globaal uniek. Bij voorkeur een UUID V4 als string."
+				}
+			},
+			"required": [
+				"@id",
+				"@type",
+				"@id"
+			]
+		},
+		"measurementObjectType": {
+			"type": "object",
+			"properties": {
+				"identification": {
+					"$ref": "#/$defs/identificationType",
+					"description": "Lokale identificatie van het meetpunt/meetobject volgens bronhouder."
+				},
+				"description": {
+					"type": "string",
+					"description": "Omschrijving van het meetpunt/meetobject (max. 100 tekens). Opgelet! Gebruik alleen de tekens 'A-Z','a-z','0-9','_','-' en spaties."
+				},
+				"geometry": {
+					"$ref": "#/$defs/geometryType"
+				},
+				"krwWaterType": {
+					"type": "string",
+					"description": "Aquo-code van het KRW-watertype."
+				},
+				"waterCourseCategory": {
+					"type": "string",
+					"description": "Code van de Wwatergangcategorie waarin het meetpunt ligt: A - Primaire watergang, B - Secundaire watergang, C - Tertiaire watergang, O - Overige watergangen",
+					"enum": [
+						"A",
+						"B",
+						"C",
+						"O"
+					]
+				},
+				"locatedInGeoObject": {
+					"$ref": "#/$defs/identificationType",
+					"description": "Code/identificatie van een geoobject waarin het meetpunt ligt. Een identificatie moet beperkt zijn tot 36 tekens en mag alleen de tekens 'A-Z','a-z','0-9','_','-' bevatten"
+				},
+				"belongsToGeoObject": {
+					"$ref": "#/$defs/identificationType",
+					"description": "Code/identificatie  van een geoobject waar het meetpunt bij hoort, bijv. de KRW-monitoringlocatie. Een identificatie moet beperkt zijn tot 36 tekens en mag alleen de tekens  Een identificatie moet beperkt zijn tot 36 tekens en mag alleen de tekens 'A-Z','a-z','0-9','_','-' bevatten"
+				},
+				"weightingFactor": {
+					"type": "string",
+					"description": "Factor die de bijdrage (naar rato van het oppervlak) van het meetpunt aan het oordeel van 'HoortBijGeoObject' weergeeft. Deze wegingsfactor moet dus evenredig zijn met de oppervlakte die het meetpunt representeert. De som van de wegingsfactoren (per KRW. mon.loc.) hoeft geen 1 te zijn, en kan dus de getalswaarde van de representatieve oppervlakte bevatten"
+				}
+			},
+			"required": [
+				"identification",
+				"description",
+				"geometry",
+				"krwWaterType"
+			]
+		},
+		"sampleType":
+		{
+			"properties": {
+				"identification": {
+					"$ref": "#/$defs/identificationType",
+					"description": "Unieke identificatie van het monster. Bij voorkeur een unique idenfitier (UUID V4)"
+				},
+				"measurementObjectIdentification": {
+					"$ref": "#/$defs/identificationType",
+					"description": "Identificatie van het meetobject/meetlocatie."
+				},
+				"materialClassSamplingCompartment": {
+					"type": "string",
+					"description": "Monstercompartiment."
+				},
+				"materialClass": {
+					"type": "string",
+					"description": "Monstercompartiment."
+				},
+				"samplingTime": {
+					"type": "string",
+					"description": "Bemonsteringsdatum/tijd.",
+					"format": "date-time"
+				},
+				"geometry": {
+					"$ref": "#/$defs/geometryType"
+				},
+				"samplingDevice": {
+					"type": "string",
+					"description": "BemonsteringsApparaat."
+				},
+				"samplingMethod": {
+					"type": "string",
+					"description": "Bemonsteringsmethode."
+				},
+				"sampleProcessingMethod": {
+					"type": "string",
+					"description": "Monsterbewerkingsmethode."
+				},
+				"samplingType": {
+					"type": "string",
+					"description": "Bemonsteringssoort."
+				},
+				"organ": {
+					"type": "string",
+					"description": "Orgaan."
+				},
+				"organism": {
+					"type": "string",
+					"description": "Organisme."
+				}
+			},
+			"required": [
+				"identification",
+				"materialClass",
+				"samplingTime"
+			]
+		},
+		"measurementType": {
+			"description": "",
+			"type": "object",
+			"properties": {
+				"namespace": {
+					"$ref": "#/$defs/identificationType"
+				},
+				"identification": {
+					"$ref": "#/$defs/identificationType",
+					"description": "Unieke identificatie van de meting. Bij voorkeur een unique identifier (UUID V4)."
+				},
+				"sampleIdentification": {
+					"$ref": "#/$defs/identificationType",
+					"description": "Identificatie van het monster."
+				},
+				"measurementObjectIdentification": {
+					"$ref": "#/$defs/identificationType",
+					"description": "Identificatie van het meetobject/meetlocatie."
+				},
+				"resultDate": {
+					"type": "string",
+					"description": "Resultaat meetdatum (zonder tijd).",
+					"format": "date"
+				},
+				"resultTime": {
+					"type": "string",
+					"description": "Resultaat starttijd",
+					"format": "date"
+				},
+				"phenomenonStartDate": {
+					"type": "string",
+					"description": "Begindatum.",
+					"format": "date"
+				},
+				"phenomenonStartTime": {
+					"type": "string",
+					"description": "Begintijd",
+					"format": "time"
+				},
+				"phenomenonEndDate": {
+					"type": "string",
+					"description": "Einddatum.",
+					"format": "date"
+				},
+				"phenomenonEndTime": {
+					"type": "string",
+					"description": "Eindtijd",
+					"format": "time"
+				},
+				"quantity": {
+					"type": "string",
+					"description": "Grootheid."
+				},
+				"typing": {
+					"type": "string",
+					"description": "Geobserveerde parameter (Ttypering)."
+				},
+				"parameter": {
+					"type": "string",
+					"description": "Geobserveerde parameter (Chemische stof of object)."
+				},
+				"biotaxon": {
+					"type": "string",
+					"description": "Geobserveerde parameter (Biotaxon uit TWN lijst)."
+				},
+				"condition": {
+					"type": "string",
+					"description": "Hoedanigheid."
+				},
+				"unit": {
+					"type": "string",
+					"description": "Eenheid. Mag ontbreken indien de waarde geen dimensie heeft."
+				},
+				"compartment": {
+					"type": "string",
+					"description": "Analysecompartiment. "
+				},
+				"numericValue": {
+					"type": "number",
+					"description": "Numerieke waarde."
+				},
+				"alphanumericValue": {
+					"type": "string",
+					"description": "Alfanumerieke waarde (classificatie)."
+				},
+				"limitSymbol": {
+					"type": "string",
+					"description": "Limietsymbool. Mogelijke waarden: <, >",
+					"enum": [
+						"<",
+						">"
+					]
+				},
+				"sensingLocationType": {
+					"type": "string",
+					"description": "Locatie type waardebepaling."
+				},
+				"analyticalTechnique": {
+					"type": "string",
+					"description": "Analysemethode."
+				},
+				"valueProcessingMethod": {
+					"type": "string",
+					"description": "Waardebewerkingsmethode."
+				},
+				"valuationMethod": {
+					"type": "string",
+					"description": "Waardebepalingsmethode."
+				},
+				"qualityIndicatorType": {
+					"type": "string",
+					"description": "Kwaliteitsoordeel."
+				},
+				"stageOfLife": {
+					"type": "string",
+					"description": "Levensstadium indien biotaxon."
+				},
+				"lengthClass": {
+					"type": "string",
+					"description": "Lengteklasse indien biotaxon."
+				},
+				"gender": {
+					"type": "string",
+					"description": "Geslacht indien biotaxon."
+				},
+				"appearance": {
+					"type": "string",
+					"description": "Verschijningsvorm indien biotaxon."
+				},
+				"lifeform": {
+					"type": "string",
+					"description": "Levensvorm indien biotaxon."
+				},
+				"behaviour": {
+					"type": "string",
+					"description": "Gedrag indien biotaxon."
+				}
+			},
+			"required": [
+				"identification",
+				"sampleIdentification",
+				"measurementObjectIdentification",
+				"resultDate",
+				"phenomenonStartDate",
+				"quantity",
+				"compartment"
+			]
+		}
+	}
+}
