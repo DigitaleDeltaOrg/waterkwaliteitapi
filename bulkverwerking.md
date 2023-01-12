@@ -23,6 +23,9 @@ Alle bulk-operaties worden gelogged. Zie [Logging](logging.md).
 
 [Fouten in validatie](validatie.md#validatiefouten) worden ook gestandaardiseerd.
 
+*Belangrijk: Zowel het toevoegen als het verwijderen van data gebeurd met een POST operatie. De reden daarvoor is dat in REST voor een DELETE operatie geen gedefiëerde semantiek bepaald voor die situatie. OAS 3.01 ondersteund daarom geen DELETE met request body.
+Een POST lijkt semantisch niet correct, voor deze situatie, maar dat zijn andere oplossingen ook niet.*
+
 ## Bulk data toevoegen
 
 [![Bulk toevoegen](https://mermaid.ink/img/pako:eNqNksFqwzAMhl9F-LRB-wI5FLImYz002ZpksJKLZqupaWJ3jlK2lb77vHmFQUmZTuLXr8-GX0chrSIRiZ7eBjKSEo2Nw6424GuPjrXUezQM81aT4Uu9IHcgF_Tgmc5mQYzgdWh3oE1P7nczs0zgdLNlsBs4256x1Yq8CeSfV8LU0wI2giqLq_IhXy3WafI_nCO5ZTIjvPt8dbdIkjS7BotbeAfffVrakQFE09DBITZqhFrmOSzj7AVW6VOVFmVx9asBDGypZ88eYcbzefpYpskNOzQ9StbWTLW6rY2YiI5ch1r5EI_f67XgLXVUi8i3Ct2uFrU5eR8ObIsPI0XEbqCJGPYK-Ry4iDbY9l4lpdm6ZbiKn-OYCB_02tqz5_QFys2-Cw)](https://mermaid.live/edit#pako:eNqNksFqwzAMhl9F-LRB-wI5FLImYz002ZpksJKLZqupaWJ3jlK2lb77vHmFQUmZTuLXr8-GX0chrSIRiZ7eBjKSEo2Nw6424GuPjrXUezQM81aT4Uu9IHcgF_Tgmc5mQYzgdWh3oE1P7nczs0zgdLNlsBs4256x1Yq8CeSfV8LU0wI2giqLq_IhXy3WafI_nCO5ZTIjvPt8dbdIkjS7BotbeAfffVrakQFE09DBITZqhFrmOSzj7AVW6VOVFmVx9asBDGypZ88eYcbzefpYpskNOzQ9StbWTLW6rY2YiI5ch1r5EI_f67XgLXVUi8i3Ct2uFrU5eR8ObIsPI0XEbqCJGPYK-Ry4iDbY9l4lpdm6ZbiKn-OYCB_02tqz5_QFys2-Cw)

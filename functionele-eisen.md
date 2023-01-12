@@ -4,7 +4,7 @@ De Waterkwaliteit-API heeft een aantal functionele eisen. Die staan hieronder ve
 
 ## Zowel export (opvragen) and import (data toevoegen of wijzigen)
 
-Via de Waterkwaliteit API moet zowel data kunnen worden [opgevraagd in OData formaat](filteren-selecteren.md). Het exportformaat moet voldoen aan de specificaties zoals aangegeven in het [waterkwaliteit-api-oas.yaml](Open API model). Een visuele representatie kan [Hier](https://editor.swagger.io/?url=https://raw.githubusercontent.com/DigitaleDeltaOrg/waterkwaliteitapi/main/waterkwaliteit-api-oas.yaml) worden bekeken.
+Via de Waterkwaliteit API moet zowel data kunnen worden [opgevraagd in OData formaat](filteren-selecteren.md). Het exportformaat moet voldoen aan de specificaties zoals aangegeven in het [waterkwaliteit-api-oas.yaml](https://editor.swagger.io/?url=https://raw.githubusercontent.com/DigitaleDeltaOrg/waterkwaliteitapi/main/waterkwaliteit-api-oas.yaml) worden bekeken.
 Data moet ook kunnen worden toegevoegd of verwijderd, [in bulk formaat](bulkverwerking.md).
 
 ## Standaarden

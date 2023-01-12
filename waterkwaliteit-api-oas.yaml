@@ -81,7 +81,7 @@ paths:
           $ref: "#/components/responses/measurementobjects"
         '400':
           description: BAD REQUEST
-  /upload/bulk:
+  /bulk:
     get: 
       summary: Request an overview of all bulk-requests.
       description: Request an overview of all bulk-requests.
@@ -103,12 +103,30 @@ paths:
         '429':
           description: TOO MANY REQUESTS
 
+  /bulk/add:
     post: 
       summary: Request inserts/updates of a set of observations.
       description: Request inserts/updates of a set of observations.
       operationId: observation-bulk-import
       requestBody: 
-        $ref: '#/components/schemas/uploadPayload'
+        description: Payload for entities to be added.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                measurementObjects:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/measurementObjectType"
+                samples:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/sampleType"
+                measurements:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/measurementType"
       tags: 
         - Bulk
         - Inserts
@@ -130,12 +148,29 @@ paths:
         '429':
           description: TOO MANY REQUESTS
 
-    delete: 
+  /bulk/remove:
+    post: 
       summary: Request removal of a set of observations.
       description: Request removal of a set of observations.
       operationId: observation-bulk-delete
       requestBody:
-        $ref: '#/components/schemas/deletePayload'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                measurementObjectIds:
+                  type: array
+                  items: 
+                    $ref: '#/components/schemas/identificationType'
+                sampleIds:
+                  type: array
+                  items: 
+                    $ref: '#/components/schemas/identificationType'
+                measurementIds:
+                  type: array
+                  items: 
+                    $ref: '#/components/schemas/identificationType'   
       tags: 
         - Bulk
         - Delete
@@ -452,38 +487,6 @@ components:
       - start
       - quantity
       - compartment
-
-    uploadPayload: 
-      type: object
-      properties:
-        measurementObjects:
-          type: array
-          items:
-             $ref: "#/components/schemas/measurementObjectType"
-        samples:
-          type: array
-          items:
-             $ref: "#/components/schemas/sampleType"
-        measurements:
-          type: array
-          items:
-             $ref: "#/components/schemas/measurementType"
-          
-    deletePayload:
-      type: object
-      properties:
-        measurementObjectIds:
-          type: array
-          items: 
-            $ref: '#/components/schemas/identificationType'
-        sampleIds:
-          type: array
-          items: 
-            $ref: '#/components/schemas/identificationType'
-        measurementIds:
-          type: array
-          items: 
-            $ref: '#/components/schemas/identificationType'          
 
     geometry:
       description: "GeoJSon geometry"
