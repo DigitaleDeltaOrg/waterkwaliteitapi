@@ -22,6 +22,6 @@ De functionele eisen zijn [hier](functionele-eisen.md) beschreven.
 
 ## Specificaties
 
-De [edmx definitie](waterkwaliteit-api.edmx) kan gebruikt worden voor het aanmaken van de OData definitie.
-De [yaml definitie](waterkwaliteit-api-oas.yaml) kan worden gebruikt voor het genereren van het skelet van de client- of server-kant van het systeem.
-De [json definitie](waterkwaliteit-api.json) kan als basis worden gebruikt voor het valideren van het formaat van de imports/exports.
+De [edmx definitie](waterkwaliteit-api.edmx) in [OData CSDL formaat](https://docs.oasis-open.org/odata/odata-csdl-xml/v4.01/os/odata-csdl-xml-v4.01-os.html) kan gebruikt worden voor het aanmaken van de OData definitie.
+De [yaml definitie](waterkwaliteit-api-oas.yaml) in [OpenAPI Specification formaat](https://www.openapis.org/) versie 3.01 kan worden gebruikt voor het genereren van het skelet van de client- of server-kant van het systeem.
+De [json schema](waterkwaliteit-api.json) kan als basis worden gebruikt voor het valideren van het formaat van de imports/exports.

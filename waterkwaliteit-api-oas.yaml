@@ -3,10 +3,6 @@ info:
   title: Waterkwaliteit-API
   version: '1.0'
   description: Definition of API to exchange aquatic data between (Dutch) organisations. Allows export and import.
-  termsOfService: ...
-  license:
-    name: GPL
-    url: ...
 servers:
   - url: https://api.server.test/v1
 security: 

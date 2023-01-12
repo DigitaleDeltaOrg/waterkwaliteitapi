@@ -110,19 +110,15 @@
 			"properties": {
 				"identification": {
 					"$ref": "#/$defs/identificationType",
-					"description": "Unieke identificatie van het monster. Bij voorkeur een unique idenfitier (UUID V4)"
+					"description": "Unieke identificatie van het monster. Bij voorkeur een unique idenfitier (UUID V4)."
 				},
 				"measurementObjectIdentification": {
 					"$ref": "#/$defs/identificationType",
 					"description": "Identificatie van het meetobject/meetlocatie."
 				},
-				"materialClassSamplingCompartment": {
-					"type": "string",
-					"description": "Monstercompartiment."
-				},
 				"materialClass": {
 					"type": "string",
-					"description": "Monstercompartiment."
+					"description": "Monstercompartiment volgens Aquo."
 				},
 				"samplingTime": {
 					"type": "string",
@@ -134,27 +130,27 @@
 				},
 				"samplingDevice": {
 					"type": "string",
-					"description": "BemonsteringsApparaat."
+					"description": "BemonsteringsApparaat volgens Aquo."
 				},
 				"samplingMethod": {
 					"type": "string",
-					"description": "Bemonsteringsmethode."
+					"description": "Bemonsteringsmethode volgens Aquo."
 				},
 				"sampleProcessingMethod": {
 					"type": "string",
-					"description": "Monsterbewerkingsmethode."
+					"description": "Monsterbewerkingsmethode volgens Aquo."
 				},
 				"samplingType": {
 					"type": "string",
-					"description": "Bemonsteringssoort."
+					"description": "Bemonsteringssoort volgens Aquo."
 				},
 				"organ": {
 					"type": "string",
-					"description": "Orgaan."
+					"description": "Orgaan volgens Aquo."
 				},
 				"organism": {
 					"type": "string",
-					"description": "Organisme."
+					"description": "Organisme volgens Aquo."
 				}
 			},
 			"required": [
@@ -194,7 +190,7 @@
 				},
 				"phenomenonStartDate": {
 					"type": "string",
-					"description": "Begindatum.",
+					"description": "Begindatum",
 					"format": "date"
 				},
 				"phenomenonStartTime": {
@@ -204,7 +200,7 @@
 				},
 				"phenomenonEndDate": {
 					"type": "string",
-					"description": "Einddatum.",
+					"description": "Einddatum",
 					"format": "date"
 				},
 				"phenomenonEndTime": {
@@ -214,39 +210,39 @@
 				},
 				"quantity": {
 					"type": "string",
-					"description": "Grootheid."
+					"description": "Grootheid volgens Aquo.."
 				},
 				"typing": {
 					"type": "string",
-					"description": "Geobserveerde parameter (Ttypering)."
+					"description": "Geobserveerde parameter (Typering) volgens Aquo."
 				},
 				"parameter": {
 					"type": "string",
-					"description": "Geobserveerde parameter (Chemische stof of object)."
+					"description": "Geobserveerde parameter (Chemische stof of object) volgens Aquo."
 				},
 				"biotaxon": {
 					"type": "string",
-					"description": "Geobserveerde parameter (Biotaxon uit TWN lijst)."
+					"description": "Geobserveerde parameter (Biotaxon uit TWN lijst) volgens Aquo."
 				},
 				"condition": {
 					"type": "string",
-					"description": "Hoedanigheid."
+					"description": "Hoedanigheid"
 				},
 				"unit": {
 					"type": "string",
-					"description": "Eenheid. Mag ontbreken indien de waarde geen dimensie heeft."
+					"description": "Eenheid volgens Aquo. Mag ontbreken indien de waarde geen dimensie heeft."
 				},
 				"compartment": {
 					"type": "string",
-					"description": "Analysecompartiment. "
+					"description": "Analysecompartiment volgens Aquo."
 				},
 				"numericValue": {
 					"type": "number",
-					"description": "Numerieke waarde."
+					"description": "Numerieke waarde"
 				},
 				"alphanumericValue": {
 					"type": "string",
-					"description": "Alfanumerieke waarde (classificatie)."
+					"description": "Alfanumerieke waarde (classificatie) volgens Aquo."
 				},
 				"limitSymbol": {
 					"type": "string",
@@ -258,47 +254,47 @@
 				},
 				"sensingLocationType": {
 					"type": "string",
-					"description": "Locatie type waardebepaling."
+					"description": "Locatie type waardebepaling volgens Aquo."
 				},
 				"analyticalTechnique": {
 					"type": "string",
-					"description": "Analysemethode."
+					"description": "Analysemethode volgens Aquo."
 				},
 				"valueProcessingMethod": {
 					"type": "string",
-					"description": "Waardebewerkingsmethode."
+					"description": "Waardebewerkingsmethode volgens Aquo."
 				},
 				"valuationMethod": {
 					"type": "string",
-					"description": "Waardebepalingsmethode."
+					"description": "Waardebepalingsmethode volgens Aquo."
 				},
 				"qualityIndicatorType": {
 					"type": "string",
-					"description": "Kwaliteitsoordeel."
+					"description": "Kwaliteitsoordeel volgens Aquo."
 				},
 				"stageOfLife": {
 					"type": "string",
-					"description": "Levensstadium indien biotaxon."
+					"description": "Levensstadium volgens Aquo, alleen wanneer parameter biotaxon is."
 				},
 				"lengthClass": {
 					"type": "string",
-					"description": "Lengteklasse indien biotaxon."
+					"description": "Lengteklasse volgens Aquo, alleen wanneer parameter biotaxon is."
 				},
 				"gender": {
 					"type": "string",
-					"description": "Geslacht indien biotaxon."
+					"description": "Geslacht volgens Aquo, alleen wanneer parameter biotaxon is."
 				},
 				"appearance": {
 					"type": "string",
-					"description": "Verschijningsvorm indien biotaxon."
+					"description": "Verschijningsvorm volgens Aquo, alleen wanneer parameter biotaxon is."
 				},
 				"lifeform": {
 					"type": "string",
-					"description": "Levensvorm indien biotaxon."
+					"description": "Levensvorm volgens Aquo, alleen wanneer parameter biotaxon is."
 				},
 				"behaviour": {
 					"type": "string",
-					"description": "Gedrag indien biotaxon."
+					"description": "Gedrag volgens Aquo, alleen wanneer parameter biotaxon is."
 				}
 			},
 			"required": [
