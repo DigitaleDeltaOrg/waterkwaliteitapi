@@ -387,7 +387,6 @@ components:
           description: Organisme.
       required:
       - identification
-      - namespace
       - phenomenonTime
 
     measurementType:
