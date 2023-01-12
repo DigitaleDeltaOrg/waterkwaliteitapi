@@ -6,7 +6,7 @@ info:
 servers:
   - url: https://api.server.test/v1
 security: 
-  - {}
+  - $ref: ['#/components/securitySchemes/OAUTHClient', '#/components/securitySchemes/OAUTHMachine']
 paths:
   /measurements:
     get:
@@ -651,13 +651,40 @@ components:
         uri: "https://purl.org/geojson/vocab#Polygon"
         uri-prefix: "https://purl.org/geojson/vocab#"
     
+    itemValidationResult:
+      properties:
+        identification: 
+          $ref: '#/components/schemas/identificationType'
+        errors:
+          items:
+            properties:
+              fieldname: 
+                type: string
+              errorcodes:
+                description: >
+                  100: ongeldige waarde (bereik)
+                  101: ongeldige waarde (type)
+                  102: ongeldige waarde (context)
+                  300: onbekende referentie
+                  301: niet-ondersteunde context
+                  401: duplicaat Id in bestand
+                  402: Id is al in gebruik
+                items:
+                  enum:
+                    - 100
+                    - 101
+                    - 102
+                    - 300
+                    - 301
+                    - 401
+                    - 402
+
     validationResult:
       type: object
-      # TODO
-
-
-    
-
+      properties:
+        items:
+          $ref: '#/components/schemas/itemValidationResult'
+                          
     # ==== end results ====
 
   parameters:
