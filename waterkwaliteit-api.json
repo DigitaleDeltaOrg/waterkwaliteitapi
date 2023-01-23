@@ -52,7 +52,7 @@
 				}
 			},
 			"required": [
-				"@id",
+				"@context",
 				"@type",
 				"@id"
 			]
@@ -73,11 +73,11 @@
 				},
 				"krwWaterType": {
 					"type": "string",
-					"description": "Aquo-code van het KRW-watertype."
+					"description": "Code van het KRW-watertype."
 				},
 				"waterCourseCategory": {
 					"type": "string",
-					"description": "Code van de Wwatergangcategorie waarin het meetpunt ligt: A - Primaire watergang, B - Secundaire watergang, C - Tertiaire watergang, O - Overige watergangen",
+					"description": "Code van de Wwtergangcategorie waarin het meetpunt ligt: A - Primaire watergang, B - Secundaire watergang, C - Tertiaire watergang, O - Overige watergangen",
 					"enum": [
 						"A",
 						"B",
@@ -101,8 +101,7 @@
 			"required": [
 				"identification",
 				"description",
-				"geometry",
-				"krwWaterType"
+				"geometry"
 			]
 		},
 		"sampleType":
@@ -114,11 +113,11 @@
 				},
 				"measurementObjectIdentification": {
 					"$ref": "#/$defs/identificationType",
-					"description": "Identificatie van het meetobject/meetlocatie."
+					"description": "Identificatie van het meetobject waartoe het monster behoort."
 				},
 				"materialClass": {
 					"type": "string",
-					"description": "Monstercompartiment volgens Aquo."
+					"description": "Code van het monstercompartiment uit de domeintabel Compartiment."
 				},
 				"samplingTime": {
 					"type": "string",
@@ -130,27 +129,27 @@
 				},
 				"samplingDevice": {
 					"type": "string",
-					"description": "BemonsteringsApparaat volgens Aquo."
+					"description": "Code van het bemonsteringsapparaat uit de domeintabel Bemonsteringsapparaat."
 				},
 				"samplingMethod": {
 					"type": "string",
-					"description": "Bemonsteringsmethode volgens Aquo."
+					"description": "Code van de bemonsteringsmethode uit de domeintabel Bemonstermingsmethode."
 				},
 				"sampleProcessingMethod": {
 					"type": "string",
-					"description": "Monsterbewerkingsmethode volgens Aquo."
+					"description": "Code van de monsterbewerkingsmethode volgens Aquo uit de domeintabel Monsterbewerkingsmethode."
 				},
 				"samplingType": {
 					"type": "string",
-					"description": "Bemonsteringssoort volgens Aquo."
+					"description": "Code van de bemonsteringssoort volgens Aquo uit de domeintabel Bemonsteringssoort"
 				},
 				"organ": {
 					"type": "string",
-					"description": "Orgaan volgens Aquo."
+					"description": "Code van het orgaan volgens Aquo uit de domeintabel Orgaan."
 				},
 				"organism": {
 					"type": "string",
-					"description": "Organisme volgens Aquo."
+					"description": "Naam van het organisme volgens Aquo uit de domeintabel Biotaxon (conform TWN)."
 				}
 			},
 			"required": [
@@ -163,29 +162,26 @@
 			"description": "",
 			"type": "object",
 			"properties": {
-				"namespace": {
-					"$ref": "#/$defs/identificationType"
-				},
 				"identification": {
 					"$ref": "#/$defs/identificationType",
-					"description": "Unieke identificatie van de meting. Bij voorkeur een unique identifier (UUID V4)."
-				},
-				"sampleIdentification": {
-					"$ref": "#/$defs/identificationType",
-					"description": "Identificatie van het monster."
+					"description": "Unieke identificatie van een meetwaarde (waarneming of de meting)."
 				},
 				"measurementObjectIdentification": {
 					"$ref": "#/$defs/identificationType",
 					"description": "Identificatie van het meetobject/meetlocatie."
 				},
+				"sampleIdentification": {
+					"$ref": "#/$defs/identificationType",
+					"description": "Identificatie van het monster waartoe de meetwaarde behoort"
+				},
 				"resultDate": {
 					"type": "string",
-					"description": "Resultaat meetdatum (zonder tijd).",
+					"description": "Resultaatdatum (zonder tijd).",
 					"format": "date"
 				},
 				"resultTime": {
 					"type": "string",
-					"description": "Resultaat starttijd",
+					"description": "Resultaattijd",
 					"format": "date"
 				},
 				"phenomenonStartDate": {
@@ -210,39 +206,31 @@
 				},
 				"quantity": {
 					"type": "string",
-					"description": "Grootheid volgens Aquo.."
+					"description": "Code van de (gemeten) grootheid volgens Aquo. uit de domeintabel Parameter in de groep Grootheid. Of quantity of characteristic moet zijn ingevuld, niet beide."
 				},
-				"typing": {
+				"characteristic": {
 					"type": "string",
-					"description": "Geobserveerde parameter (Typering) volgens Aquo."
+					"description": "Code van de (waargenomen) typering volgens Aquo uit de domeintabel Parameter in de groep Typering. Of quantity of characteristic moet zijn ingevuld, niet beide."
 				},
 				"parameter": {
 					"type": "string",
-					"description": "Geobserveerde parameter (Chemische stof of object) volgens Aquo."
+					"description": "Code van de parameter uit de domeintabel Parameter in de groepen (Chemische stof en Oof object) volgens Aquo. Of parameter (chemische stof of object) of biotaxon mag ingevuld zijn, niet beide. Ze mogen ook beide leeg zijn."
 				},
 				"biotaxon": {
 					"type": "string",
-					"description": "Geobserveerde parameter (Biotaxon uit TWN lijst) volgens Aquo."
+					"description": "Naam van de biologische parameter uit de domeintabel Biotaxon (conform  uit TWN lijst)."
 				},
 				"condition": {
 					"type": "string",
-					"description": "Hoedanigheid"
+					"description": "Code van de (gecombineerde) hoedanigheid uit de domeintabel Hoedanigheid."
 				},
 				"unit": {
 					"type": "string",
-					"description": "Eenheid volgens Aquo. Mag ontbreken indien de waarde geen dimensie heeft."
+					"description": "Code van de eEenheid volgens domeintabel Eenheid. Indien de meetwaarde geen dimensie heeft, dan is de eenheidcode ‘DIMSLS’."
 				},
 				"compartment": {
 					"type": "string",
-					"description": "Analysecompartiment volgens Aquo."
-				},
-				"numericValue": {
-					"type": "number",
-					"description": "Numerieke waarde"
-				},
-				"alphanumericValue": {
-					"type": "string",
-					"description": "Alfanumerieke waarde (classificatie) volgens Aquo."
+					"description": "Code van het analysecompartiment volgens Aquouit de domeintabel Compartiment."
 				},
 				"limitSymbol": {
 					"type": "string",
@@ -252,58 +240,66 @@
 						">"
 					]
 				},
+				"numericValue": {
+					"type": "number",
+					"description": "Numerieke waarde. Moet ingevuld zijn als quantity is ingevuld."
+				},
+				"alphanumericValue": {
+					"type": "string",
+					"description": "Alfanumerieke waarde (classificatie) behorende bij de gebruikte Typering (Characteristic). Moet ingevuld zijn als characteristic is ingevuld."
+				},
 				"sensingLocationType": {
 					"type": "string",
-					"description": "Locatie type waardebepaling volgens Aquo."
+					"description": "Id van het locatie type van de waardebepaling uit de domeintabel Locatietypewaardebepaling."
 				},
 				"analyticalTechnique": {
 					"type": "string",
-					"description": "Analysemethode volgens Aquo."
+					"description": "Code van de analysetechniekmethode volgens Aquo uit de domeintabel Waardebepalingstechniek."
 				},
 				"valueProcessingMethod": {
 					"type": "string",
-					"description": "Waardebewerkingsmethode volgens Aquo."
+					"description": "Code van de waardebewerkingsmethode volgens Aquo uit de domeintabel Waardebewerkingsmethode."
 				},
 				"valuationMethod": {
 					"type": "string",
-					"description": "Waardebepalingsmethode volgens Aquo."
+					"description": "Code van de analysemethode waardebepalingsmethode uit de domeintabel Waardebepalingsmethode."
 				},
 				"qualityIndicatorType": {
 					"type": "string",
-					"description": "Kwaliteitsoordeel volgens Aquo."
+					"description": "Code van het kwaliteitsoordeel uit de domeintabel Kwaliteitsoordeel."
 				},
 				"stageOfLife": {
 					"type": "string",
-					"description": "Levensstadium volgens Aquo, alleen wanneer parameter biotaxon is."
+					"description": "Code van het levensstadium van de biotaxon uit de domeintabel BiologischKenmerk in de groep Levensstadium."
 				},
 				"lengthClass": {
 					"type": "string",
-					"description": "Lengteklasse volgens Aquo, alleen wanneer parameter biotaxon is."
+					"description": "Code van de lengteklasse van de biotaxon uit de domeintabel BiologischKenmerk in de groep Lengteklasse."
 				},
 				"gender": {
 					"type": "string",
-					"description": "Geslacht volgens Aquo, alleen wanneer parameter biotaxon is."
+					"description": "Code van de geslacht van de biotaxon uit de domeintabel BiologischKenmerk in de groep Geslacht."
 				},
 				"appearance": {
 					"type": "string",
-					"description": "Verschijningsvorm volgens Aquo, alleen wanneer parameter biotaxon is."
+					"description": "Code van de verschijningsvorm van de biotaxon uit de domeintabel BiologischKenmerk in de groep Verschijningsvorm."
 				},
 				"lifeform": {
 					"type": "string",
-					"description": "Levensvorm volgens Aquo, alleen wanneer parameter biotaxon is."
+					"description": "Code van de levensvorm van de biotaxon uit de domeintabel BiologischKenmerk in de groep Levensvorm."
 				},
 				"behaviour": {
 					"type": "string",
-					"description": "Gedrag volgens Aquo, alleen wanneer parameter biotaxon is."
+					"description": "Code van de gGedrag van de biotaxon uit de domeintabel BiologischKenmerk in de groep Gedrag."
 				}
 			},
 			"required": [
 				"identification",
-				"sampleIdentification",
 				"measurementObjectIdentification",
 				"resultDate",
 				"phenomenonStartDate",
-				"quantity",
+				"condition",
+				"unit",
 				"compartment"
 			]
 		}
