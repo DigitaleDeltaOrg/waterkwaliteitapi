@@ -14,8 +14,8 @@ Aan GeoJSON zitten ook wat haken en ogen. Daarom het volgende:
 Er wordt geografische data overgedragen in de vorm van GeoJSON binnen de API.  In het verleden bezat GeoJSON een aanduiding voor het geografisch stelsel waarin de data was geprojecteerd. Echter is die definitie verwijderd uit de standaard, wegens interpretatieverschillen.
 Daarom wordt hier Kennisplatform APIs aangehouden. Daar is de volgende oplossing bedacht:
 
-- De client kan aangeven in de ```Content-Crs``` header om welke CRS het gaat in het bestand.  De waarde hiervan wordt uitgedrukt als EPSG:xxxxx, waarbij xxxxx de vier- of vijfcijferige [EPSG](epsg.io) code is.
-- Wanneer de server niet om kan gaan met de CRS, dan kan de server een BAD REQUEST teruggeven, met daarin een ```Accept-Crs``` header met als data de CRS'en die de server wel accepteert. Dit wordt beschouwd als een validatiefout.
+- De client kan aangeven in de ```Acceptt-Crs``` header om welke CRS het gaat in het bestand.  De waarde hiervan wordt uitgedrukt als EPSG:xxxxx, waarbij xxxxx de vier- of vijfcijferige [EPSG](epsg.io) code is.
+- Wanneer de server niet om kan gaan met de CRS, dan kan de server een BAD REQUEST teruggeven, met daarin een ```Content-Crs``` header met als data de CRS'en die de server wel accepteert. Dit wordt beschouwd als een validatiefout.
 
 Het effect is dat het opgegeven CRS geldt voor alle GeoJSON binnen de download dan wel upload.
 De server dient minimaal de volgende CRS'en te ondersteunen: ```EPSG:4326``` (WGS84), ```EPSG:28992``` (Amersfoort/RD New), ```ESPG:4258``` (ETRS89).
